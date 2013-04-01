@@ -1,14 +1,14 @@
 # My convoluted ~/src dir
 
-So this is the src dir I (more ore) less use.
+So this is the src dir I (more or) less use.
 
-Hitchikers guide to the insanity.
+Hitchhikers guide to the insanity.
 
 I install this by cloning to ``~/src`` then running ``./setup.sh`` from within.
 
 This links everything from ``src/dotfiles/*`` to ``~/.file|dirname``. It doesn't save anything or copy things around at all, so caveat emptor there.
 
-Then if I have any site specific things I need to customize, I run ``~/src/site.sh`` sitename.
+Then if I have any site specific things I need to customize, I run ``~/src/site.sh sitename``.
 
 That sets up ``~/site/local`` as a link to ``~/site/name``
 
