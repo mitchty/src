@@ -1,0 +1,62 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# Sets up ENV for an ASM sid automagically using oratab and oraenv.
+#
+# asm_env is the function call that sets up the environment, does nothing
+# if either no oratab file, or a matching asm sid, e.g. +ASM\d+ is found.
+
+function grid_orabase {
+  ostype=$(uname -s)
+  orabase='/etc'
+
+  if [[ ${ostype} == 'SunOS' ]]; then
+    orabase='/var/opt/oracle'
+  fi
+
+  echo $orabase
+}
+
+function grid_oratab {
+  echo $(grid_orabase)'/oratab'
+}
+
+function grid_orainst {
+  echo $(grid_orabase)'/oraInst.loc'
+}
+
+function asm_env {
+  oraenvbin='/usr/local/bin/oraenv'
+  if [[ -f $(grid_oratab) && -x $oraenvbin ]]; then
+    # For now only looking for a match to \+ASM\d+, I.E. 11gR2 asm instances.
+    #
+    grep '^\+ASM[0-9]\{1,\}' $(grid_oratab) >/dev/null 2>&1
+    validsid=$?
+    orasid=$(grep '^\+ASM[0-9]\{1,\}' $(grid_oratab) | awk -F: '{print $1}' | head -n 1)
+    orainventory=$(grep inventory_loc $(grid_orainst) | sed -e "s/.*\=//g")
+
+    if [[ $validsid == 0 && "${orasid}x" != "x" ]]; then
+      # use oraenv to parse the oratab file/inventory for information on the
+      # discovered asm instance
+      #
+      ORAENV_ASK="NO" ORACLE_SID=$orasid . $oraenvbin > /dev/null 2>&1
+      PATH=$ORACLE_HOME/OPatch:$PATH
+      export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
+      export ORACLE_INVENTORY=$orainventory
+      export ORACLE_SID=$orasid
+
+      echo "\033[34mNote: setup for sid $ORACLE_SID\033[0m"
+
+    else
+      echo "\033[31mError: no valid asm sid detected in $oratab\033[0m"
+    fi
+  elif [[ ! -h $oraenvbin ]]; then
+    echo "\033[31mError: No oraenv file found at $oraenvbin, unable to automatically setup ENV.\033[0m"
+  elif [[ ! -h $(grid_oratab) ]]; then
+    echo "\033[34mWarning: oratab $oratab not found. Manual setup may be necessary.\033[0m"
+  else
+    echo "I shouldn't ever print this message."
+  fi
+
+  unset ORAENV_ASK
+  return 0
+}
+

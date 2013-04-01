@@ -1,0 +1,5 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# General linux related nonsense
+pscolors='y'
+
+alias ls='ls --color=auto'

@@ -1,0 +1,53 @@
+[alias]
+  up = !sh -c 'git pull --rebase && git push'
+  wdiff = diff --color-words
+  ci = commit
+  ciu = commit --all
+  co = checkout
+  ba = branch --all
+  st = status --short --branch
+  pak = repack -a -d -f --depth=2000 --window=2000
+  unstage = reset HEAD
+  tlog = log --graph --color=always --abbrev-commit --date=relative --pretty=oneline
+  slog = log --oneline --decorate
+  fixup = commit --fixup
+  squash = commit --squash
+  ri = rebase --interactive --autosquash
+  ra = rebase --abort
+[user]
+  email = mitch.tishmack@gmail.com
+  name = Mitch Tishmack
+[core]
+  pager = less -FRSX
+  excludesfile = ~/.gitignore
+[pager]
+  color = true
+[color]
+  status = auto
+  diff = auto
+  branch = auto
+[color "status"]
+  added = green
+  changed = blue
+  untracked = red
+[color "branch"]
+  current = green
+  local = blue
+  remote = red
+[color "diff"]
+  meta = blue bold
+  frag = black reverse
+  old = red reverse
+  new = green reverse
+[advice]
+  statushints = false
+[gui]
+  fontui = -family Monaco -size 8 -weight normal -slant roman -underline 0 -overstrike 0
+  fontdiff = -family Monaco -size 8 -weight normal -slant roman -underline 0 -overstrike 0
+[github]
+  user = mitchty
+[http]
+  sslVerify = false
+  postBuffer = 209715200
+[push]
+  default = simple

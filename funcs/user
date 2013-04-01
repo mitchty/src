@@ -1,0 +1,51 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# User related functions. Nothings cached/saved out of necessity.
+#
+# Todo: $LOGNAME/USER differences? Meh whatevs, will deal with it if it matters.
+#
+# This seems overly pedantic, but print out the pty user if any.
+# If not set, $LOGNAME is returned. Helps handle when sudo has been used.
+function user_name {
+  name=$USER
+  if [[ ! -n $USER ]]; then
+    name=$(id | awk -F\( '{print $2}' | sed -e 's/[)].*//g')
+  fi
+  echo $name
+}
+
+# using who am i, see if our pty is owned by someone else.
+function user_ptyname {
+  name=$(who am i | sed -e "s/[ ].*//1")
+  if [[ ${name} == '' ]]; then
+    name=$LOGNAME
+  fi
+  echo $name
+}
+
+userps1name=''
+# This IS cached, for obvious reasons.
+function user_ps1name {
+  if [[ ${userps1name:+1} != 1 ]]; then
+    case $(user_name) in
+      mitch)
+        userps1name='me'
+        if [[ ${pscolors:+1} == 1 ]]; then
+          userps1name="%{$fg[blue]%}$userps1name%{$reset_color%}"
+        fi
+        ;;
+      root)
+        userps1name='root'
+        if [[ ${pscolors:+1} == 1 ]]; then
+          userps1name="%{$fg[red]%}$userps1name%{$reset_color%}"
+        fi
+        ;;
+      *)
+        userps1name=$(user_name)
+        if [[ ${pscolors:+1} == 1 ]]; then
+          userps1name="%{$fg[cyan]%}$userps1name%{$reset_color%}"
+        fi
+        ;;
+    esac
+  fi
+  echo $userps1name
+}

@@ -1,0 +1,14 @@
+# -*- mode: Shell-script; -*-
+# Common .profile
+#
+# Not much to see here now.
+# 
+# Everything of note is in ~/src/funcs starting with sourceme.
+#
+# And kshrc in ~/src/dotfiles/kshrc
+# and zshrc in ~/src/dotfiles/zshrc
+# and bashrc, just kidding bash sucks.
+
+if [[ ${SHELL} == '/bin/ksh' || ${SHELL} == '/usr/bin/ksh' ]]; then
+  export ENV="${HOME}/.kshrc"
+fi

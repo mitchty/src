@@ -1,0 +1,4 @@
+orb_prefix=${prefix}/src/orb
+orb_shell=${orb_prefix}/orb.sh
+
+[[ -e ${orb_shell} ]] && . ${orb_shell}

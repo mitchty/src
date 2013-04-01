@@ -1,0 +1,74 @@
+#-*-mode: shell-mode; coding: utf-8;-*-
+# Makes sure all is sourced in the proper order and sets up anything needed.
+#
+# The way I'm setting this up is that prefix needs to be set prior to getting
+# sourced, otherwise this house of cards doesn't work.
+#
+# Order of sourcing is mostly boring.
+#
+# * First, sources basic files stored in ${HOME}/src TODO: find a way for ksh
+#   to know where sourcing so I can remove this hardcoded nonsense
+# * Then sources things in ${HOME}/site/local files (basically site dirs look like src/funcs)
+#
+# This allows site specific customization while keeping defaults simple.
+#
+# Other peculiarities include os-specific related setup.
+#
+# os-foo for example would get sourced after all those are sourced and we are
+# running on a foo system (uname -s basically)
+#
+# After the generic os- is sourced, then the vendortype is sourced. This is so I
+# can have Linux specific stuff in one place, then rhel/suse/arch/whatever
+# separated.
+#
+# host-bar would get sourced if the current host's name is bar.
+if [[ ${prefix:+1} == 1 ]]; then
+  set -A load_order
+
+  # src/funcs then site/local if it exists
+  [[ -e ${prefix}/site/local ]] && set +A load_order ${prefix}/site/local
+
+  # Shift ~/src/funcs to the front
+  set +A load_order ${prefix}/src/funcs
+
+  # load defaults, then site/local
+  for load_prefix in ${load_order[*]}; do
+    # load the bare files first
+    for file in $(ls -d ${load_prefix}/* | grep -v sourceme); do
+      [[ -f ${file} ]] && . ${file}
+    done
+
+    # TODO: Make this go somewhere else, total hack for now.
+    echo $PATH | grep ${prefix}/src
+    if [[ $? != 0 ]]; then
+      unshiftem "${prefix}/src"
+    fi
+
+    # then load os flavor/vendor files (sourced in with os for most funcs)
+    flavor="${load_prefix}/oses/$(os_uname_s)"
+    if [[ -f ${flavor} ]]; then
+      . ${flavor}
+    else
+      echo '\e[91mWarning, unix flavor file not found@'${flavor}'\e[0m'
+    fi
+
+    vendor="${load_prefix}/oses/$(os_type)"
+    if [[ -f ${vendor} ]]; then
+      . ${vendor}
+    else
+      echo '\e[91mWarning, unix vendor file not found@'${vendor}'\e[0m'
+    fi
+
+    # And any host specific stuff (should only be in site/local
+    hostname=$(host_name)
+    hostnamefile="${load_prefix}/hosts/$(host_name)"
+    if [[ -f ${hostnamefile} ]]; then
+      . ${hostnamefile}
+    fi
+  done
+
+  alias_setup
+  stty -ixon
+else
+  echo "\e[91m\${prefix} not set. Refusing to do anything."
+fi

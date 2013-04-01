@@ -1,0 +1,24 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# Host related nonsense
+
+function host_name {
+  name=''
+  case $(os_type) in
+    osx) name=$(hostname -s) ;;
+    *) name=$(uname -n) ;;
+  esac
+
+  echo $name
+}
+
+hostps1name=''
+# Cached, for obvious reasons.
+function host_ps1name {
+  if [[ ${hostps1name:+1} != 1 ]]; then
+    hostps1name=$(host_name)
+    if [[ ${pscolors:+1} == 1 ]]; then
+       hostps1name="%{$fg[blue]%}$hostps1name%{$reset_color%}"
+    fi
+  fi
+  echo $hostps1name
+}

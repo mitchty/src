@@ -1,0 +1,9 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# General osx related settings.
+pscolors='y'
+
+export BC_EVN_ARGS='-lq'
+export CLICOLOR=1
+export LSCOLORS="gxcxcxdxbxegedabagacad"
+
+[[ -d ${HOME}/homebrew ]] && unshiftem ${HOME}/homebrew

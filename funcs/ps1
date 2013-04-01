@@ -1,0 +1,25 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# For setting up PS1
+
+function ps1_user_host {
+  case $TERM in
+    eterm-color*)
+      echo "\e[1K$(user_ps1name)@$(host_ps1name)"
+			;;
+    *)
+      echo "$(user_ps1name)@$(host_ps1name)"
+			;;
+  esac
+}
+
+function ps1_special {
+  if [[ "$(user_name)" == 'root' ]]; then
+    echo '# '
+  else
+    echo '$ '
+  fi
+}
+
+function ps1 {
+  echo "$(ps1_user_host) $(ps1_special)"
+}

@@ -1,0 +1,28 @@
+! cssh specific instance options
+!
+csshopts.perl-ext-common:          default,matcher
+csshopts*font:                     xft:monaco:size=8
+csshopts*background:               black
+csshopts*foreground:               white
+csshopts*scrollBar_right:          true
+csshopts*scrollstyle:              next
+csshopts*scrollTtyOutput:          false
+csshopts*cursorBlink:              true
+csshopts*cursorColor:              pink
+! urxvt generalish stuff
+!
+urxvt*termName:                 rxvt-256color
+urxvt*font:                     xft:monaco:size=10:antialias=true
+urxvt*perl-ext-common:          default,matcher
+urxvt*jumpScroll:               true
+urxvt*cursorColor:              pink
+urxvt*loginShell:               true
+urxvt*scrollBar:                true
+urxvt*scrollstyle:              next
+urxvt*scrollBar_right:          true
+urxvt*scrollTtyOutput:          false
+urxvt*cursorBlink:              true
+urxvt*saveLines:                10000
+urxvt*urlLauncher:              /usr/bin/google-chrome
+urxvt*matcher.button:           1
+urxvt*allowWindowOps:           true

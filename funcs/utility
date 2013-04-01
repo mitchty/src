@@ -1,0 +1,163 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# Just generally useful bits of nonsense.
+
+# Remove a line matched in $HOME/.ssh/known_hosts for when there are legit
+# host key changes.
+function nukehost {
+  if [[ -z "$1" ]]; then
+    echo "Usage: nukehost <hostname>"
+    echo "       Removes <hostname> from ssh known_host file."
+  else
+    sed -i -e "/$1/d" $HOME/.ssh/known_hosts
+  fi
+}
+
+# Cheap copy function to make copying a file via ssh from one host
+# to another less painful, use pipeviewer to give some idea as to progress.
+function copy {
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: copy source:/file/location destination:/file/location"
+  else
+    srchost=$(echo $1 | awk -F: '{print $1}')
+    src=$(echo $1 | awk -F: '{print $2}')
+    dsthost=$(echo $2 | awk -F: '{print $1}')
+    dst=$(echo $2 | awk -F: '{print $2}')
+    size=$(ssh $srchost du -hs $src 2> /dev/null | awk '{print $1}')
+    echo "Copying $size to $dst"
+    ssh $srchost "/bin/cat $src" 2> /dev/null | pv -cb -N copied - | ssh $dsthost "/bin/cat - > $dst" 2> /dev/null
+  fi
+}
+
+# Create a new tmux session named whatever
+function mux {
+  if [[ -z "$1" ]]; then
+    echo "Supply a name for the session foo."
+  else
+    tmux new-session -d -s $1
+    att $1
+  fi
+}
+
+# attach to a tmux session
+function att {
+  if [[ -z "$1" ]]; then
+    echo "Supply a session name foo."
+  else
+    tmux attach-session -d -t $1
+  fi
+}
+
+# dumb function to let me add windows into tmux the way I likes it...
+function muxadd {
+  target='nexus'
+
+  if [[ ! -z "$2" ]]; then
+    target=$2
+  fi
+
+  if [[ -z "$1" ]]; then
+    echo "Usage: hostname"
+  else
+    host=$1
+    short=$(echo "@$host" | sed -e "s/eagnmn//" -e "s/samtca//")
+    tmux new-window -t $target -n $short "ssh -q $host"
+  fi
+}
+
+# Because I use a left hand mouse at work and right at home, switch the mapping
+# Yeah I could write it better, but whatever, this worked fast.
+function lefty {
+  # Switch to the current value of DISPLAY unless we pass in something else
+  disp=$DISPLAY
+  if [[ ! -z $1 ]]; then
+    disp=$1
+  fi
+
+  current=$(xmodmap -pp -display eagnmnuw008:1075 2>&1 | perl -lne 'if ( m/\s+1\s+1$/){print "right"; }elsif ( m/\s+1\s+3$/){ print "left" };')
+
+  if [[ $current == 'right' ]]; then
+    xmodmap -display $disp -e "pointer = 3 2 1 4 5"
+  else
+    xmodmap -display $disp -e "pointer = 1 2 3 4 5"
+  fi
+}
+
+# extract function to automate being lazy at extracting archives.
+function extract() {
+  if [[ -f $1 ]]; then
+    PATH=/sbin:/usr/sbin:/bin:/usr/bin
+    export PATH
+    case ${1} in
+      *.tar.bz2|*.tbz2|*.tbz)  bunzip2 -c $1 | tar xvf -;;
+      *.tar.gz|*.tgz)          gunzip -c $1 | tar xvf -;;
+      *.bz2)                   bunzip2 $1;;
+      *.gz)                    gunzip $1;;
+      *.jar|*.zip)             unzip $1;;
+      *.rar)                   unrar x $1;;
+      *.tar)                   tar -xvf $1;;
+      *.z)                     uncompress $1;;
+      *.tz|*.tar.z)            zcat $1 | tar xvf -;;
+      *)                       echo "Unable to extract <$1> Unknown extension."
+    esac
+  else
+    print "File <$1> does not exist."
+  fi
+}
+
+# Load the modmap file
+function modmap {
+  [ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
+}
+
+# Tcsh compatibility so I can be a lazy bastard and paste things directly
+# if/when I need to.
+function setenv {
+  export "$1"="$2"
+}
+
+# Just to be lazy, set/unset the DEBUG env variable used in my scripts
+function debug {
+  debug=$(env | grep -c DEBUG)
+  debug=$?
+  if test -n "$1"; then
+    setenv DEBUG $1
+  elif (( $debug == 0 )); then
+    unset DEBUG
+  else
+    setenv DEBUG default
+  fi
+}
+
+function getprefix {
+  echo "${HOME}/local/executables/$(os_prefix)"
+}
+
+# More laziness, copy file(s) to /tmp and then chmod 644
+function cptmp {
+  set -A files $*
+  x=1
+  while [ $x -le ${#files[@]} ]; do
+    inputfile=${files[$x]}
+    file=$(basename $inputfile)
+    destfile="/tmp/$file"
+    print $destfile
+    if test -f "$inputfile"; then
+      cp $inputfile $destfile && chmod 644 $destfile
+    else
+      print "File $inputfile doesn't exist."
+    fi
+    (( x=$x+1 ))
+  done
+}
+
+function re {
+  (
+  . ${HOME}/src/orb/orb.sh
+  orb_use_perl 'default'
+  emacs --daemon
+  )
+}
+
+function q {
+  ssh -q $1 'touch ~/no-tmux' && ssh -q $1
+}

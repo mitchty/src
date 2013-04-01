@@ -1,0 +1,66 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# Alias setup function(s)
+
+function alias_tmux {
+  tmux=$(which tmux > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias t='tmux'
+  fi
+}
+
+function alias_perl {
+  perl=$(which perl > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias p=perl
+  fi
+}
+
+function alias_ruby {
+  ruby=$(which ruby > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias r=ruby
+  fi
+}
+
+function alias_git {
+  git=$(which git > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias g='git'
+  fi
+}
+
+function alias_emacs {
+  emacs=$(which emacs > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    EDITOR="emacsclient -a=$EDITOR -t"
+  fi
+}
+
+function alias_vim {
+  vim=$(which vim > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    EDITOR="vim"
+  else
+    EDITOR="vi"
+  fi
+}
+
+function alias_other {
+  alias s="$(which ssh) -q"
+  alias e=$EDITOR
+  alias v=$(which vi)
+  alias vv=$(which vim)
+  alias quit='exit'
+  alias cr='reset; clear'
+  alias cleandir="find . -type f \( -name '*~' -o -name '#*#' -o -name '.*~' -o -name '.#*#' -o -name 'core' -o -name 'dead.letter*' \) | grep -v auto-save-list | xargs -t rm"
+}
+
+function alias_setup {
+  alias_tmux
+  alias_perl
+  alias_ruby
+  alias_git
+  alias_vim
+  alias_emacs
+  alias_other
+}

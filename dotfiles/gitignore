@@ -1,0 +1,15 @@
+.*~
+*~
+.\#*
+\#*
+\#*\#
+.\#*\#
+.DS_Store
+*.pyc
+*.rbc
+*.elc
+*.swp
+*.[oa]
+.gitmine.yml
+Gemfile.lock
+tmp

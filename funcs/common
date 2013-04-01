@@ -1,0 +1,76 @@
+#-*-mode: Shell-script; coding: utf-8;-*-
+# The base from whence all shall be sourced. Meant to bootstrap things for
+# later use.
+
+# Fire back a files' path/name when given an input string.
+#function getfilebasepath { echo ${1%/*} }
+#function getfilename { echo ${1##*/} }
+#function getfilepath {
+#  base=$(getfilebasepath $1)
+#  if [[ -d $base ]]; then
+#    (cd $base && echo $(pwd))
+#  else
+#    echo $(pwd)
+#  fi
+#}
+
+# Helpers, don't use directly normally.
+function push_raw_path {
+  PATH="$PATH:$1"
+}
+function unshift_raw_path {
+  PATH="$1:$PATH"
+}
+function push_raw_manpath {
+  MANPATH="$MANPATH:$1"
+}
+function unshift_raw_manpath {
+  MANPATH="$1:$MANPATH"
+}
+
+function unshift_path {
+  if [[ -d "$1/bin" || -d "$1/sbin" ]]; then
+    [[ -d "$1/bin" ]] && unshift_raw_path "$1/bin"
+    [[ -d "$1/sbin" ]] && unshift_raw_path "$1/sbin"
+  else
+    [[ -d $1 ]] && unshift_raw_path $1
+  fi
+}
+
+function push_path {
+  if [[ -d "$1/bin" || -d "$1/sbin" ]]; then
+    [[ -d "$1/bin" ]] && push_raw_path "$1/bin"
+    [[ -d "$1/sbin" ]] && push_raw_path "$1/sbin"
+  else
+    [[ -d  $1 ]] && push_raw_path $1
+  fi
+}
+
+function push_manpath {
+  if [[ -d "$1/man" ]]; then
+    push_raw_manpath "$1/man"
+  else
+    [[ -d  $1 ]] && push_raw_manpath $1
+  fi
+}
+
+function unshift_manpath {
+  if [[ -d "$1/man" ]]; then
+    unshift_raw_manpath "$1/man"
+  else
+    [[ -d  $1 ]] && unshift_raw_manpath $1
+  fi
+}
+
+# le piece(s) de la resistance, do all the above crap to PATH/MANPATH
+# as needed, being lazy is aaaaaaweeeesooooome...
+
+function pushem {
+  push_manpath $1
+  push_path $1
+}
+
+function unshiftem {
+  unshift_manpath $1
+  unshift_path $1
+}

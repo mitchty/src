@@ -1,0 +1,21 @@
+# -*- mode: Shell-script; -*-
+# ksh specific stuff.
+# /sigh, wish all the stupid crap at work could be chsh'd to /bin/zsh
+# but alas, this hack will have to do.
+zsh=$(which zsh)
+if test -n "$zsh"; then
+  export SHELL=$zsh
+  exec $SHELL
+else
+  echo "Couldn't find zsh, bummer dude, lets go bowling."
+fi
+
+prefix=$HOME . $HOME/src/funcs/sourceme
+
+alias silent="> /dev/null 2>&1"
+alias noerr="2> /dev/null"
+alias stdboth="2>&1"
+
+set -o vi
+cd $HOME
+PS1="$(ps1)"

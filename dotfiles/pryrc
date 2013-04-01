@@ -1,0 +1,18 @@
+#-*-mode: Ruby; coding: utf-8;-*-
+
+Pry.config.prompt = [
+                     proc {|obj, nesting, _|
+                       nesting == 0 ? "#{obj}> " : "#{obj}:#{nesting}> "
+                     },
+                     proc {''}
+                    ]
+
+def load_pry_nav
+  require 'pry-nav'
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+rescue LoadError
+end
+
+load_pry_nav

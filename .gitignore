@@ -1,0 +1,6 @@
+dotfiles/emacs.d/session*
+dotfiles/emacs.d/elpa
+dotfiles/emacs.d/el-get
+dotfiles/emacs.d/tramp
+dotfiles/emacs.d/url
+dotfiles/maid/maid.log
