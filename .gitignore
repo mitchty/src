@@ -3,4 +3,5 @@ dotfiles/emacs.d/elpa
 dotfiles/emacs.d/el-get
 dotfiles/emacs.d/tramp
 dotfiles/emacs.d/url
+dotfiles/emacs.d/ac-dict
 dotfiles/maid/maid.log
