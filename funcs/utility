@@ -64,24 +64,6 @@ function muxadd {
   fi
 }
 
-# Because I use a left hand mouse at work and right at home, switch the mapping
-# Yeah I could write it better, but whatever, this worked fast.
-function lefty {
-  # Switch to the current value of DISPLAY unless we pass in something else
-  disp=$DISPLAY
-  if [[ ! -z $1 ]]; then
-    disp=$1
-  fi
-
-  current=$(xmodmap -pp -display eagnmnuw008:1075 2>&1 | perl -lne 'if ( m/\s+1\s+1$/){print "right"; }elsif ( m/\s+1\s+3$/){ print "left" };')
-
-  if [[ $current == 'right' ]]; then
-    xmodmap -display $disp -e "pointer = 3 2 1 4 5"
-  else
-    xmodmap -display $disp -e "pointer = 1 2 3 4 5"
-  fi
-}
-
 # extract function to automate being lazy at extracting archives.
 function extract() {
   if [[ -f $1 ]]; then
