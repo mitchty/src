@@ -17,9 +17,9 @@ if [[ $? == 0 ]]; then
   }
 
   function te {
-    emacsclient -t
+    emacsclient -t -e "(menu-bar-mode -1)"
   }
   function ge {
-    emacsclient -c
+    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
   }
 fi
