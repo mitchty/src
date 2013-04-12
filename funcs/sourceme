@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 #-*-mode: shell-mode; coding: utf-8;-*-
 # Makes sure all is sourced in the proper order and sets up anything needed.
 #
@@ -35,10 +36,8 @@ if [[ ${prefix:+1} == 1 ]]; then
     done
 
     # TODO: Make this go somewhere else, total hack for now.
-    echo $PATH | grep ${prefix}/src
-    if [[ $? != 0 ]]; then
-      unshiftem "${prefix}/src"
-    fi
+    echo $PATH | grep ${prefix}/src > /dev/null 2>&1
+    [[ $? != 0 ]] && unshiftem "${prefix}/src"
 
     # then load os flavor/vendor files (sourced in with os for most funcs)
     flavor="${load_prefix}/oses/$(os_uname_s)"
@@ -58,9 +57,7 @@ if [[ ${prefix:+1} == 1 ]]; then
     # And any host specific stuff (should only be in site/local
     hostname=$(host_name)
     hostnamefile="${load_prefix}/hosts/$(host_name)"
-    if [[ -f ${hostnamefile} ]]; then
-      . ${hostnamefile}
-    fi
+    [[ -f ${hostnamefile} ]] && source ${hostnamefile}
   done
 
   alias_setup
