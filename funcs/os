@@ -1,4 +1,4 @@
-#-*-mode: Shell-script; coding: utf-8;-*-
+#-*-mode: shell-mode; coding: utf-8;-*-
 #
 # Setup vars based on what kind of os we're on, kernel revision, arch
 # ostype.

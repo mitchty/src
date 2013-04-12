@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-#-*-mode: Shell-script; coding: utf-8;-*-
+#-*-mode: shell-mode; coding: utf-8;-*-
 
 type emacs > /dev/null 2>&1
 if [[ $? == 0 ]]; then

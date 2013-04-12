@@ -1,4 +1,4 @@
-# -*- mode: Shell-script; -*-
+# -*- mode: shell-mode; -*-
 # ksh specific stuff.
 # /sigh, wish all the stupid crap at work could be chsh'd to /bin/zsh
 # but alas, this hack will have to do.

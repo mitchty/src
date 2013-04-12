@@ -1,4 +1,4 @@
-#-*-mode: Shell-script; coding: utf-8;-*-
+#-*-mode: shell-mode; coding: utf-8;-*-
 # Sets up ENV for an ASM sid automagically using oratab and oraenv.
 #
 # asm_env is the function call that sets up the environment, does nothing

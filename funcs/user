@@ -1,4 +1,4 @@
-#-*-mode: Shell-script; coding: utf-8;-*-
+#-*-mode: shell-mode; coding: utf-8;-*-
 # User related functions. Nothings cached/saved out of necessity.
 #
 # Todo: $LOGNAME/USER differences? Meh whatevs, will deal with it if it matters.
