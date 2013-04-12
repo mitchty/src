@@ -23,16 +23,12 @@
 #
 # host-bar would get sourced if the current host's name is bar.
 if [[ ${prefix:+1} == 1 ]]; then
-  set -A load_order
-
-  # src/funcs then site/local if it exists
-  [[ -e ${prefix}/site/local ]] && set +A load_order ${prefix}/site/local
-
-  # Shift ~/src/funcs to the front
-  set +A load_order ${prefix}/src/funcs
+  set -A load_order ${prefix}/src/funcs ${prefix}/site/local
 
   # load defaults, then site/local
   for load_prefix in ${load_order[*]}; do
+    [[ ! -d ${load_prefix} ]] && break
+
     # load the bare files first
     for file in $(ls -d ${load_prefix}/* | grep -v sourceme); do
       [[ -f ${file} ]] && . ${file}
