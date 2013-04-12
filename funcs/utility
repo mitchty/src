@@ -132,23 +132,6 @@ function cptmp {
   done
 }
 
-function se {
-  (
-    . ${HOME}/src/orb/orb.sh
-    opl use emacs
-    orb use emacs
-    emacs --daemon
-  )
-}
-
-function qe {
-  emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
-}
-
-function ge {
-  emacsclient -c
-}
-
 function q {
   ssh -q $1 'touch ~/no-tmux' && ssh -q $1
 }
