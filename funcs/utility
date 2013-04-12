@@ -132,12 +132,12 @@ function cptmp {
   done
 }
 
-function re {
+function se {
   (
-  . ${HOME}/src/orb/orb.sh
-  opl use emacs
-  orb use emacs
-  emacs --daemon
+    . ${HOME}/src/orb/orb.sh
+    opl use emacs
+    orb use emacs
+    emacs --daemon
   )
 }
 
