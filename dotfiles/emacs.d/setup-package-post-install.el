@@ -4,7 +4,7 @@
   (delete-other-windows)
 
   ; customizations for shit loaded
-  (global-set-key (kbd "C-;") 'er/expand-region)
+  (global-set-key (kbd "C-]") 'er/expand-region)
 
   ; autopair
   (require 'autopair nil 'noerror)
