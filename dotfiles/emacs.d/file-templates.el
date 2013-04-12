@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 ; Default file template definitions
 ; TODO move templates to the emacs directory
 (add-hook 'find-file-hooks 'maybe-load-template)
@@ -27,4 +29,8 @@
          (string-match "\\.pm$" (buffer-file-name))
          (eq 1 (point-max)))
     (insert-file (concat (getenv "HOME") "/src/templates/perl-module.pm")))
+  (when (and
+         (string-match "\\.el$" (buffer-file-name))
+         (eq 1 (point-max)))
+    (insert-file (concat (getenv "HOME") "/src/templates/elisp.el")))
 )
