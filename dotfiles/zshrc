@@ -114,6 +114,7 @@ fi
 
 bindkey -e
 
+prefix=${prefix:=$HOME}
 if [[ $USER == 'mitch' ]]; then
   prefix=$HOME . $HOME/src/funcs/sourceme
   autoload -U compinit && compinit
