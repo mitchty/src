@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 ; General init.el file
 ; Simplify os detection a skosh
 (defvar mswindows-p (string-match "windows" (symbol-name system-type))

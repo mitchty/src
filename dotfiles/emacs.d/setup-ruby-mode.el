@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 (autoload 'ruby-mode "ruby-mode" "mode for Ruby formatted stuff" t)
 
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))

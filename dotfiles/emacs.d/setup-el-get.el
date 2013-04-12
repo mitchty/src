@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 ; Now that emacs 24 doesn't suck, lets use el-get
 ; Install el-get if its not present
 (defvar ell-get-basedir (format "%s/%s" load-base "el-get"))

@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 ; show what is being typed quicker
 (setq echo-keystrokes 0.1)
 

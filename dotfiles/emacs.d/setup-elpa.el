@@ -1,3 +1,5 @@
+;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+
 ; elpa setup
 (when (>= emacs-major-version 24)
   (require 'package)
