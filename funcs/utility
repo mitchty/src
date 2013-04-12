@@ -135,7 +135,8 @@ function cptmp {
 function re {
   (
   . ${HOME}/src/orb/orb.sh
-  orb_use_perl 'default'
+  opl use emacs
+  orb use emacs
   emacs --daemon
   )
 }
