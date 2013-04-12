@@ -20,7 +20,7 @@
 
 	; use solarized for my color theme
 	(color-theme-initialize)
-	(color-theme-solarized-light)
+  (color-theme-gtk-ide)
 
   ; fixup multi-term theme support since it doesn't work sanely always
   (setq term-default-bg-color (face-background 'default))
