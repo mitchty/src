@@ -32,7 +32,6 @@
 (show-paren-mode)
 
 ; Tell the gc to be more aggressive
-(setq garbage-collection-messages t)
 (setq gc-cons-threshold (* 12 1024 1024))
 
 ; What emacs thinks a sentence ending is, make it less derp.
