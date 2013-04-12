@@ -141,6 +141,10 @@ function se {
   )
 }
 
+function qe {
+  emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
+}
+
 function q {
   ssh -q $1 'touch ~/no-tmux' && ssh -q $1
 }
