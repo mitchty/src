@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+#-*-mode: Shell-script; coding: utf-8;-*-
+
+type emacs > /dev/null 2>&1
+if [[ $? == 0 ]]; then
+  function se {
+    (
+      . ${HOME}/src/orb/orb.sh
+      opl use emacs
+      orb use emacs
+      emacs --daemon
+    )
+  }
+
+  function qe {
+    emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
+  }
+
+  function ge {
+    emacsclient -c
+  }
+fi
