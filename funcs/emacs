@@ -16,6 +16,9 @@ if [[ $? == 0 ]]; then
     emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
   }
 
+  function qe {
+    emacsclient -t
+  }
   function ge {
     emacsclient -c
   }
