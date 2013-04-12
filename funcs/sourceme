@@ -39,6 +39,9 @@ if [[ ${prefix:+1} == 1 ]]; then
     echo $PATH | grep ${prefix}/src > /dev/null 2>&1
     [[ $? != 0 ]] && unshiftem "${prefix}/src"
 
+    # Add in the bin dir if it exists to PATH
+    unshiftem ${load_prefix}
+
     # then load os flavor/vendor files (sourced in with os for most funcs)
     flavor="${load_prefix}/oses/$(os_uname_s)"
     if [[ -f ${flavor} ]]; then
