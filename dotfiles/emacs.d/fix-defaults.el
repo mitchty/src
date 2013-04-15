@@ -1,13 +1,13 @@
 ;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
 
 ; show what is being typed quicker
-(setq echo-keystrokes 0.1)
+(custom-set-variables '(echo-keystrokes 0.1))
 
 ; y/n is good enough
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ; utf8 by default
-(setq locale-coding-system 'utf-8)
+(custom-set-variables '(locale-coding-system 'utf-8))
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
@@ -17,11 +17,11 @@
 (delete-selection-mode 1)
 
 ; be more like vi, display line/col always
-(setq line-number-mode t)
-(setq column-number-mode t)
+(custom-set-variables '(line-number-mode t))
+(custom-set-variables '(column-number-mode t))
 
 ; 80 char lines not 72
-(setq fill-column 80)
+(custom-set-variables '(fill-column 80))
 
 ; ok, double spacing after a period for sentences
 ; is fucking archaic, we don't use typewriters any longer
@@ -34,17 +34,18 @@
 (show-paren-mode)
 
 ; Tell the gc to be more aggressive
-(setq gc-cons-threshold (* 12 1024 1024))
+(custom-set-variables '(garbage-collection-messages t))
+(custom-set-variables '(gc-cons-threshold (* 12 1024 1024)))
 
 ; What emacs thinks a sentence ending is, make it less derp.
-(setq sentence-end "[.?!][]\"')]*\\($\\|\t\\| \\)[ \t\n]*")
-(setq sentence-end-double-space nil)
+(custom-set-variables '(sentence-end "[.?!][]\"')]*\\($\\|\t\\| \\)[ \t\n]*"))
+(custom-set-variables '(sentence-end-double-space nil))
 
 ; Default major mode is just text
-(setq default-major-mode 'text-mode)
+(custom-set-variables '(default-major-mode 'text-mode))
 
 ; Tabs suck, no
-(setq default-tab-width 2)
+(custom-set-variables '(default-tab-width 2))
 
 ; Always remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -66,7 +67,7 @@
 (global-set-key (kbd "C-x g") 'goto-line)
 
 ; Don't clobber minibuffer text
-(setq help-at-pt-timer-delay 0.9)
+(custom-set-variables '(help-at-pt-timer-delay 0.9))
 
 ; Auto chmod u+x on scripts, because why wouldn't you?
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
