@@ -13,12 +13,7 @@ function default {
     dotfile=".${file}"
     source=${dothome}/${file}
     cd ${HOME}
-    args='-s'
-    if [[ -d ${source} ]]; then
-      args=${args}F
-    else
-      args=${args}f
-    fi
+    args='-sfn'
     ln="ln ${args} ${source} ${dotfile}"
     echo $ln
     $ln
