@@ -1,1 +1,1 @@
-../../.src/pl/ptree.pl
+../../src/pl/ptree.pl
