@@ -68,13 +68,20 @@
 
   ; Nuke the stupid toolbar, put the scroll bar on the right (sic) side
   (tool-bar-mode -1)
-	(set-scroll-bar-mode 'right)
+  (set-scroll-bar-mode 'right)
+  ))
 
-	; only setup/use desktop mode when under a windowing system emacs
-  (desktop-save-mode 1)
-	(setq desktop-path '("~/"))
-	(setq desktop-dirname "~/")
-	(setq desktop-base-file-name ".emacs.desktop")))
+; use desktop mode all the time
+(desktop-save-mode 1)
+(setq desktop-path '("~/"))
+(setq desktop-dirname "~/")
+(setq desktop-base-file-name ".emacs.desktop")
+
+; mouse mode in tty is useful
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+(setq mouse-sel-mode t)
 
 ; Setup package manager(s) n shit
 (load "setup-el-get")
