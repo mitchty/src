@@ -62,7 +62,3 @@
   ; Update non-edited files changed on disk automatically
   (setq global-auto-revert-mode t)
 ))
-
-(add-hook 'before-make-frame-hook
-          #'(lambda ()
-              (load "fix-defaults")))
