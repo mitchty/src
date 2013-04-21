@@ -71,3 +71,13 @@
 
 ; Auto chmod u+x on scripts, because why wouldn't you?
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+; Set the time in the mode line
+(display-time-mode)
+
+; Ok backup files are annoying
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
+; Let shift+arrow keys change panes
+(windmove-default-keybindings)
