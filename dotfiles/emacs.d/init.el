@@ -44,12 +44,12 @@
 ; What to do with backup crap/autosave files
 (setq backup-by-copying t)
 (setq backup-directory-alist
-			`(("." . ,user-temporary-file-directory)
-				(,tramp-file-name-regexp nil)))
+      `(("." . ,user-temporary-file-directory)
+        (,tramp-file-name-regexp nil)))
 (setq auto-save-list-file-prefix
-			(concat user-temporary-file-directory ".auto-saves-"))
+      (concat user-temporary-file-directory ".auto-saves-"))
 (setq auto-save-file-name-transforms
-			`((".*" ,user-temporary-file-directory t)))
+      `((".*" ,user-temporary-file-directory t)))
 
 ; Change defaults to sane(r) values
 (load "fix-defaults")
