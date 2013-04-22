@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; multi-term setup
 (autoload 'multi-term "multi-term" nil t)

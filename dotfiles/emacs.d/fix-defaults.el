@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; show what is being typed quicker
 (custom-set-variables '(echo-keystrokes 0.1))

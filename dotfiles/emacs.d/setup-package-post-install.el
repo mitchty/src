@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; What to run after emacs is up/packages loaded
 (add-hook 'after-init-hook '(lambda ()

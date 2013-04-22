@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; Use Menlo for our font on osx
 ; Monaco is great, but the Menlo family is better..ish

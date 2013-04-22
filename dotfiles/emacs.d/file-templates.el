@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; Default file template definitions
 ; TODO move templates to the emacs directory
