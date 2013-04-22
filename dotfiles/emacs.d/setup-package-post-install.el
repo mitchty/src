@@ -47,7 +47,7 @@
 ;  (add-to-list 'ac-dictionary-directories (chomp (concat (getenv "HOME") "/.emacs.d" "/ac-dict")))
 
   ; load/setup mode hook file(s)
-  (mapcar 'load-file (directory-files "~/.emacs.d" t "setup.*mode.el$"))
+  (mapcar 'load-file (directory-files "~/.emacs.d/modes" t ".*.el$"))
 
   ; Fill column setup for things
   (require 'fill-column-indicator)
