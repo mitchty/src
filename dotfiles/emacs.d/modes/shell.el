@@ -1,10 +1,12 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 (autoload 'sh--mode "sh-mode" "mode for shell stuff" t)
 
-(add-to-list 'auto-mode-alist '("\\.[bazk]*sh$" . sh-mode))
-(add-to-list 'auto-mode-alist '("\\.*shrc$" . sh-mode))
-(add-to-list 'auto-mode-alist '("\\^sourceme$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.sh$\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.[zk]sh$\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.bash$\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\[.].*shrc$\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("sourceme$\\'" . sh-mode))
 
 (add-hook 'sh-mode-hook
           '(lambda ()

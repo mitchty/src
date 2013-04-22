@@ -1,6 +1,6 @@
-;-*-mode: emacs-lisp-mode; coding: utf-8;-*-
+;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-(add-to-list 'auto-mode-alist '("\\*.c$" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.c$\\'" . c-mode))
 
 (add-hook 'c-mode-common-hook
           '(lambda ()
