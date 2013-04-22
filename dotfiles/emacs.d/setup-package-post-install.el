@@ -12,39 +12,39 @@
   (require 'autopair nil 'noerror)
   (setq autopair-blink 'nil)
 
-	; flymake setup, highlighting is annoying, so underline things instead
-	(custom-set-faces
-	 '(flymake-errline ((((class color)) (:underline "red"))))
-	 '(flymake-warnline ((((class color)) (:underline "yellow")))))
+  ; flymake setup, highlighting is annoying, so underline things instead
+  (custom-set-faces
+   '(flymake-errline ((((class color)) (:underline "red"))))
+    '(flymake-warnline ((((class color)) (:underline "yellow")))))
 
   ; Don't clobber minibuffer text, use help-at-pt to overlay
-	(setq help-at-pt-display-when-idle '(flymake-overlay))
+  (setq help-at-pt-display-when-idle '(flymake-overlay))
 
-	; use solarized for my color theme
-	(color-theme-initialize)
+  ; use solarized for my color theme
+  (color-theme-initialize)
   (color-theme-gtk-ide)
 
   ; fixup multi-term theme support since it doesn't work sanely always
   (setq term-default-bg-color (face-background 'default))
   (setq term-default-fg-color (face-foreground 'default))
 
-	; use ido mode all the time
-	(ido-mode t)
+  ; use ido mode all the time
+  (ido-mode t)
 
-	; make magit mode simpler to use
-	(global-set-key (kbd "C-x m") 'magit-status)
+  ; make magit mode simpler to use
+  (global-set-key (kbd "C-x m") 'magit-status)
 
-	; setup uniquify for buffer names
-	(require 'uniquify)
-	(setq uniquify-buffer-name-style 'post-forward)
+  ; setup uniquify for buffer names
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'post-forward)
 
   ; setup tramp for use
-	(require 'tramp)
+  (require 'tramp)
   (load "setup-tramp")
 
   ; auto complete setup
 ;  (require 'auto-complete-config)
-;	(add-to-list 'ac-dictionary-directories (chomp (concat (getenv "HOME") "/.emacs.d" "/ac-dict")))
+;  (add-to-list 'ac-dictionary-directories (chomp (concat (getenv "HOME") "/.emacs.d" "/ac-dict")))
 
   ; load/setup mode hook file(s)
   (mapcar 'load-file (directory-files "~/.emacs.d" t "setup.*mode.el$"))
