@@ -1,4 +1,4 @@
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 # General osx related settings.
 pscolors='y'
 

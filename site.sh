@@ -1,4 +1,6 @@
 #!/usr/bin/env ksh
+#-*-mode: Shell-script; coding: utf-8;-*-
+
 dir=$(cd $(dirname $0) && echo $(pwd))
 file=$(basename $0)
 

@@ -1,4 +1,4 @@
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 
 # zsh specific aliases
 alias -g silent="> /dev/null 2>&1"

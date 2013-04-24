@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 # Makes sure all is sourced in the proper order and sets up anything needed.
 #
 # The way I'm setting this up is that prefix needs to be set prior to getting

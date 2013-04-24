@@ -1,4 +1,4 @@
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 # Just generally useful bits of nonsense.
 
 # Remove a line matched in $HOME/.ssh/known_hosts for when there are legit

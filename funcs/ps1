@@ -1,4 +1,4 @@
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 # For setting up PS1
 
 function ps1_user_host {

@@ -1,5 +1,5 @@
 #!/usr/bin/env ksh
-#-*-mode: shell-mode; coding: utf-8;-*-
+#-*-mode: Shell-script; coding: utf-8;-*-
 
 osascript <<EOF
 if not iTunesRunning() then return

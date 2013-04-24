@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env ksh
+#-*-mode: Shell-script; coding: utf-8;-*-
 #
 # Meant to be run from cron. Uses maid to keep directories clean and tidy.
 #
