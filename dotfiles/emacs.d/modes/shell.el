@@ -10,6 +10,7 @@
 
 (add-hook 'sh-mode-hook
           '(lambda ()
+             (hl-line-mode)
              (autopair-mode)
              (whitespace-mode)
              (visual-line-mode)

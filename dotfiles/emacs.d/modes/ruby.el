@@ -11,6 +11,7 @@
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
+             (hl-line-mode)
              (autopair-mode)
              (whitespace-mode)
              (ruby-end-mode)

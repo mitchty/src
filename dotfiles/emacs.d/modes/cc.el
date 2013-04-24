@@ -4,6 +4,7 @@
 
 (add-hook 'c-mode-common-hook
           '(lambda ()
+             (hl-line-mode)
              (autopair-mode)
              (whitespace-mode)
              (visual-line-mode)

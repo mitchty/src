@@ -27,9 +27,6 @@
 ; is fucking archaic, we don't use typewriters any longer
 (set-default 'sentence-end-double-space nil)
 
-; highlight the current line
-(global-hl-line-mode 1)
-
 ; highlight parens n stuff
 (show-paren-mode)
 

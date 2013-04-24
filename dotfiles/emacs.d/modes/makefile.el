@@ -7,6 +7,7 @@
 
 (add-hook 'makefile-mode-hook
           '(lambda ()
+             (hl-line-mode)
              (autopair-mode)
              (linum-mode)
              (whitespace-mode)
