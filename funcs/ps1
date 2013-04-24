@@ -2,11 +2,9 @@
 # For setting up PS1
 
 function ps1_user_host {
-  case $TERM in
-  eterm-color)
+  if [[ $TERM == 'eterm-color' ]]; then
     echo "\e[1K$(user_ps1name)@$(host_ps1name)"
-    ;;
-  *)
+  else
     case $ORIG_TERM in
     eterm-color)
       echo "\e[1K$(user_ps1name)@$(host_ps1name)"
@@ -15,8 +13,7 @@ function ps1_user_host {
       echo "$(user_ps1name)@$(host_ps1name)"
       ;;
     esac
-    ;;
-  esac
+  fi
 }
 
 function ps1_special {
