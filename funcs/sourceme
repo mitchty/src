@@ -24,6 +24,10 @@
 #
 # host-bar would get sourced if the current host's name is bar.
 if [[ ${prefix:+1} == 1 ]]; then
+  # HACK for TERM (a)buse, some profiles set TERM unconditionally.
+  # keep what we get from ssh
+  ORIG_TERM=${TERM}
+
   set -A load_order ${prefix}/src/funcs ${prefix}/site/local
 
   # load defaults, then site/local

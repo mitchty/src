@@ -47,16 +47,39 @@ setopt print_exit_value # I love you zsh for this, print out non zero exits.
 
 autoload -U colors && colors
 
+function other_term
+{
+  case $TERM in
+  *xterm*|*rxvt*|(dt|k|e)term)
+    print -Pn "\e]2;%~\a"
+    ;;
+  sun-cmd)
+    print -Pn "\e]l%~\e\\"
+    ;;
+  *)
+    ;;
+  esac
+}
+
 # set xterm/whatever titlebar to our pwd, one more thing bash doesn't have.
 chpwd() {
   [[ -o interactive ]] || return
   case $TERM in
-    sun-cmd) print -Pn "\e]l%~\e\\"
-      ;;
-    *xterm*|*rxvt*|(dt|k|e)term) print -Pn "\e]2;%~\a"
-      ;;
-    eterm-color*) print -Pn ""
-      ;;
+  eterm-color)
+    print -Pn ""
+    ;;
+  *)
+    if [[ $SSH_TTY != '' ]]; then
+      case $ORIG_TERM in
+      eterm-color)
+        print -Pn ""
+        ;;
+      *)
+        other_term
+        ;;
+      esac
+    fi
+    ;;
   esac
 }
 
