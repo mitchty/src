@@ -3,23 +3,42 @@
 
 type emacs > /dev/null 2>&1
 if [[ $? == 0 ]]; then
-  function se {
+  function ee
+  {
+    . ${HOME}/src/orb/orb.sh
+    opl use emacs
+    orb use emacs
+  }
+
+  function se
+  {
     (
-      . ${HOME}/src/orb/orb.sh
-      opl use emacs
-      orb use emacs
+      ee
       emacs --daemon
     )
   }
 
-  function qe {
+  function qe
+  {
     emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
   }
 
-  function te {
+  function te
+  {
     emacsclient -t -e "(menu-bar-mode -1)"
   }
-  function ge {
-    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
+
+  function oe
+  {
+    if [[ $ostype == 'osx' ]]; then
+      (
+        ee
+        open -a emacs
+      )
+    else
+      ps auxwww | grep -v grep | grep emacs  > /dev/null 2>&1
+      [[ $? != 0 ]] && se
+      emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
+    fi
   }
 fi
