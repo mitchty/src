@@ -30,15 +30,8 @@ if [[ $? == 0 ]]; then
 
   function oe
   {
-    if [[ $ostype == 'osx' ]]; then
-      (
-        ee
-        open -a emacs
-      )
-    else
-      ps auxwww | grep -v grep | grep emacs  > /dev/null 2>&1
-      [[ $? != 0 ]] && se
-      emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
-    fi
+    ps auxwww | grep -v grep | grep emacs  > /dev/null 2>&1
+    [[ $? != 0 ]] && se
+    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
   }
 fi
