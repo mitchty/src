@@ -85,7 +85,6 @@
 
 ; Setup package manager(s) n shit
 (load "setup-el-get")
-(load "setup-elpa")
 (load "setup-package-post-install")
 
 ; Default file template stuff
