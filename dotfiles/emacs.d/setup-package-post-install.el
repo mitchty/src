@@ -1,64 +1,68 @@
-;-*-mode: emacs-lisp; coding: utf-8;-*-
+;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-; What to run after emacs is up/packages loaded
+;; What to run after emacs is up/packages loaded
 (add-hook 'after-init-hook '(lambda ()
-  ; Hide the nonsense compile/message windows
+  ;; Hide the nonsense compile/message windows
   (delete-other-windows)
 
-  ; customizations for shit loaded
+  ;; expand region is awesome for selecting ever increasing regions.
   (global-set-key (kbd "C-]") 'er/expand-region)
 
-  ; autopair
+  ;; autopair, its awesome for non lisps and ()'s []'s etc...
   (require 'autopair nil 'noerror)
   (setq autopair-blink 'nil)
 
-  ; flymake setup, highlighting is annoying, so underline things instead
+  ;; flymake setup, highlighting is annoying, so underline things instead
   (custom-set-faces
    '(flymake-errline ((((class color)) (:underline "red"))))
     '(flymake-warnline ((((class color)) (:underline "yellow")))))
 
-  ; Don't clobber minibuffer text, use help-at-pt to overlay
+  ;; Don't clobber minibuffer text, use help-at-pt to overlay
   (setq help-at-pt-display-when-idle '(flymake-overlay))
 
-  ; use solarized for my color theme
+  ;; use gtk-ide for my color theme, solarized has... issues.
+  ;; aka with it setup, even from git, it seems to crash
+  ;; connections with emacsclient due to some face issue.
+  ;; so eff it, ignore the thing. TODO: find out how/why
+  ;; emacs segv's on linux/osx with it on, but i'm lazy prolly won't
   (color-theme-initialize)
   (color-theme-gtk-ide)
 
-  ; fixup multi-term theme support since it doesn't work sanely always
+  ;; fixup multi-term theme support since it doesn't work sanely always
   (setq term-default-bg-color (face-background 'default))
   (setq term-default-fg-color (face-foreground 'default))
 
-  ; use ido mode all the time
+  ;; use ido mode all the time
   (ido-mode t)
 
-  ; make magit mode simpler to use
+  ;; make magit mode simpler to use
   (global-set-key (kbd "C-x m") 'magit-status)
 
-  ; setup uniquify for buffer names
+  ;; setup uniquify for buffer names
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'post-forward)
 
-  ; setup tramp for use
+  ;; setup tramp for use
   (require 'tramp)
   (load "setup-tramp")
 
-  ; auto complete setup
+  ;; auto complete setup
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories '("~/.emacs.d/ac-dict"))
 
-  ; load/setup mode hook file(s)
+  ;; load/setup mode hook file(s)
   (mapcar 'load-file (directory-files "~/.emacs.d/modes" t ".*.el$"))
 
-  ; Fill column setup for things
+  ;; Fill column setup for things
   (require 'fill-column-indicator)
   (setq fci-rule-character " ")
   (setq fci-rule-width 1)
   (setq fci-rule-use-dashes 0.5)
   (setq fci-rule-color "darkred")
 
-  ; multi-term only on non-windows, stupid windows command line
+  ;; multi-term only on non-windows, stupid windows command line
   (unless mswindows-p (load "setup-multi-term"))
 
-  ; Update non-edited files changed on disk automatically
+  ;; Update non-edited files changed on disk automatically
   (setq global-auto-revert-mode t)
 ))

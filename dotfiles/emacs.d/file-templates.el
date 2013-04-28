@@ -1,7 +1,6 @@
-;-*-mode: emacs-lisp; coding: utf-8;-*-
+;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-; Default file template definitions
-; TODO move templates to the emacs directory
+;; Default file template definitions
 (add-hook 'find-file-hooks 'maybe-load-template)
 
 (setq template-file-prefix (concat (getenv "HOME") "/.emacs.d/templates"))
