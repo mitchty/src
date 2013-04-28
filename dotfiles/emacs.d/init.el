@@ -90,8 +90,3 @@
 
 ; Default file template stuff
 (load "file-templates")
-
-; use the emacs server daemon
-(require 'server)
-(unless (server-running-p)
-  (server-start))
