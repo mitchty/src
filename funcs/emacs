@@ -25,13 +25,19 @@ if [[ $? == 0 ]]; then
 
   function te
   {
-    emacsclient -t -e "(menu-bar-mode -1)"
+    emacsclient -t -e "(menu-bar-mode -1)" > /dev/null 2> &1
+    if [[ $? != 0 ]]; then
+      se
+      emacsclient -t -e "(menu-bar-mode -1)"
+    fi
   }
 
   function oe
   {
-    ps auxwww | grep -v grep | grep emacs  > /dev/null 2>&1
-    [[ $? != 0 ]] && se
-    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
+    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)" > /dev/null > 2>&1
+    if [[ $? != 0 ]]; then
+      se
+      emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
+    fi
   }
 fi
