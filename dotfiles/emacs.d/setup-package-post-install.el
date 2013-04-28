@@ -43,8 +43,8 @@
   (load "setup-tramp")
 
   ; auto complete setup
-;  (require 'auto-complete-config)
-;  (add-to-list 'ac-dictionary-directories (chomp (concat (getenv "HOME") "/.emacs.d" "/ac-dict")))
+  (require 'auto-complete-config)
+  (add-to-list 'ac-dictionary-directories '("~/.emacs.d/ac-dict"))
 
   ; load/setup mode hook file(s)
   (mapcar 'load-file (directory-files "~/.emacs.d/modes" t ".*.el$"))
