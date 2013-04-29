@@ -14,18 +14,64 @@ if [[ $? == 0 ]]; then
   {
     (
       ee
-      emacs --daemon
+      if [[ $DEBUG != '' ]]; then
+        emacs --daemon
+      else
+        emacs --daemon --debug-init
+      fi
     )
+  }
+
+  function fe
+  {
+    procname=emacs
+    [[ $ostype == 'osx' ]] && procname=Emacs
+    pgrep ${procname} > /dev/null 2>&1
+    return $?
+  }
+
+  function kte
+  {
+    procname=emacs
+    [[ $ostype == 'osx' ]] && procname=Emacs
+    echo "Killing ${procname} with TERM"
+    pkill -TERM ${procname}
+  }
+
+  function kke
+  {
+    procname=emacs
+    [[ $ostype == 'osx' ]] && procname=Emacs
+    echo "Killing ${procname} with KILL"
+    pkill -KILL ${procname}
+  }
+
+  function fqe
+  {
+    emacsclient -e "(kill-emacs)"
   }
 
   function qe
   {
-    emacsclient -t -e "(save-buffers-kill-emacs) (shutdown-emacs-server)"
+    fe
+    if [[ $? == 0 ]]; then
+      emacsclient -t -e "(let ((last-nonmenu-event nil))(save-buffers-kill-emacs))(shutdown-emacs-server)(kill-emacs)"
+    fi
+    fe
+    if [[ $? == 0 ]]; then
+      echo "Warning! Daemon process didn't shutdown properly"
+      kte
+    fi
+    fe
+    if [[ $? == 0 ]]; then
+      echo "What the shit, ok fine, sending KILL to the sucker."
+      kke
+    fi
   }
 
   function te
   {
-    emacsclient -t -e "(menu-bar-mode -1)" > /dev/null 2> &1
+    fe
     if [[ $? != 0 ]]; then
       se
       emacsclient -t -e "(menu-bar-mode -1)"
@@ -34,7 +80,7 @@ if [[ $? == 0 ]]; then
 
   function oe
   {
-    emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)" > /dev/null > 2>&1
+    fe
     if [[ $? != 0 ]]; then
       se
       emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)"
