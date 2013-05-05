@@ -50,6 +50,19 @@
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
+  ;; Define a common/default(ish) set of mode settings.
+  ;; I mostly use the same settings everywhere so simplify.
+  ;; Autopair mode would be in here if the lisp modes didn't have
+  ;; better
+  (setq mode-common-defaults '(
+                              (auto-complete-mode)
+                              (whitespace-mode)
+                              (hl-line-mode)
+                              (visual-line-mode)
+                              (setq indent-tabs-mode nil)
+                              (setq tab-width 2)
+                              ))
+
   ;; load/setup mode hook file(s)
   (mapcar 'load-file (directory-files "~/.emacs.d/modes" t ".*.el$"))
 
@@ -65,4 +78,17 @@
 
   ;; Update non-edited files changed on disk automatically
   (setq global-auto-revert-mode t)
+
+  ;; Setup yasnippet
+;;  (require 'yasnippet)
+;;  (setq yas/trigger-key (kbd "C-c <kp-multiply>"))
+;;  (yas/initialize)
+
+  ;; oh ya sure you betcha SNIPPETS
+;;  (setq yas/root-directory '("~/.emacs.d/yasnippet"))
+;;  (mapc 'yas/load-directory yas-root-directory)
+
+  ;; Now that yasnippets loaded and auto-complete lets setup ac for snippets
+;;  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+;;  (add-to-list 'ac-modes 'objc-mode)
 ))

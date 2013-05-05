@@ -1,14 +1,14 @@
 ;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-(add-to-list 'auto-mode-alist '("\\.el" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.el" . emacs-lisp))
 
-(add-hook 'emacs-lisp-mode-hook
+(add-hook 'emacs-lisp-hook
           (lambda ()
             (hl-line-mode)
             (whitespace-mode)
             (setq-default tab-width 2)
             (setq-default indent-tabs-mode nil)
-            (define-key emacs-lisp-mode-map
+            (define-key emacs-lisp-map
               "\C-x\C-e" 'pp-eval-last-sexp)
-            (define-key emacs-lisp-mode-map
+            (define-key emacs-lisp-map
               "\r" 'reindent-then-newline-and-indent)))

@@ -13,3 +13,4 @@
 .gitmine.yml
 Gemfile.lock
 tmp
+dotfiles/emacs.d/.emacs.desktop*

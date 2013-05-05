@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp; coding: utf-8;-*-
+;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 (autoload 'ruby-mode "ruby-mode" "mode for Ruby formatted stuff" t)
 
@@ -11,11 +11,8 @@
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
-             (hl-line-mode)
+             (mode-common-defaults)
              (autopair-mode)
-             (whitespace-mode)
              (ruby-end-mode)
              (flymake-ruby-load)
-             (visual-line-mode)
-             (setq indent-tabs-mode nil)
-             (setq tab-width 2)))
+             ))
