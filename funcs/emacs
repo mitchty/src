@@ -14,7 +14,7 @@ if [[ $? == 0 ]]; then
   {
     (
       ee
-      if [[ $DEBUG != '' ]]; then
+      if [[ $DEBUG == '' ]]; then
         emacs --daemon
       else
         emacs --daemon --debug-init
