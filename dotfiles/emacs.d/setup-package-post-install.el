@@ -50,6 +50,15 @@
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
+  (setq-default ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
+  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t)
+  (add-to-list 'ac-modes 'objc-mode)
+
   ;; Define a common/default(ish) set of mode settings.
   ;; I mostly use the same settings everywhere so simplify.
   ;; Autopair mode would be in here if the lisp modes didn't have
@@ -80,15 +89,33 @@
   (setq global-auto-revert-mode t)
 
   ;; Setup yasnippet
-;;  (require 'yasnippet)
-;;  (setq yas/trigger-key (kbd "C-c <kp-multiply>"))
-;;  (yas/initialize)
+  (require 'yasnippet)
+;  (setq yas/trigger-key (kbd "C-c <kp-multiply>"))
 
-  ;; oh ya sure you betcha SNIPPETS
-;;  (setq yas/root-directory '("~/.emacs.d/yasnippet"))
-;;  (mapc 'yas/load-directory yas-root-directory)
+  ;; oh ja sure you betcha yasnippets kthxbai
+  (setq yas/root-directory '("~/.emacs.d/yasnippet"))
+  (mapc 'yas/load-directory '("~/.emacs.d/yasnippet"))
 
   ;; Now that yasnippets loaded and auto-complete lets setup ac for snippets
-;;  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-;;  (add-to-list 'ac-modes 'objc-mode)
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-to-list 'ac-modes 'objc-mode)
+  (yas--initialize)
+
+  ;; setup anything mode for xcode a like pragma stuff
+  (require 'anything)
+  (require 'anything-config)
+
+  (defvar anything-c-source-objc-headline
+  '((name . "Objective-C Headline")
+    (headline  "^[-+@]\\|^#pragma mark")))
+
+  (defun objc-headline ()
+    (interactive)
+    ;; Set to 500 so it is displayed even if all methods are not narrowed down.
+    (let ((anything-candidate-number-limit 500))
+      (anything-other-buffer '(anything-c-source-objc-headline)
+                 "*ObjC Headline*")))
+
+  (global-set-key "\C-xp" 'objc-headline)
+
 ))
