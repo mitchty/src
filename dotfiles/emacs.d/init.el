@@ -52,4 +52,5 @@
 (load "setup-el-get")
 
 ;; Setup packages el-get installs.
+(load "mode-defaults")
 (load "setup-package-post-install")

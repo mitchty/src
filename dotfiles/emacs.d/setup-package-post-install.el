@@ -59,18 +59,6 @@
   (global-auto-complete-mode t)
   (add-to-list 'ac-modes 'objc-mode)
 
-  ;; Define a common/default(ish) set of mode settings.
-  ;; I mostly use the same settings everywhere so simplify.
-  ;; Autopair mode would be in here if the lisp modes didn't have
-  ;; better
-  (setq mode-common-defaults '(
-                              (auto-complete-mode)
-                              (whitespace-mode)
-                              (hl-line-mode)
-                              (visual-line-mode)
-                              (setq indent-tabs-mode nil)
-                              (setq tab-width 2)
-                              ))
 
   ;; load/setup mode hook file(s)
   (mapcar 'load-file (directory-files "~/.emacs.d/modes" t ".*.el$"))
