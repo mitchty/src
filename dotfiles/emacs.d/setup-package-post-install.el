@@ -83,8 +83,8 @@
 		(make-directory my-yasnippet-dir t))
 
   ;; oh ja sure you betcha yasnippets kthxbai
-  (setq yas/root-directory '(my-yasnippet-dir))
-  (mapc 'yas/load-directory '(my-yasnippet-dir))
+  (setq yas/root-directory '("~/.emacs.d/yasnippet"))
+  (mapc 'yas/load-directory '("~/.emacs.d/yasnippet"))
 
   ;; Now that yasnippets loaded and auto-complete lets setup ac for snippets
   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
