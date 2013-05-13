@@ -9,10 +9,6 @@
 ;; Default major mode is just text
 (custom-set-variables '(default-major-mode 'text-mode))
 
-;; Tell the gc to be more aggressive
-(custom-set-variables '(garbage-collection-messages t))
-(custom-set-variables '(gc-cons-threshold (* 512 1024 1024)))
-
 ;; Don't clobber minibuffer text
 (custom-set-variables '(help-at-pt-timer-delay 0.9))
 
