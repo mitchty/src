@@ -26,7 +26,9 @@
   ;; so eff it, ignore the thing. TODO: find out how/why
   ;; emacs segv's on linux/osx with it on, but i'm lazy prolly won't
   (color-theme-initialize)
-  (color-theme-gtk-ide)
+  (if window-system
+         (color-theme-gtk-ide)
+         (color-theme-hober));; terminal theme
 
   ;; fixup multi-term theme support since it doesn't work sanely always
   (setq term-default-bg-color (face-background 'default))
@@ -108,4 +110,7 @@
 
   (global-set-key "\C-xp" 'objc-headline)
 
+  ;; Only load up windowed stuff when needed.
+  (when window-system
+    (load "window-system"))
 ))

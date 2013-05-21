@@ -38,10 +38,6 @@
 (unless (file-accessible-directory-p user-temporary-file-directory)
   (make-directory user-temporary-file-directory t))
 
-;; Only load up windowed stuff when needed.
-(cond (window-system
-       (load "window-system")))
-
 ;; Default file template stuff
 (load "file-templates")
 
@@ -54,3 +50,7 @@
 ;; Setup packages el-get installs.
 (load "mode-defaults")
 (load "setup-package-post-install")
+
+;; Fine, emacsclient -c and emacs --daemon don't mix well
+(load "server")
+(unless (server-running-p) (server-start))
