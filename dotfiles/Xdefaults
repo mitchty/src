@@ -1,14 +1,3 @@
-! cssh specific instance options
-!
-csshopts.perl-ext-common:          default,matcher
-csshopts*font:                     xft:monaco:size=8
-csshopts*background:               black
-csshopts*foreground:               white
-csshopts*scrollBar_right:          true
-csshopts*scrollstyle:              next
-csshopts*scrollTtyOutput:          false
-csshopts*cursorBlink:              true
-csshopts*cursorColor:              pink
 ! urxvt generalish stuff
 !
 urxvt*termName:                 rxvt-256color
