@@ -78,7 +78,7 @@ if [[ $? == 0 ]]; then
     fe
     if [[ $? != 0 ]]; then
       se
-      emacsclient -t -e "(menu-bar-mode -1)"
+      emacsclient -t
     fi
   }
 
@@ -87,8 +87,7 @@ if [[ $? == 0 ]]; then
     fe
     if [[ $? != 0 ]]; then
       se
-      (cd $HOME\
-        && emacsclient -n -c -e "(tool-bar-mode -1) (menu-bar-mode 1)")
+      emacsclient -n -c
     fi
   }
 fi
