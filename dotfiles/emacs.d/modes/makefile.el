@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp; coding: utf-8;-*-
+;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 (autoload 'makefile-mode "makefile-mode" "mode for makefile stuff" t)
 
