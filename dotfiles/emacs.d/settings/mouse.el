@@ -3,5 +3,6 @@
 ;; mouse mode in tty is useful
 (require 'mouse)
 (xterm-mouse-mode t)
-(defun track-mouse (e))
+(unless window-system
+	(defun track-mouse (e)))
 (setq mouse-sel-mode t)
