@@ -1,4 +1,4 @@
-;-*-mode: emacs-lisp; coding: utf-8;-*-
+;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 (autoload 'sh--mode "sh-mode" "mode for shell stuff" t)
 
@@ -10,11 +10,8 @@
 
 (add-hook 'sh-mode-hook
           '(lambda ()
-             (hl-line-mode)
+             (load "mode-defaults")
              (autopair-mode)
-             (whitespace-mode)
-             (visual-line-mode)
              (setq-default indent-tabs-mode nil)
-             (setq-default tab-width 2)
              (setq sh-basic-offset 2 sh-indentation 4
                    sh-indent-for-case-label 0 sh-indent-for-case-alt '+)))
