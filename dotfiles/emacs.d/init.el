@@ -25,11 +25,6 @@
 ;; Temp file dir (unixes)
 (setq temporary-file-directory "/tmp")
 
-;; OS SPECIFIC OVERRIDES OF most(ly) the above for os specific crap
-(if osx-p (load "osx"))
-;;(if mswindows-p (load "windows-settings")) TODO redo windows stuff
-;; FIN
-
 ;; Set the default temp file dir for the current user based off username
 (defvar user-temporary-file-directory
   (format "%s/%s" temporary-file-directory user-login-name))
