@@ -1,7 +1,12 @@
 ;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ;; Don't setup x windows paste behavior under osx
-(unless osx-p
-  (set-face-attribute 'default nil :font "Monaco 10")
-  (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-  (setq x-select-enable-clipboard t))
+;; setup fonts as appropriate
+(if osx-p
+  ;; osx nonsense
+  ((set-face-attribute 'default nil :font "Menlo 14"))
+
+  ;; assuming linux for the rest for now, no need for windows
+  ((set-face-attribute 'default nil :font "Monaco 10")
+   (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+   (setq x-select-enable-clipboard t)))
