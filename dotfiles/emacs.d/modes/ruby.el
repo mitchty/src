@@ -11,7 +11,7 @@
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
-             mode-common-defaults
+             (load "mode-defaults")
              (autopair-mode)
              (ruby-end-mode)
              (flymake-ruby-load)
