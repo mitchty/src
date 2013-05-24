@@ -48,7 +48,7 @@
       auto-complete-clang magit markdown-mode smex fill-column-indicator
       ruby-end multi-term autopair dropdown-list popup org-mode
       color-theme perlcritic perltidy color-theme-solarized
-      markdown-mode perl-completion anything
+      markdown-mode perl-completion anything workgroups
       )
     (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
