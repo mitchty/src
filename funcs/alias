@@ -46,7 +46,7 @@ function alias_vim {
 }
 
 function alias_other {
-  alias s="$(which ssh) -q"
+  alias s=$(which ssh)
   alias e=$EDITOR
   alias v=$(which vi)
   alias vv=$(which vim)
