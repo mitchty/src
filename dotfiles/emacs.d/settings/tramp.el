@@ -1,6 +1,7 @@
 ;-*-mode: emacs-lisp; coding: utf-8;-*-
 
 ; Tramp mode setup
+(require 'tramp)
 
 ; Make the default proxy list sane(r)
 (set-default 'tramp-default-proxies-alist
