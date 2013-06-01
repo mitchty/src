@@ -94,6 +94,10 @@
   (add-to-list 'ac-modes 'objc-mode)
   (yas--initialize)
 
+  ;; Without this tab in any emacs terminal/shell mode will fail because yas is crazy
+  (add-hook 'term-mode-hook
+						(lambda() (yas-minor-mode -1)))
+
   ;; setup anything mode for xcode a like pragma stuff
   (require 'anything)
   (require 'anything-config)
