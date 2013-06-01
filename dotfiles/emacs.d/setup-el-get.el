@@ -47,8 +47,7 @@
     '(yasnippet flymake-cursor flymake-ruby expand-region auto-complete
       auto-complete-clang magit markdown-mode smex fill-column-indicator
       ruby-end multi-term autopair dropdown-list popup org-mode
-      color-theme color-theme-solarized markdown-mode perl-completion
-      anything workgroups
+      color-theme markdown-mode perl-completion anything workgroups
       )
     (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
