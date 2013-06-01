@@ -28,8 +28,8 @@
   ;; emacs segv's on linux/osx with it on, but i'm lazy prolly won't
   (color-theme-initialize)
   (if window-system
-         (color-theme-gtk-ide)
-         (color-theme-hober));; terminal theme
+         (color-theme-hober)
+         (color-theme-gtk-ide))
 
   ;; fixup multi-term theme support since it doesn't work sanely always
   (setq term-default-bg-color (face-background 'default))
