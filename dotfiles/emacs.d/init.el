@@ -33,9 +33,6 @@
 (unless (file-accessible-directory-p user-temporary-file-directory)
   (make-directory user-temporary-file-directory t))
 
-;; Default file template stuff
-(load "file-templates")
-
 ;; Load up settings of things, in no particular order or anything.
 (mapcar 'load-file (directory-files "~/.emacs.d/settings/" t ".*.el$"))
 

@@ -110,8 +110,4 @@
                  "*ObjC Headline*")))
 
   (global-set-key "\C-xp" 'objc-headline)
-
-  ;; Only load up windowed stuff when needed.
-  (when window-system
-    (load "window-system"))
 ))
