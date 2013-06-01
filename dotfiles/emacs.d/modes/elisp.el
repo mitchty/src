@@ -1,6 +1,6 @@
 ;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-(add-to-list 'auto-mode-alist '("\\.el" . emacs-lisp))
+(add-to-list 'auto-mode-alist '("\\.el" . emacs-lisp-mode))
 
 (add-hook 'emacs-lisp-hook
           (lambda ()
