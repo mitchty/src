@@ -35,7 +35,7 @@
 (mapcar 'load-file (directory-files "~/.emacs.d/settings/" t ".*.el$"))
 
 ;; Setup/install third party packages
-(load "setup-el-get")
+(load "el-get")
 
 ;; Load up settings for things that el-get installed
 (mapcar 'load-file (directory-files "~/.emacs.d/package-settings/" t ".*.el$"))
