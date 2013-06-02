@@ -17,7 +17,7 @@
 														))
 
 	;; allow switching to the next terminal in line
-	(global-set-key (kbd "C-c t") 'multi-term-next)
+	(global-set-key (kbd "C-c C-t") 'multi-term-next)
 
 	;; zomg annoying, term-unbind-key-list is what it unbinds, not what you want
 	;; to unbind. bit of a logic weirdout in my mind.
