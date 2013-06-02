@@ -10,17 +10,17 @@
 # Override with -n num to list whatever amount of large things you desire.
 # Or if you want to abuse the parser, use -1 for all files/directories.
 #
-# Defaults to /var for space.
+# Defaults to pwd for space.
 #
 
 use File::Find;
 use Getopt::Long;
-use Cwd 'abs_path';
+use Cwd;
 
 my $debug;
 my $statbug;
 (exists($ENV{"DEBUG"})) ? $debug++ : undef;
-my $dir = abs_path($ARGV[-1] || '/var');
+my $dir = Cwd::abs_path($ARGV[-1] || Cwd::getcwd());
 my %diskhogs = ();
 my %inodes = ();
 my ($topdev,undef,undef,undef,undef,undef,undef,undef) = lstat($dir);
