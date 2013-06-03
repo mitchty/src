@@ -26,8 +26,8 @@ if [[ $? == 0 ]]; then
   {
     procname=emacs
     [[ $ostype == 'osx' ]] && procname=Emacs
-    pgrep ${procname} > /dev/null 2>&1
-    return $?
+    ps -e -o comm | grep ${procname} > /dev/null 2>&1
+    echo $?
   }
 
   function kte
@@ -53,41 +53,33 @@ if [[ $? == 0 ]]; then
 
   function qe
   {
-    fe
-    if [[ $? == 0 ]]; then
-      emacsclient -t -e "(save-buffers-kill-emacs)(kill-emacs)"
-      sleep 3
-    fi
-    fe
-    if [[ $? == 0 ]]; then
+    [[ "$(fe)" != "0" ]] && emacsclient -t -e "(save-buffers-kill-emacs)(kill-emacs)"
+    sleep 3
+
+    if [[ "$(fe)" != "0" ]]; then
       echo "Warning! Daemon process didn't shutdown properly"
       kte
       sleep 3
     fi
-    fe
-    if [[ $? == 0 ]]; then
+
+    if [[ "$(fe)" != "0" ]]; then
       echo "What the shit, ok fine, sending KILL to the sucker."
       kke
     fi
+
     desktoplockfile=~/.emacs.d/.emacs.desktop.lock
     [[ -f ${desktoplockfile} ]] && rm ${desktoplockfile}
   }
 
   function te
   {
-    fe
-    if [[ $? != 0 ]]; then
-      se
-      emacsclient -t
-    fi
+    [[ "$(fe)" != "0" ]] && se
+    emacsclient -t
   }
 
   function oe
   {
-    fe
-    if [[ $? != 0 ]]; then
-      se
-      emacsclient -n -c
-    fi
+    [[ "$(fe)" != "0" ]] && se
+    emacsclient -n -c
   }
 fi
