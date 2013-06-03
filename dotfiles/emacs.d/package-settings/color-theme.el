@@ -6,9 +6,10 @@
 ;; so eff it, ignore the thing. TODO: find out how/why
 ;; emacs segv's on linux/osx with it on, but i'm lazy prolly won't
 (color-theme-initialize)
-(if window-system
-		(color-theme-hober)
-	(color-theme-gtk-ide))
+
+(if (or window-system osx-p)
+		(color-theme-gtk-ide)
+	(color-theme-hober))
 
 ;; fixup multi-term fg/bg color support as it doesn't always
 ;; pickup defaults
