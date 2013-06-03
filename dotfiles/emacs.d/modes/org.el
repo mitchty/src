@@ -6,6 +6,5 @@
           (lambda ()
             (ispell-minor-mode)
             (visual-line-mode)
-            (whitespace-mode)
             (hl-line-mode)
             ))
