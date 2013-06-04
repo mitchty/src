@@ -44,7 +44,7 @@ if [[ ${prefix:+1} == 1 ]]; then
     [[ $? != 0 ]] && unshiftem "${prefix}/src"
 
     # Add in the bin dir if it exists to PATH
-    unshiftem ${load_prefix}
+    [[ -d ${load_prefix}/bin ]] && unshiftem ${load_prefix}
 
     # then load os flavor/vendor files (sourced in with os for most funcs)
     flavor="${load_prefix}/oses/$(os_uname_s)"
