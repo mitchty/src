@@ -1,5 +1,8 @@
 ;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
+;; use incremental complete mode for the minibuffer
+(icomplete-mode)
+
 ;; highlight parens n stuff
 (show-paren-mode)
 
