@@ -4,5 +4,5 @@
 (require 'mouse)
 (xterm-mouse-mode t)
 (unless window-system
-	(defun track-mouse (e)))
+  (defun track-mouse (e)))
 (setq mouse-sel-mode t)

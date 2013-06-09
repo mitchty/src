@@ -19,7 +19,7 @@
 (require 'yasnippet)
 (setq my-yasnippet-dir "~/.emacs.d/yasnippet")
 (unless (file-accessible-directory-p my-yasnippet-dir)
-	(make-directory my-yasnippet-dir t))
+  (make-directory my-yasnippet-dir t))
 
 ;; oh ja sure you betcha yasnippets kthxbai
 (setq yas/root-directory '("~/.emacs.d/yasnippet"))
@@ -32,4 +32,4 @@
 
 ;; Without this tab in any emacs terminal/shell mode will fail because yas is crazy
 (add-hook 'term-mode-hook
-					(lambda() (yas-minor-mode -1)))
+          (lambda() (yas-minor-mode -1)))

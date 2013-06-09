@@ -8,8 +8,8 @@
 (color-theme-initialize)
 
 (if (or window-system osx-p)
-		(color-theme-gtk-ide)
-	(color-theme-hober))
+    (color-theme-gtk-ide)
+  (color-theme-hober))
 
 ;; fixup multi-term fg/bg color support as it doesn't always
 ;; pickup defaults

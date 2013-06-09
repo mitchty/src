@@ -42,7 +42,7 @@
 
 ;; Cleanup startup buffers
 (add-hook 'after-init-hook
-					'(lambda () (delete-other-windows)))
+          '(lambda () (delete-other-windows)))
 
 ;; Fine, emacsclient -c and emacs --daemon don't mix well
 ;; From now on I start emacs as a gui and have this startup the daemon
