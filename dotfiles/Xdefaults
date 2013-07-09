@@ -1,7 +1,7 @@
 ! urxvt generalish stuff
 !
 urxvt*termName:                 rxvt-256color
-urxvt*font:                     xft:monaco:size=10:antialias=true
+urxvt*font:                     xft:menlo:size=10:antialias=true
 urxvt*perl-ext-common:          default,matcher
 urxvt*jumpScroll:               true
 urxvt*cursorColor:              pink
