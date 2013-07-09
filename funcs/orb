@@ -7,3 +7,4 @@ orb_shell=${orb_prefix}/orb.sh
 [[ -e ${orb_shell} ]] && . ${orb_shell}
 
 [[ $(orb ls | grep -c default) == '1' ]] && orb use default
+[[ $(opl ls | grep -c default) == '1' ]] && opl use default
