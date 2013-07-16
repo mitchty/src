@@ -10,6 +10,7 @@
 use strict;
 use Socket;
 use Sys::Hostname;
+$ENV{'PATH'}='/sbin:/usr/sbin:/bin:/usr/bin';
 
 my ($fqdn_regexp) = qr/([0-9,a-z,A-Z,\-,\_]+)\.([0-9,a-z,A-Z,\-,\_]+)\.(com|gov)/;
 
@@ -124,55 +125,60 @@ close IFCONFIG;
 #
 @ifout = reverse(@ifout);
 
-our ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
+my ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
 sub printiface{
-  # Handle solaris not showing the mac address when not root.
-  #
-  if (not $ifether and (($^O eq "darwin") || ($^O eq "linux"))){
-    return;
-  };
+  # assume a /32 if we don't know it
+  unless (defined($ifnetmask)) {
+    warn "$ifname has indeterminant netmask assuming /32\n";
+    $ifnetmask = '32';
+  }
 
-  if ($ifname =~ m/lo.*/){
-    # we got a stupid loopback in here somehow, reset and return.
-    ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
-    return;
-  };
+  unless (defined($ifnetmask)) {
+    $ifether = 'unknown';
+  }
 
-  if ($ifname and $ifmtu and $ifipv4 and $ifnetmask and 1){
+  unless ($ifname =~ m/lo.*/){
     my %netinfo = cidr2raw("$ifipv4\/$ifnetmask");
     $ifnetmask = $netinfo{"cidr"};
     $ifether = lc($ifether);
-    printf "%-16s %-18s %-17s\n", "$ifname\:$ifmtu", "$ifipv4\/$ifnetmask", $ifether;
-    ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
-  };
+    printf "%-16s %-18s %-17s\n", "$ifname\@$ifmtu", "$ifipv4\/$ifnetmask", $ifether;
+  }
+
+  # reset vars
+  ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
 };
 
 foreach my $line (@ifout) {
-  # Darwin/solaris
+  if ($line =~ /inet\s+(\d+[.]\d+[.]\d+[.]\d+)\s+/){
+    $ifipv4 = $1;
+  }
   if ($line =~ m/ether\s([:,0-9,a-f,A-F]{11,})/){
-    $ifether = $1;
-  }elsif ($line =~ m/^(.*)\:\s+.*mtu\s(\d+)/){
-    $ifname = $1;
-    $ifmtu = $2;
-  }elsif ($line =~ m/inet\s(\d+\.\d+\.\d+\.\d+)\snetmask\s(0[xX])?([a-f,A-F,0-9]{8})/){
-    $ifipv4 = $1;
-    $ifnetmask = $3;
-  # Linux
-  }elsif ($line =~ m/MTU\:(\d+)/){
-    if ($ifmtu) { # We are on a new interface, reset things.
-      ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
-    };
-    $ifmtu = $1;
-  }elsif ($line =~ m/inet\saddr\:(\d+\.\d+\.\d+\.\d+).*Mask\:(\d+\.\d+\.\d+\.\d+)/){
-    $ifipv4 = $1;
-    $ifnetmask = $2;
-  }elsif ($line =~ m/^([\w,\:\d+]+)\s+.*HWaddr\s([:,0-9,a-f,A-F]{11,})/){
+    $ifether =$1;
+  }
+  if ($line =~ m/^([\w,\:\d+]+)\s+.*HWaddr\s([:,0-9,a-f,A-F]{11,})/){
     $ifname = $1;
     $ifether = $2;
-  }elsif ($line =~ m/^lo.*Loopback/){
-    # Just reset things, will fix the parsing later.
-    ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
-  # Others?
-  };
-  printiface();
+  }
+  if ($line =~ m/^(.*)\:\s+.*mtu\s(\d+)/){
+    $ifname = $1;
+    $ifmtu = $2;
+  }
+  if ($line =~ m/inet\saddr\:(\d+[.]\d+[.]\d+[.]\d+)/){
+    $ifipv4 = $1;
+  }
+  if ($line =~ m/netmask\s+(0[xX])?([a-f,A-F,0-9]{8})/){
+    $ifnetmask = $2;
+  }
+  if ($line =~ m/Mask[:](\d+\.\d+\.\d+\.\d+)/){
+    $ifnetmask = $1;
+  }
+  if ($line =~ m/netmask\s+(\d+[.]\d+[.]\d+[.]\d+)/){
+    $ifnetmask = $1;
+  }
+  if ($line =~ m/netmask\s+0\s+broadcast/){
+    $ifnetmask = '0';
+  }
+
+#  print ":$ifether:$ifname:$ifmtu:$ifipv4:$ifnetmask:$ifipv6:\n";
+  printiface() if ($ifname and $ifmtu and $ifipv4 );
 };
