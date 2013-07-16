@@ -125,6 +125,8 @@ close IFCONFIG;
 #
 @ifout = reverse(@ifout);
 
+my @output = ();
+
 my ($ifname, $ifether, $ifmtu, $ifipv4, $ifnetmask, $ifipv6) = (undef,undef,undef,undef,undef,undef);
 sub printiface{
   # assume a /32 if we don't know it
@@ -141,7 +143,8 @@ sub printiface{
     my %netinfo = cidr2raw("$ifipv4\/$ifnetmask");
     $ifnetmask = $netinfo{"cidr"};
     $ifether = lc($ifether);
-    printf "%-16s %-18s %-17s\n", "$ifname\@$ifmtu", "$ifipv4\/$ifnetmask", $ifether;
+    my $line = sprintf "%-16s %-18s %-17s\n", "$ifname\@$ifmtu", "$ifipv4\/$ifnetmask", $ifether;
+    push @output, $line;
   }
 
   # reset vars
@@ -185,3 +188,11 @@ foreach my $line (@ifout) {
   print ":$ifether:$ifname:$ifmtu:$ifipv4:$ifnetmask:$ifipv6:\n" if ($ENV{'DEBUG'} ne '');
   printiface() if ($ifname and $ifmtu and $ifipv4 );
 };
+
+if (scalar(@output) < 1){
+  warn "No interfaces? Scripts busted yo.\n";
+}else{
+  foreach my $line (reverse(@output)){
+    print $line;
+  }
+}
