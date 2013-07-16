@@ -48,8 +48,8 @@ sub cidr2raw {
   #
   # Handle ip/hostname for left hand side.
   if ($lhs =~ qr/(\d+)\.(\d+)\.(\d+)\.(\d+)/){
-    foreach my $dotted (($1,$2,$3,$4)){       
-      if (($dotted > 255) or ($dotted < 0)){  
+    foreach my $dotted (($1,$2,$3,$4)){
+      if (($dotted > 255) or ($dotted < 0)){
         die "FATAL: ipv4 address entered, $lhs entered is impossible, $dotted is not between 0-255.\n";
       };
     };
@@ -97,7 +97,7 @@ sub cidr2raw {
   };
 
   $netmask = 0xffffffff^$bits;
-  $low = ($network&$netmask); 
+  $low = ($network&$netmask);
   $high = ($network&$netmask)+$bits-1;
   $broadcast = ($network&$netmask)|$bits;
 
