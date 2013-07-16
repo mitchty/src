@@ -163,6 +163,9 @@ foreach my $line (@ifout) {
     $ifname = $1;
     $ifmtu = $2;
   }
+  if ($line =~ m/MTU[:](\d+)/){
+    $ifmtu = $1;
+  }
   if ($line =~ m/inet\saddr\:(\d+[.]\d+[.]\d+[.]\d+)/){
     $ifipv4 = $1;
   }
@@ -179,6 +182,6 @@ foreach my $line (@ifout) {
     $ifnetmask = '0';
   }
 
-#  print ":$ifether:$ifname:$ifmtu:$ifipv4:$ifnetmask:$ifipv6:\n";
+  print ":$ifether:$ifname:$ifmtu:$ifipv4:$ifnetmask:$ifipv6:\n" if ($ENV{'DEBUG'} ne '');
   printiface() if ($ifname and $ifmtu and $ifipv4 );
 };
