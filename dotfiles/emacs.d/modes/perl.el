@@ -8,5 +8,5 @@
           '(lambda ()
              (load "mode-defaults")
              (autopair-mode)
-             (flymake-perl-mode)
+;             (flymake-perl-mode)
              ))
