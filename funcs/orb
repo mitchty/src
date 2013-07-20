@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #-*-mode: Shell-script; coding: utf-8;-*-
 
-orb_prefix=${prefix}/src/orb
+orb_prefix=${prefix}/.orb
 orb_shell=${orb_prefix}/orb.sh
 
 if [[ ! -e ~/.no_orb ]]; then
