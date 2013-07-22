@@ -9,4 +9,5 @@ if [[ ! -e ~/.no_orb ]]; then
 
   [[ $(orb ls | grep -c default) == '1' ]] && orb use default
   [[ $(opl ls | grep -c default) == '1' ]] && opl use default
+  [[ $(opy ls | grep -c default) == '1' ]] && opy use default
 fi
