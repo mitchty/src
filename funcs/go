@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+#-*-mode: Shell-script; coding: utf-8;-*-
+
+# Setup GOPATH for 1.1.1 as appropriate.
+if [[ $(which go) != '' ]]; then
+  gopath=${HOME}/.go
+  [[ ! -d ${gopath} ]] && mkdir -p ${gopath}/bin
+  export GOPATH=${gopath}
+  pushem ${GOPATH}
+fi
