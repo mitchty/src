@@ -9,6 +9,7 @@
   pak = repack -a -d -f --depth=2000 --window=2000
   unstage = reset HEAD
   tlog = log --graph --color=always --abbrev-commit --date=relative --pretty=oneline
+  hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   slog = log --oneline --decorate
   fixup = commit --fixup
   squash = commit --squash
