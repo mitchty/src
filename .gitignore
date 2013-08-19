@@ -8,3 +8,5 @@ dotfiles/emacs.d/ac-comphist.dat
 dotfiles/emacs.d/rsense
 dotfiles/emacs.d/yasnippet
 dotfiles/maid/maid.log
+test/test-results
+test/trash_directory*
