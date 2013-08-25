@@ -4,7 +4,7 @@
 (require 'whitespace)
 
 (setq whitespace-line-column 80
-      whitespace-style '(face tab-mark tabs trailing lines-tail))
+      whitespace-style '(face tabs trailing lines-tail))
 
 (set-face-attribute 'whitespace-tab nil
                     :foreground "#2075c7"
