@@ -63,11 +63,37 @@ function perl_setup {
   cpanm Perl::Tidy Perl::Critic
 }
 
-function homebrew {
-  echo "nyi"
+function python_setup {
+  orb_setup
+  opy install --prefix=${orb_python_base}/default --rm
+}
+
+function homebrew_setup {
+  brew_home=${HOME}/homebrew
+  if [[ ! -d ${brew_home} ]]; then
+    echo "cloning homebrew"
+    (cd ${HOME} && git clone https://github.com/mxcl/homebrew)
+  fi
+
+  PATH=${brew_home}/bin:${PATH}
+  # brew taps
+  brew tap railwaycat/emacsmacport
+  brew tap mitchty/mgzip
+  brew tap mitchty/entr
+  brew tap mitchty/fruitstrap
+  brew tap mpv-player/mpv
+
+  brew install reattach-to-user-namespace
+  brew install tmux --wrap-pbcopy-and-pbpaste
+  brew install emacs --cocoa
+  brew install go htop openssl llvm cocoapods pigz pv ack git iperf nmap ntop postgres fruitstrap rsync iftop hg tree osxutils entr mgzip pbzip2 bzr
+
 }
 
 case $1 in
+homebrew)
+  homebrew_setup
+  ;;
 orb)
   orb_setup
   ;;
@@ -76,6 +102,9 @@ ruby)
   ;;
 perl)
   perl_setup
+  ;;
+python)
+  python_setup
   ;;
 home)
   $$ default
