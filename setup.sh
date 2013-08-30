@@ -49,11 +49,8 @@ function ruby_setup {
 
   orb install --prefix=${orb_ruby_base}/default --rm
   orb use default
-  gem install pry pry-doc pry-debugger pry-stack_explorer jist jekyll huffshell\
- teamocil maid
-  orb install  --prefix=${orb_ruby_base}/emacs --version=1.9.3-p392\
- -rm
-  orb use emacs
+  gem install pry pry-doc pry-debugger pry-stack_explorer jist jekyll huffshell teamocil maid httparty nokogiri rainbow
+  orb install  --prefix=${orb_ruby_base}/emacs -rm
 }
 
 function perl_setup {
