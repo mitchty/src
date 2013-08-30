@@ -50,6 +50,8 @@ function ruby_setup {
 function perl_setup {
   orb_setup
   opl install --prefix=${orb_perl_base}/default --no-test --rm
+  opl use emacs
+  cpanm Perl::Tidy Perl::Critic
   opl install --prefix=${orb_perl_base}/emacs --no-test -rm
   opl use emacs
   cpanm Perl::Tidy Perl::Critic
