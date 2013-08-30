@@ -38,6 +38,15 @@ function orb_setup {
 
 function ruby_setup {
   orb_setup
+
+  # According to ... someone on the ruby core team the openssl
+  # library that ships with 10.8 (maybe 7?) is bad and it refuses to
+  # compile openssl, so gem fails to do anything useful with https
+  # connections, so on osx use the brew installed openssl library
+  if [[ "$(os_type)" == "osx" ]]; then
+    export CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl`"
+  fi
+
   orb install --prefix=${orb_ruby_base}/default --rm
   orb use default
   gem install pry pry-doc pry-debugger pry-stack_explorer jist jekyll huffshell\
