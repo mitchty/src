@@ -44,7 +44,7 @@ function ruby_setup {
   # compile openssl, so gem fails to do anything useful with https
   # connections, so on osx use the brew installed openssl library
   if [[ "$(os_type)" == "osx" ]]; then
-    export CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl`"
+    export CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
   fi
 
   orb install --prefix=${orb_ruby_base}/default --rm
