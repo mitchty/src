@@ -72,25 +72,33 @@ function python_setup {
 }
 
 function homebrew_setup {
+  # So TODO
+  # how the frell do I get the commandline tools installed in a fresh build
   brew_home=${HOME}/homebrew
   if [[ ! -d ${brew_home} ]]; then
-    echo "cloning homebrew"
     (cd ${HOME} && git clone https://github.com/mxcl/homebrew)
   fi
 
   PATH=${brew_home}/bin:${PATH}
   # brew taps
-  brew tap railwaycat/emacsmacport
-  brew tap mitchty/mgzip
-  brew tap mitchty/entr
-  brew tap mitchty/fruitstrap
-  brew tap mpv-player/mpv
+  #
+  # mgzip is more for shits cause pigz is better but it compiles still
+  # so why not
+  set -e
+  brew tap mitchty/mgzip && brew install mgzip --HEAD
+  brew tap mitchty/entr && brew install entr
+  brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
+  brew tap homebrew/dupes # need it for rsync
+#  Brew tap mpv-player/mpv && brew install mpv --HEAD
 
+  # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
+  # use        ^^^^^ cause copy/paste is useful to have
   brew install tmux --wrap-pbcopy-and-pbpaste
+  # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa
-  brew install go htop openssl llvm cocoapods pigz pv ack git iperf nmap ntop postgres fruitstrap rsync iftop hg tree osxutils entr mgzip pbzip2 bzr
-
+  # and all the other crap normal osx is missing.
+  brew install go htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop mercurial tree osxutils pbzip2 bzr pngcrush pypy
 }
 
 case $1 in
@@ -114,6 +122,7 @@ home)
   $$ orb
   $$ ruby
   $$ perl
+  $$ python
   ;;
 home-osx)
   $$ default
@@ -121,6 +130,7 @@ home-osx)
   $$ orb
   $$ ruby
   $$ perl
+  $$ python
   ;;
 *)
   default
