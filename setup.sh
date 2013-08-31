@@ -50,7 +50,10 @@ function ruby_setup {
   orb install --prefix=${orb_ruby_base}/default --rm
   orb use default
   gem install pry pry-doc pry-debugger pry-stack_explorer jist jekyll huffshell teamocil maid httparty nokogiri rainbow
-  orb install  --prefix=${orb_ruby_base}/emacs -rm
+  if [[ "$(os_type)" == "osx" ]]; then
+    gem install cocoapods
+  fi
+  orb install --prefix=${orb_ruby_base}/emacs -rm
 }
 
 function perl_setup {
