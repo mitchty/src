@@ -72,8 +72,6 @@ function python_setup {
 }
 
 function homebrew_setup {
-  # So TODO
-  # how the frell do I get the commandline tools installed in a fresh build
   brew_home=${HOME}/homebrew
   if [[ ! -d ${brew_home} ]]; then
     (cd ${HOME} && git clone https://github.com/mxcl/homebrew)
@@ -88,8 +86,8 @@ function homebrew_setup {
   brew tap mitchty/mgzip && brew install mgzip --HEAD
   brew tap mitchty/entr && brew install entr
   brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
-  brew tap homebrew/dupes # need it for rsync
-#  Brew tap mpv-player/mpv && brew install mpv --HEAD
+  brew tap homebrew/dupes # need it for better rsync
+#  brew tap mpv-player/mpv && brew install mpv --HEAD later...
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
@@ -98,7 +96,17 @@ function homebrew_setup {
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa
   # and all the other crap normal osx is missing.
-  brew install go htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop mercurial tree osxutils pbzip2 bzr pngcrush pypy
+  brew install go htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop mercurial tree osxutils pbzip2 bzr pngcrush pypy wget ispell
+}
+
+# ok this is workable if sudoers has:
+# %admin ALL=/usr/sbin/installer -verbose -pkg /Volumes/Command\ Line\ Tools\ \(Mountain\ Lion\) -target / NOPASSWD: ALL
+#
+# Will need to figure out the rest of the installers names so I can enumerate them all
+function osx_setup {
+  hdiutil mount ~/Downloads/command_line_tools_for_os_x_mountain_lion_xcode_5_developer_preview_6.dmg
+  sudo /usr/sbin/installer -verbose -pkg /Volumes/Command*/*.mpkg -target /
+  hdiutil detach /Volumes/Command*
 }
 
 case $1 in
@@ -117,20 +125,19 @@ perl)
 python)
   python_setup
   ;;
-home)
-  $$ default
-  $$ orb
-  $$ ruby
-  $$ perl
-  $$ python
+osx)
+  osx_setup
   ;;
-home-osx)
-  $$ default
-  $$ homebrew
-  $$ orb
-  $$ ruby
-  $$ perl
-  $$ python
+home)
+  $0 default
+  if [[ "$(os_type)" == "osx" ]]; then
+    $? && $0 osx_setup && $0 homebrew
+  fi
+  $? && \
+  $0 orb && \
+  $0 ruby && \
+  $0 perl && \
+  $0 python
   ;;
 *)
   default
