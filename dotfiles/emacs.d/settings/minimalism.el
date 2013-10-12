@@ -10,8 +10,5 @@
 ;; Screw the scrollbar, don't need it
 (scroll-bar-mode -1)
 
-;; Also the fringe, takes up space
-(fringe-mode 0)
-
 ;; Meh, menu-bar is annoying me lately
 (menu-bar-mode -1)
