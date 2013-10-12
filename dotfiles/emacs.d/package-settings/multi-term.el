@@ -23,4 +23,4 @@
   ;; to unbind. bit of a logic weirdout in my mind.
   ;; aka, what is in the term-unbind-key-list is what you can type to the terminal
   (setq term-unbind-key-list '("C-x" "C-y" "M-x"))
-  (multi-term-keystroke-setup))
+  )

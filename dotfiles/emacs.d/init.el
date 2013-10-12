@@ -34,8 +34,8 @@
 ;; Load up settings of things, in no particular order or anything
 (mapcar 'load-file (directory-files "~/.emacs.d/settings/" t ".*.el$"))
 
-;; Setup/install third party packages
-(load "el-get")
+;; Setup/install third party packages using builtin package manager.
+(load "emacs-package")
 
 ;; Load up settings for things that el-get installed
 (mapcar 'load-file (directory-files "~/.emacs.d/package-settings/" t ".*.el$"))
