@@ -12,7 +12,6 @@
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (load "mode-defaults")
-             (autopair-mode)
+             (smartparens-mode)
              (ruby-end-mode)
-             (flymake-ruby-load)
              ))

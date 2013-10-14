@@ -9,10 +9,9 @@
         magit
         markdown-mode
         smex
-				column-marker
+        column-marker
         ruby-end
         multi-term
-        autopair
         dropdown-list
         popup
         org-mode
@@ -27,6 +26,17 @@
         go-mode
         rust-mode
         yasnippet
+        diff-hl
+        fixmee
+        figlet
+        ido-sort-mtime
+        org-readme
+        puppet-mode
+        gist
+        yaml-mode
+        move-text
+        smart-tab
+        smartparens
         ))
 
 (package-initialize)
@@ -34,7 +44,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives
-						 '("gnu" . "http://elpa.gnu.org/packages/"))
+             '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/"))
 

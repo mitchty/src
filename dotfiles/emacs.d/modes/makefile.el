@@ -8,7 +8,7 @@
 (add-hook 'makefile-mode-hook
           '(lambda ()
              (hl-line-mode)
-             (autopair-mode)
+             (smartparens-mode)
              (linum-mode)
              (whitespace-mode)
              (visual-line-mode)

@@ -7,6 +7,6 @@
 (add-hook 'cperl-mode-hook
           '(lambda ()
              (load "mode-defaults")
-             (autopair-mode)
+             (smartparens-mode)
 ;             (flymake-perl-mode)
              ))
