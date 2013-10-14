@@ -15,7 +15,7 @@
   "run a command on the current file"
   (interactive)
   (shell-command
-   (format "rust run %s 2>&1 | grep -v 'warning: no debug symbols in executable'"
+   (format "rust run %s 2>&1 | grep -v 'no debug symbols in executable'"
        (shell-quote-argument (buffer-file-name))))
 )
 
@@ -23,7 +23,7 @@
   "run a command on the current file"
   (interactive)
   (shell-command
-   (format "rust test %s 2>&1 | grep -v 'warning: no debug symbols in executable'"
+   (format "rust test %s 2>&1 | grep -v 'no debug symbols in executable'"
        (shell-quote-argument (buffer-file-name))))
 )
 
