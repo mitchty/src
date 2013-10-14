@@ -10,3 +10,4 @@ dotfiles/emacs.d/yasnippet
 dotfiles/maid/maid.log
 test/test-results
 test/trash_directory*
+rust/*.dSYM
