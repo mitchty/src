@@ -3,8 +3,7 @@
 ;; Setup whitespace mode to highlight tabs and over 80 char spaces
 (require 'whitespace)
 
-(setq whitespace-line-column 80
-      whitespace-style '(face tabs trailing lines-tail))
+(setq whitespace-style '(face tabs trailing))
 
 (set-face-attribute 'whitespace-tab nil
                     :foreground "#2075c7"
