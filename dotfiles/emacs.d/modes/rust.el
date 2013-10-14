@@ -12,7 +12,7 @@
                            ))
 
 (defun rust-run-current-buffers-file ()
-  "run a command on the current file and revert the buffer"
+  "run a command on the current file"
   (interactive)
   (shell-command
    (format "rust run %s"
@@ -20,7 +20,7 @@
 )
 
 (defun rust-test-current-buffers-file ()
-  "run a command on the current file and revert the buffer"
+  "run a command on the current file"
   (interactive)
   (shell-command
    (format "rust test %s"
