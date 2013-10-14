@@ -11,3 +11,4 @@ dotfiles/maid/maid.log
 test/test-results
 test/trash_directory*
 rust/*.dSYM
+c/swapblast
