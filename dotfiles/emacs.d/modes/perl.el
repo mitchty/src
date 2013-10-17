@@ -8,5 +8,4 @@
           '(lambda ()
              (load "mode-defaults")
              (smartparens-mode)
-;             (flymake-perl-mode)
              ))
