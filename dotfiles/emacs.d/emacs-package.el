@@ -2,6 +2,11 @@
 (require 'package)
 (setq my-packages
       '(
+        dash
+        s
+        smartrep
+        string-utils
+        list-utils
         flycheck
         expand-region
         auto-complete
@@ -14,7 +19,7 @@
         multi-term
         dropdown-list
         popup
-        org-mode
+        org
         org-bullets
         org-pomodoro
         org-present
@@ -27,15 +32,12 @@
         rust-mode
         yasnippet
         diff-hl
-        fixmee
         figlet
         ido-sort-mtime
         org-readme
         puppet-mode
-        gist
         yaml-mode
         move-text
-        smart-tab
         smartparens
         ))
 
