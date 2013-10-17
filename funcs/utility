@@ -28,42 +28,6 @@ function copy {
   fi
 }
 
-# Create a new tmux session named whatever
-function mux {
-  if [[ -z "$1" ]]; then
-    echo "Supply a name for the session foo."
-  else
-    tmux new-session -d -s $1
-    att $1
-  fi
-}
-
-# attach to a tmux session
-function att {
-  if [[ -z "$1" ]]; then
-    echo "Supply a session name foo."
-  else
-    tmux attach-session -d -t $1
-  fi
-}
-
-# dumb function to let me add windows into tmux the way I likes it...
-function muxadd {
-  target='nexus'
-
-  if [[ ! -z "$2" ]]; then
-    target=$2
-  fi
-
-  if [[ -z "$1" ]]; then
-    echo "Usage: hostname"
-  else
-    host=$1
-    short=$(echo "@$host" | sed -e "s/eagnmn//" -e "s/samtca//")
-    tmux new-window -t $target -n $short "ssh -q $host"
-  fi
-}
-
 # extract function to automate being lazy at extracting archives.
 function extract() {
   if [[ -f $1 ]]; then
