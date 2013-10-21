@@ -4,7 +4,6 @@
 (hl-line-mode)
 (smartparens-mode)
 (diff-hl-mode)
-(fixmee-mode)
 (visual-line-mode)
 (setq indent-tabs-mode nil)
 (setq tab-width 2)
