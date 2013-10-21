@@ -11,6 +11,10 @@
     (color-theme-gtk-ide)
   (color-theme-hober))
 
+(unless (or window-system osx-p)
+  (color-theme-install-frame-params
+   '((background-color . "white"))))
+
 ;; fixup multi-term fg/bg color support as it doesn't always
 ;; pickup defaults
 (setq term-default-bg-color (face-background 'default))
