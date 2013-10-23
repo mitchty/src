@@ -1,13 +1,24 @@
 #!/usr/bin/env sh
 #-*-mode: Shell-script; coding: utf-8;-*-
 
-orb_prefix=${prefix}/.orb
+orb_prefix=${prefix}/orb
 orb_shell=${orb_prefix}/orb.sh
 
 if [[ ! -e ~/.no_orb ]]; then
   [[ -e ${orb_shell} ]] && . ${orb_shell}
 
-  [[ $(orb ls | grep -c default) == '1' ]] && orb use default
-  [[ $(opl ls | grep -c default) == '1' ]] && opl use default
-  [[ $(opy ls | grep -c default) == '1' ]] && opy use default
+  $(type orb) > /dev/null 2>&1
+  if [[ $? == 0  ]]; then
+    [[ $(orb ls | grep -c default) == '1' ]] && orb use default
+  fi
+
+  $(type opl) > /dev/null 2>&1
+  if [[ $? == 0  ]]; then
+    [[ $(opl ls | grep -c default) == '1' ]] && opl use default
+  fi
+
+  $(type opy) > /dev/null 2>&1
+  if [[ $? == 0  ]]; then
+    [[ $(opy ls | grep -c default) == '1' ]] && opy use default
+  fi
 fi
