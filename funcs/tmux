@@ -3,9 +3,9 @@
 
 # Only define if we have tmux installed.
 tmux=$(which tmux > /dev/null 2>&1)
-if [[ $? == 0 ]]; then
+if (( $? == 0 )); then
   # Attach exclusively to a tmux session, or create it it doesn't exist
-  function T {
+  function t {
     if [[ -z "$1" ]]; then
       echo "Supply a tmux session name to connect to/create"
     else
