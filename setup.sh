@@ -87,7 +87,7 @@ function homebrew_setup {
   brew tap mitchty/entr && brew install entr
   brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
   brew tap homebrew/dupes # need it for better rsync
-#  brew tap mpv-player/mpv && brew install mpv --HEAD later...
+  brew tap homebrew/science # need it for R
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
@@ -96,13 +96,25 @@ function homebrew_setup {
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa
   # and all the other crap normal osx is missing.
-  brew install go htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop mercurial tree osxutils pbzip2 bzr pngcrush pypy wget ispell
+  # Should gate this to only 10.9 until go 1.2 is out proper
+  brew install --devel go
+
+  # normally ^^^ would've been in here
+  brew install htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop python mercurial tree osxutils pbzip2 bzr pngcrush pypy wget ispell gfortran r
+
+  # mpv is a nice little player compared to vlc
+  brew tap mpv-player/mpv && brew install mpv --with-bundle --HEAD
 }
 
 # ok this is workable if sudoers has:
 # %admin ALL=/usr/sbin/installer -verbose -pkg /Volumes/Command\ Line\ Tools\ \(Mountain\ Lion\) -target / NOPASSWD: ALL
 #
 # Will need to figure out the rest of the installers names so I can enumerate them all
+#
+# Yeah so need to figure this out for 10.9/10.8/10.7
+# It is a bit of a mess to be honest.
+# 10.9 has commandline tools, but you can have/use xcode as well.
+# bit of a crazy situation
 function osx_setup {
   hdiutil mount ~/Downloads/command_line_tools_for_os_x_mountain_lion_xcode_5_developer_preview_6.dmg
   sudo /usr/sbin/installer -verbose -pkg /Volumes/Command*/*.mpkg -target /
