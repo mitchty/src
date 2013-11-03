@@ -1,21 +1,25 @@
 #!/usr/bin/env sh
 #-*-mode: Shell-script; coding: utf-8;-*-
 
-orb_prefix=${prefix}/orb
-orb_shell=${orb_prefix}/orb.sh
+function orb_hook {
+  orb_prefix=${prefix}/orb
+  orb_shell=${orb_prefix}/orb.sh
 
-if [[ ! -e ~/.no_orb ]]; then
-  [[ -e ${orb_shell} ]] && . ${orb_shell}
+  if [[ ! -e ~/.no_orb ]]; then
+    [[ -e ${orb_shell} ]] && . ${orb_shell}
 
-  type orb > /dev/null 2>&1 && \
-    [[ $(orb ls | grep -c default) == '1' ]] && \
-     orb use default
+    type orb > /dev/null 2>&1 && \
+      [[ $(orb ls | grep -c default) == '1' ]] && \
+      orb use default
 
-  type opl > /dev/null 2>&1 && \
-    [[ $(opl ls | grep -c default) == '1' ]] && \
-    opl use default
+    type opl > /dev/null 2>&1 && \
+      [[ $(opl ls | grep -c default) == '1' ]] && \
+      opl use default
 
-  type opy > /dev/null 2>&1 && \
-    [[ $(opy ls | grep -c default) == '1' ]] && \
-    opy use default
-fi
+    type opy > /dev/null 2>&1 && \
+      [[ $(opy ls | grep -c default) == '1' ]] && \
+      opy use default
+  fi
+}
+
+_push_hook "orb_hook"

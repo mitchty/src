@@ -1,20 +1,23 @@
 #-*-mode: Shell-script; coding: utf-8;-*-
 # tmux helpers.
 
-# Only define if we have tmux installed.
-tmux=$(which tmux > /dev/null 2>&1)
-if (( $? == 0 )); then
-  # Attach exclusively to a tmux session, or create it it doesn't exist
-  function t {
-    if [[ -z "$1" ]]; then
-      echo "Supply a tmux session name to connect to/create"
-    else
-      tmux ls | awk -F: '{print $1}' | grep foo > /dev/null 2>&1
-      if [[ $? != 0  ]]; then
-        tmux new-session -d -s $1
+function tmux_hook {
+  $(which tmux > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    # Attach exclusively to a tmux session, or create it it doesn't exist
+    function t {
+      if [[ -z "$1" ]]; then
+        echo "Supply a tmux session name to connect to/create"
+      else
+        tmux ls | awk -F: '{print $1}' | grep foo > /dev/null 2>&1
+        if [[ $? != 0  ]]; then
+          tmux new-session -d -s $1
+        fi
+        tmux attach-session -d -t $1
       fi
-      tmux attach-session -d -t $1
-    fi
-  }
-  alias tls='tmux ls'
-fi
+    }
+    alias tls='tmux ls'
+  fi
+}
+
+_push_hook 'tmux_hook'

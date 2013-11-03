@@ -23,6 +23,18 @@
 # separated.
 #
 # host-bar would get sourced if the current host's name is bar.
+
+# Setup stuff needed for hooks
+_post_hooks=''
+
+function _push_hook {
+  if [[ ${_post_hooks} == '' ]]; then
+    _post_hooks="$*"
+  else
+    _post_hooks="${_post_hooks}:$*"
+  fi
+}
+
 if [[ ${prefix:+1} == 1 ]]; then
   # HACK for TERM (a)buse, some profiles set TERM unconditionally.
   # keep what we get from ssh
@@ -65,6 +77,18 @@ if [[ ${prefix:+1} == 1 ]]; then
     hostname=$(host_name)
     hostnamefile="${load_prefix}/hosts/$(host_name)"
     [[ -f ${hostnamefile} ]] && source ${hostnamefile}
+
+    # Ok so run through the hook functions in LIFO order.
+    # Quick hack to deal with PATH on OSX not always having ~/homebrew/bin when files
+    # are sourced. Since I want things to be idempotent, functions defining functions
+    # and called at the end as a LIFO buffer makes this possible without much
+    # change
+
+    for hook in $(echo $_post_hooks | sed -e 's/:/ /g'); do
+      ${hook}
+    done
+
+    _post_hooks=''
   done
 
   alias_setup
