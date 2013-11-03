@@ -1,13 +1,6 @@
 #-*-mode: Shell-script; coding: utf-8;-*-
 # Alias setup function(s)
 
-function alias_tmux {
-  tmux=$(which tmux > /dev/null 2>&1)
-  if (( $? == 0 )); then
-    alias t='tmux'
-  fi
-}
-
 function alias_perl {
   perl=$(which perl > /dev/null 2>&1)
   if (( $? == 0 )); then
@@ -56,7 +49,6 @@ function alias_other {
 }
 
 function alias_setup {
-  alias_tmux
   alias_perl
   alias_ruby
   alias_git
