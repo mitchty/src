@@ -5,6 +5,7 @@
         dash
         s
         smartrep
+        fixmee
         string-utils
         list-utils
         flycheck
@@ -19,7 +20,7 @@
         multi-term
         dropdown-list
         popup
-        org
+        org-plus-contrib
         org-bullets
         org-pomodoro
         org-present
