@@ -7,5 +7,6 @@
 (define-key global-map "\C-cb" 'org-iswitchb)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-cp" 'org-latex-export-to-pdf)
 
 (setq org-log-done t)
