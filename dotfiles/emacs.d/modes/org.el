@@ -8,4 +8,8 @@
             (ispell-minor-mode)
             (visual-line-mode)
             (hl-line-mode)
+            (delete '("\\.pdf\\'" . default) org-file-apps)
+            (if osx-p
+                (add-to-list 'org-file-apps '("\\.pdf\\'" . "open %s"))
+              (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s")))
             ))
