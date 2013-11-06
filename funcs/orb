@@ -2,7 +2,7 @@
 #-*-mode: Shell-script; coding: utf-8;-*-
 
 function orb_hook {
-  orb_prefix=${prefix}/orb
+  orb_prefix=${prefix}/.orb
   orb_shell=${orb_prefix}/orb.sh
 
   if [[ ! -e ~/.no_orb ]]; then
