@@ -33,16 +33,16 @@ function alias_vim {
   vim=$(which vim > /dev/null 2>&1)
   if (( $? == 0 )); then
     EDITOR="vim"
+    alias v=$(which vim)
   else
     EDITOR="vi"
+    alias v=$(which vi)
   fi
 }
 
 function alias_other {
   alias s=$(which ssh)
   alias e=$EDITOR
-  alias v=$(which vi)
-  alias vv=$(which vim)
   alias quit='exit'
   alias cr='reset; clear'
   alias cleandir="find . -type f \( -name '*~' -o -name '#*#' -o -name '.*~' -o -name '.#*#' -o -name 'core' -o -name 'dead.letter*' \) | grep -v auto-save-list | xargs -t rm"
