@@ -151,6 +151,9 @@ home)
   $0 perl && \
   $0 python
   ;;
+links)
+  default
+  ;;
 *)
   default
   ;;
