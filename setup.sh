@@ -78,16 +78,20 @@ function homebrew_setup {
   fi
 
   PATH=${brew_home}/bin:${PATH}
+
+  # Find out when crap breaks faster...ish
+  set -e
   # brew taps
   #
   # mgzip is more for shits cause pigz is better but it compiles still
-  # so why not
-  set -e
+  # so why not keep it around. Compressing things on a 25k still remains
+  # a fun memory.
   brew tap mitchty/mgzip && brew install mgzip --HEAD
   brew tap mitchty/entr && brew install entr
   brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
   brew tap homebrew/dupes # need it for better rsync
   brew tap homebrew/science # need it for R
+  brew tap homebrew/versions # for perl/maybe llvm34 dunno
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
@@ -95,15 +99,39 @@ function homebrew_setup {
   brew install tmux --wrap-pbcopy-and-pbpaste
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa
+
+  # mpv is a nice little player compared to vlc, though now it requires
+  # docutils to compile, what the shit, keeping track of HEAD is annoying.
+  brew install python
+  pip install --upgrade setuptools
+  pip install --upgrade pip
+  pip install docutils;
+  brew tap mpv-player/mpv && brew install --HEAD libass-ct && brew install mpv --with-bundle
+
+  # Link mpv/emacs.app into ~/Applications
+  home_app_dir=${HOME}/Applications
+  [[ ! -d ${home_app_dir} ]] && mkdir -p ${home_app_dir}
+  brew linkapps --local
+
+  # Remove the stupid python .app links, this was simpler when I could
+  # not have mpv require docutils as I could just leave it at the end.
+  for crap in "Build Applet.app" "IDLE.app" "Python Launcher.app"; do
+    [[ -e ~/Applications/"${crap}" ]] && rm ~/Applications/"${crap}"
+  done
+
   # and all the other crap normal osx is missing.
   # Should gate this to only 10.9 until go 1.2 is out proper
-  brew install --devel go
+  # HEAD won't build as of 2013-11-09... annoying as shit.
+#  brew install go --HEAD
 
-  # normally ^^^ would've been in here
-  brew install htop openssl llvm pigz pv ack git iperf nmap sntop postgres rsync iftop python mercurial tree osxutils pbzip2 bzr pngcrush pypy wget ispell gfortran r
+  # setup llvm with clang/address sanitizer
+  brew install llvm --with-clang --with-asan
 
-  # mpv is a nice little player compared to vlc
-  brew tap mpv-player/mpv && brew install mpv --with-bundle --HEAD
+  # just install vanilla postgres no language support needed really.
+  brew install postgres --no-perl --no-tcl --without-python
+
+  # install the "rest", aka make osx a bit more useful/unixy to use.
+  brew install htop openssl pigz pv ack git iperf nmap sntop rsync iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy mercurial rust
 }
 
 # ok this is workable if sudoers has:
@@ -116,9 +144,10 @@ function homebrew_setup {
 # 10.9 has commandline tools, but you can have/use xcode as well.
 # bit of a crazy situation
 function osx_setup {
-  hdiutil mount ~/Downloads/command_line_tools_for_os_x_mountain_lion_xcode_5_developer_preview_6.dmg
-  sudo /usr/sbin/installer -verbose -pkg /Volumes/Command*/*.mpkg -target /
-  hdiutil detach /Volumes/Command*
+  echo "osx_setup needs to be fixed for mavericks and crap you lazy turd."
+#  hdiutil mount ~/Downloads/command_line_tools_for_os_x_mountain_lion_xcode_5_developer_preview_6.dmg
+#  sudo /usr/sbin/installer -verbose -pkg /Volumes/Command*/*.mpkg -target /
+#  hdiutil detach /Volumes/Command*
 }
 
 case $1 in
