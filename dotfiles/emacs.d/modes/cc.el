@@ -13,6 +13,7 @@
              (setq indent-tabs-mode nil)
              (setq tab-width 2)
              (smartparens-mode)
+             (flycheck-mode)
              (c-toggle-auto-state 1)
              (setq-default c-electric-flag t)
              (setq-default indent-tabs-mode t)

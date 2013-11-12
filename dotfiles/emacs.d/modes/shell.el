@@ -12,6 +12,7 @@
           '(lambda ()
              (load "mode-defaults")
              (smartparens-mode)
+             (flycheck-mode)
              (setq-default indent-tabs-mode nil)
              (setq sh-basic-offset 2 sh-indentation 4
                    sh-indent-for-case-label 0 sh-indent-for-case-alt '+)))

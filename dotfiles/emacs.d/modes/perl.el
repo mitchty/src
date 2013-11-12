@@ -8,4 +8,5 @@
           '(lambda ()
              (load "mode-defaults")
              (smartparens-mode)
+             (flycheck-mode)
              ))

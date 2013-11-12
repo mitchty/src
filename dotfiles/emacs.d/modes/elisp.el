@@ -6,6 +6,7 @@
           (lambda ()
             (hl-line-mode)
             (whitespace-mode)
+            (flycheck-mode)
             (setq-default tab-width 2)
             (setq-default indent-tabs-mode nil)
             (define-key emacs-lisp-map

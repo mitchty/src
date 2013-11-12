@@ -14,4 +14,5 @@
              (load "mode-defaults")
              (smartparens-mode)
              (ruby-end-mode)
+             (flycheck-mode)
              ))
