@@ -2,7 +2,7 @@
 # tmux helpers.
 
 function tmux_hook {
-  $(which tmux > /dev/null 2>&1)
+  which tmux > /dev/null 2>&1
   if (( $? == 0 )); then
     # Attach exclusively to a tmux session, or create it it doesn't exist
     function t {
