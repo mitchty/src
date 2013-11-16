@@ -1,0 +1,9 @@
+# name: insert a function with prototype
+# key: func
+# --
+${1:void} ${2:function_name}(${3:args});
+
+$1 $2(${4:args}) {
+  $0
+  return ${5:NULL};
+}

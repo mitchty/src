@@ -1,0 +1,4 @@
+# name: assert(...);
+# key: ass
+# --
+assert(${1:0 == 1});

@@ -1,0 +1,4 @@
+# name: #include "...\.h"
+# key: inc
+# --
+#include "${someuserheader}.h"

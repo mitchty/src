@@ -30,6 +30,36 @@
 (add-to-list 'ac-modes 'objc-mode)
   (yas--initialize)
 
-;; Without this tab in any emacs terminal/shell mode will fail because yas is crazy
+;; Without this tab in any emacs terminal/shell mode will fail because
+;; yas is crazy
 (add-hook 'term-mode-hook
           (lambda() (yas-minor-mode -1)))
+
+(define-key yas-keymap (kbd "<return>") 'yas/exit-all-snippets)
+
+(defun yas/goto-end-of-active-field ()
+  (interactive)
+  (let* ((snippet (car (yas--snippets-at-point)))
+        (position (yas--field-end (yas--snippet-active-field snippet))))
+    (if (= (point) position)
+        (move-end-of-line 1)
+      (goto-char position))))
+
+(defun yas/goto-start-of-active-field ()
+  (interactive)
+  (let* ((snippet (car (yas--snippets-at-point)))
+        (position (yas--field-start (yas--snippet-active-field snippet))))
+    (if (= (point) position)
+        (move-beginning-of-line 1)
+      (goto-char position))))
+
+;; Make the active field behave more emacsy
+(define-key yas-keymap (kbd "C-e") 'yas/goto-end-of-active-field)
+(define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)
+
+;; Use ido for completing things the gui selector is shit, ido is
+;; mucho better.
+(setq yas-prompt-functions '(yas/ido-prompt yas/completing-prompt))
+
+;; Wrap around the region in emacs
+(setq yas-wrap-around-region t)

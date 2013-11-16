@@ -1,0 +1,4 @@
+# name: insert a function prototype
+# key: pfn
+# --
+${1:void} ${2:function_name}(${3:args});
