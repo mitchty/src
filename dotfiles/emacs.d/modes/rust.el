@@ -27,5 +27,7 @@
        (shell-quote-argument (buffer-file-name))))
 )
 
-(global-set-key (kbd "C-S-r") 'rust-run-current-buffers-file)
-(global-set-key (kbd "C-S-t") 'rust-test-current-buffers-file)
+(eval-after-load 'rust-mode
+  '(define-key rust-mode-map (kbd "C-c C-r") 'rust-run-current-buffers-file))
+(eval-after-load 'rust-mode
+  '(define-key rust-mode-map (kbd "C-S-t") 'rust-test-current-buffers-file))

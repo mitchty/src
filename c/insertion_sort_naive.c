@@ -18,7 +18,6 @@ void insertion_sort_naive(int array[], int size)
 
 int main(int argv, char ** argc)
 {
-    COMMON
     uint64_t index;
 
     for (index = 0; index < COUNT; index++) {

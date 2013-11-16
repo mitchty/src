@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdlib.h>
 
 void swap(int *lhs, int *rhs)
 {
@@ -29,6 +30,19 @@ struct list {
     struct node *head;
 };
 
-#define COMMON \
-int SORT_ARRAY[] = {5, 100, 20, 50, 6, 0, 250, 400}; \
-uint64_t COUNT = 500000001;
+#define VECSIZE(array) (int)(sizeof(array)/sizeof((array)[0]))
+
+int SORT_ARRAY[] = {5, 100, 20, 50, 6, 0, 250, 400, 1000};
+const uint64_t COUNT = 500000001;
+int **_work_set;
+
+
+void _reset_work_set() {
+    int _array_size = VECSIZE(SORT_ARRAY);
+    *_work_set = malloc(_array_size * sizeof(int));
+    memcpy(*_work_set, SORT_ARRAY, sizeof(SORT_ARRAY));
+};
+
+void _free_work_set() {
+    free(_work_set);
+}

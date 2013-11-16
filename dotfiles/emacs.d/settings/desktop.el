@@ -13,6 +13,6 @@
 (defun local-desktop-save ()
   (interactive)
   (if (eq (desktop-owner) (emacs-pid))
-      (desktop-save-in-desktop-dir)))
+      (desktop-save desktop-dirname)))
 
 (add-hook 'auto-save-hook 'desktop-save-in-desktop-dir)
