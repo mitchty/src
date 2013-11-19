@@ -46,7 +46,7 @@ if [[ ${prefix:+1} == 1 ]]; then
   for load_prefix in ${load_order[*]}; do
     [[ ! -d ${load_prefix} ]] && break
 
-    # load the bare files first
+    # load the bare files in load_prefix next
     for file in $(ls -d ${load_prefix}/* | grep -v sourceme); do
       [[ -f ${file} ]] && . ${file}
     done
@@ -58,7 +58,8 @@ if [[ ${prefix:+1} == 1 ]]; then
     # Add in the bin dir if it exists to PATH
     [[ -d ${load_prefix}/bin ]] && unshiftem ${load_prefix}
 
-    # then load os flavor/vendor files (sourced in with os for most funcs)
+    # load os flavor/vendor files (sourced in with os for most funcs)
+    # so for things like osx I can get homebrew stuff sourced for the rest
     flavor="${load_prefix}/oses/$(os_uname_s)"
     if [[ -f ${flavor} ]]; then
       . ${flavor}
@@ -66,6 +67,8 @@ if [[ ${prefix:+1} == 1 ]]; then
       echo '\e[91mWarning, unix flavor file not found@'${flavor}'\e[0m'
     fi
 
+    # aka, linux is a type of os, suse/redhat are a vendor of that os
+    # miniscule distinction but meh, it helps somewhat
     vendor="${load_prefix}/oses/$(os_type)"
     if [[ -f ${vendor} ]]; then
       . ${vendor}
@@ -73,7 +76,7 @@ if [[ ${prefix:+1} == 1 ]]; then
       echo '\e[91mWarning, unix vendor file not found@'${vendor}'\e[0m'
     fi
 
-    # And any host specific stuff (should only be in site/local
+    # And any host specific stuff (should only be in site/local if at all)
     hostname=$(host_name)
     hostnamefile="${load_prefix}/hosts/$(host_name)"
     [[ -f ${hostnamefile} ]] && source ${hostnamefile}
