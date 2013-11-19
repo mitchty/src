@@ -1,0 +1,5 @@
+# name: malloc(...);
+# key: mallocs
+# --
+malloc(${1:stuff});
+$0

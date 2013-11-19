@@ -1,0 +1,5 @@
+# name: puts(...);
+# key: putss
+# --
+puts(${1:stuff});
+$0

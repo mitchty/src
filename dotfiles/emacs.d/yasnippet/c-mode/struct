@@ -1,5 +1,5 @@
 # name: struct ... { ... }
-# key: struc
+# key: typd
 # --
 typedef struct {
   $0

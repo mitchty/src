@@ -1,0 +1,7 @@
+# name: insert clang pragma to ignore some warning
+# key: clangprag
+# --
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-W${1:somewarning}"
+$0
+#pragma clang diagnostic pop

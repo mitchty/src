@@ -1,0 +1,5 @@
+# name: free(...);
+# key: frees
+# --
+free(${1:stuff});
+$0

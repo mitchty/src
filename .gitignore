@@ -6,7 +6,6 @@ dotfiles/emacs.d/url
 dotfiles/emacs.d/ac-dict
 dotfiles/emacs.d/ac-comphist.dat
 dotfiles/emacs.d/rsense
-dotfiles/emacs.d/yasnippet
 dotfiles/emacs.d/var/pcache/ucs-utils
 dotfiles/maid/maid.log
 dotfiles/vim/.netrwhist
