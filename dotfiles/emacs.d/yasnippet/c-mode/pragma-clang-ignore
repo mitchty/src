@@ -1,7 +1,9 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: insert clang pragma to ignore some warning
-# key: clangprag
+# key: cprag/
 # --
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-W${1:somewarning}"
-$0
+${2:some_evil_codez}
 #pragma clang diagnostic pop
+$0

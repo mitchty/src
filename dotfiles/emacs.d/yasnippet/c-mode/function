@@ -1,7 +1,9 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: insert a function
-# key: fn
+# key: fn/
 # --
 ${1:void} ${2:function_name}(${3:args}) {
-  $0
+  $5
   return ${4:NULL};
 }
+$0

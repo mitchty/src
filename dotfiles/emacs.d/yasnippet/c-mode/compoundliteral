@@ -1,5 +1,6 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: {...} *... = ({...}[]){...};
-# key: cliteral
+# key: literal/
 # --
 ${1:double} *${2:name} = ($1[]){${3:1.1, NAN}};
 $0

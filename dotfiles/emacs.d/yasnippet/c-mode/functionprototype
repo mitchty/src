@@ -1,4 +1,6 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: insert a function prototype
-# key: pfn
+# key: fnp/
 # --
 ${1:void} ${2:function_name}(${3:args});
+$0

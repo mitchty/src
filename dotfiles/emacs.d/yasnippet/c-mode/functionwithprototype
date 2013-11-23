@@ -1,9 +1,11 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: insert a function with prototype
-# key: func
+# key: func/
 # --
 ${1:void} ${2:function_name}(${3:args});
 
 $1 $2(${4:args}) {
-  $0
+  $5
   return ${5:NULL};
 }
+$0

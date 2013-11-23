@@ -1,6 +1,8 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: struct ... { ... }
-# key: typd
+# key: struct/
 # --
 typedef struct {
-  $0
+  $2
 } ${1:name};
+$0

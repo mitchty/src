@@ -1,4 +1,7 @@
+#-*- mode: snippet; coding: utf-8 -*-
+# -*- mode: snippet -*-
 # name: assert(...);
-# key: ass
+# key: assert/
 # --
 assert(${1:0 == 1});
+$0

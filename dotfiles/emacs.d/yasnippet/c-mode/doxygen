@@ -1,5 +1,6 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: doxygen comment
-# key: dox
+# key: dox/
 # --
 /**
   \brief ${1:brief comment}
@@ -7,3 +8,4 @@
   \param ${3:param1}, ${4:value}
   \returns ${5:returns whatever}
 */
+$0

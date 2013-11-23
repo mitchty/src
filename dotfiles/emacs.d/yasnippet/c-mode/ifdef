@@ -1,6 +1,7 @@
+#-*- mode: snippet; coding: utf-8 -*-
 # name: #ifdef ...; ...; #endif
-# key: ifdef
+# key: ifdef/
 # --
 #ifdef ${1:somedef}
-$0
+${2:somedef_guarded_junk}
 #endif
