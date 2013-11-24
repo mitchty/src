@@ -4,7 +4,7 @@
 # --
 ${1:void} ${2:function_name}(${3:args});
 
-$1 $2(${4:args}) {
-  $5
-  return ${6:NULL};
+$1 $2($3){
+  $4
+  return ${5:NULL};
 }
