@@ -3,4 +3,3 @@
 # key: fnp/
 # --
 ${1:void} ${2:function_name}(${3:args});
-$0
