@@ -3,6 +3,6 @@
 # key: fn/
 # --
 ${1:void} ${2:function_name}(${3:args}) {
-  $5
-  return ${4:NULL};
+  $4
+  return ${5:NULL};
 }
