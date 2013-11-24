@@ -6,4 +6,3 @@
 #pragma clang diagnostic ignored "-W${1:somewarning}"
 ${2:some_evil_codez}
 #pragma clang diagnostic pop
-$0

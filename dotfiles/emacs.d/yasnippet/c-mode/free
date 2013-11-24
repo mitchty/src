@@ -3,4 +3,3 @@
 # key: free/
 # --
 free(${1:stuff});
-$0

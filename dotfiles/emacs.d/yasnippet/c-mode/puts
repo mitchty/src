@@ -3,4 +3,3 @@
 # key: puts/
 # --
 puts(${1:stuff});
-$0

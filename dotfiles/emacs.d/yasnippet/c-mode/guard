@@ -6,4 +6,3 @@
 #define $1
 ${2:some_header_guarded_stuff}
 #endif /* $1 */
-$0

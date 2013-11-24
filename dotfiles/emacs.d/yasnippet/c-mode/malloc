@@ -3,4 +3,3 @@
 # key: malloc/
 # --
 malloc(${1:stuff});
-$0

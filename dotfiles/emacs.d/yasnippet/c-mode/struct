@@ -5,4 +5,3 @@
 typedef struct {
   $2
 } ${1:name};
-$0
