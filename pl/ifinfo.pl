@@ -116,9 +116,20 @@ sub cidr2raw {
           );
 };
 
-open IFCONFIG, "ifconfig -a |";
-our @ifout = <IFCONFIG>;
-close IFCONFIG;
+my @ifout;
+if ($ENV{'TESTING'} ne '') {
+    while(<>){
+        chomp($_);
+        last if ($_ eq '');
+        push(@ifout, $_);
+#        sleep 1;
+#        print STDERR $_ . "\n";
+    }
+}else{
+    open IFCONFIG, "ifconfig -a |";
+    @ifout = <IFCONFIG>;
+    close IFCONFIG;
+}
 
 # This seems wrong but it makes parsing easier due to solaris
 # non root ifconfig not displaying the mac address. Reverse the output.

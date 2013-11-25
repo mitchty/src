@@ -6,7 +6,8 @@
           '(lambda ()
              (global-set-key "\C-x\C-m" 'compile)
              ;; buffer local save hook
-             (add-hook 'before-save-hook 'clang-format-buffer nil t)
+             (when osx-p
+               (add-hook 'before-save-hook 'clang-format-buffer nil t))
              (auto-complete-mode)
              (whitespace-mode)
              (hl-line-mode)
