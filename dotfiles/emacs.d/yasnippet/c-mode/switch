@@ -4,7 +4,7 @@
 # --
 switch (${1:something}){
   case ${2:constant_expression} :
-    ${4:fill_me_in_dork}
+    ${0:fill_me_in_dork}
     break;
   default :
     ${3:default_thing_to_do}

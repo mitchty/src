@@ -5,6 +5,6 @@
 ${1:void} ${2:function_name}(${3:args});
 
 $1 $2($3){
-  $4
-  return ${5:NULL};
+  $0
+  return ${4:NULL};
 }

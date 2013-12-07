@@ -3,5 +3,5 @@
 # key: ifdef/
 # --
 #ifdef ${1:somedef}
-${2:somedef_guarded_junk}
+${0:somedef_guarded_junk}
 #endif

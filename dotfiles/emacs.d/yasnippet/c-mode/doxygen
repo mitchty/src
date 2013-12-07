@@ -4,7 +4,7 @@
 # --
 /**
   \brief ${1:brief comment}
-  ${2:long explanation of boring}
+  ${0:long explanation of boring}
   \param ${3:param1}, ${4:value}
   \returns ${5:returns whatever}
 */
