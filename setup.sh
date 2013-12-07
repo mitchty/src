@@ -119,10 +119,8 @@ function homebrew_setup {
     [[ -e ~/Applications/"${crap}" ]] && rm ~/Applications/"${crap}"
   done
 
-  # and all the other crap normal osx is missing.
-  # Should gate this to only 10.9 until go 1.2 is out proper
-  # HEAD won't build as of 2013-11-09... annoying as shit.
-#  brew install go --HEAD
+  # Install go 1.2 now that its out, compiles on mavericks at least.
+  brew install go
 
   # setup llvm with clang/address sanitizer
   brew install llvm --with-clang --with-asan
@@ -131,7 +129,7 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install htop openssl pigz pv ack git iperf nmap sntop rsync iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy mercurial rust
+  brew install htop openssl pigz pv ack git iperf nmap sntop rsync iftop tree pbzip2 bzr pngcrush wget ispell glib gsl perl518 python3 pypy mercurial rust
 }
 
 # ok this is workable if sudoers has:
