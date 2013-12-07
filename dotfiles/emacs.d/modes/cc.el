@@ -17,7 +17,7 @@
              (add-to-list 'flycheck-clang-include-path ".")
              ;; buffer local save hook
              (when osx-p
-               (add-hook 'before-save-hook 'clang-format-buffer nil t))
+;;             (add-hook 'before-save-hook 'clang-format-buffer nil t)
              (auto-complete-mode)
              (whitespace-mode)
              (hl-line-mode)
