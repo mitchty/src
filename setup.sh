@@ -123,7 +123,7 @@ function homebrew_setup {
   brew install go
 
   # setup llvm with clang/address sanitizer
-  brew install llvm --with-clang --with-asan
+  brew install llvm34 --with-clang --HEAD
 
   # just install vanilla postgres no language support needed really.
   brew install postgres --no-perl --no-tcl --without-python
