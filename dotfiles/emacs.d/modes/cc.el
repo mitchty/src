@@ -5,19 +5,20 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (global-set-key "\C-x\C-m" 'compile)
-             ;; Setup flycheck/clang so it can find other header files.
-             ;; not very pretty...
-             (setq flycheck-clang-include-path
-                   (delete ""
-                           (split-string
-                            (concat " "
-                                    (shell-command-to-string
-                                     "pkg-config --cflags isl glib-2.0")
-                                    ) " -I")))
              (add-to-list 'flycheck-clang-include-path ".")
              ;; buffer local save hook
              (when osx-p
-;;             (add-hook 'before-save-hook 'clang-format-buffer nil t)
+               ;; Gating this to osx for the moment.
+               ;; Setup flycheck/clang so it can find other header files.
+               ;; not very pretty...
+               (setq flycheck-clang-include-path
+                     (delete ""
+                             (split-string
+                              (concat " "
+                                      (shell-command-to-string
+                                       "pkg-config --cflags glib-2.0 gsl")
+                                      ) " -I")))
+							 (add-hook 'before-save-hook 'clang-format-buffer nil t))
              (auto-complete-mode)
              (whitespace-mode)
              (hl-line-mode)
