@@ -5,19 +5,22 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (global-set-key "\C-x\C-m" 'compile)
-             (add-to-list 'flycheck-clang-include-path ".")
              ;; buffer local save hook
              (when osx-p
                ;; Gating this to osx for the moment.
                ;; Setup flycheck/clang so it can find other header files.
                ;; not very pretty...
                (setq flycheck-clang-include-path
-                     (delete ""
-                             (split-string
-                              (concat " "
-                                      (shell-command-to-string
-                                       "pkg-config --cflags glib-2.0 gsl")
-                                      ) " -I")))
+                     (delete "" (split-string
+                                 (concat " " (replace-regexp-in-string " \n$" ""
+                                    (shell-command-to-string
+                                    "pkg-config --cflags glib-2.0 gsl"))
+                                         ) " -I")))
+               ;; c11 is best standard, silly c++11.
+               (setq flycheck-clang-language-standard "c11")
+               ;; Wait a bit for me to type things out guy.
+               (setq flycheck-idle-change-delay 2)
+               (setq flycheck-highlighting-mode 'symbols)
 							 (add-hook 'before-save-hook 'clang-format-buffer nil t))
              (auto-complete-mode)
              (whitespace-mode)
