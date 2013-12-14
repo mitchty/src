@@ -87,7 +87,6 @@ function homebrew_setup {
   # so why not keep it around. Compressing things on a 25k still remains
   # a fun memory.
   brew tap mitchty/mgzip && brew install mgzip --HEAD
-  brew tap mitchty/entr && brew install entr
   brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
   brew tap homebrew/dupes # need it for better rsync
   brew tap homebrew/science # need it for R
@@ -129,7 +128,7 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install htop openssl pigz pv ack git iperf nmap sntop rsync iftop tree pbzip2 bzr pngcrush wget ispell glib gsl perl518 python3 pypy mercurial rust
+  brew install htop openssl pigz pv ack git iperf nmap sntop rsync entr iftop tree pbzip2 bzr pngcrush wget ispell glib gsl perl518 python3 pypy mercurial rust
 }
 
 # ok this is workable if sudoers has:
