@@ -7,6 +7,8 @@
   "Am I running under windows?")
 (defvar osx-p (string-match "darwin" (symbol-name system-type))
   "Am I running under osx?")
+(defvar linux-p (string-match "gnu/linux" (symbol-name system-type))
+  "Am I running under linux?")
 
 ;; Yes, I miss perl chomp, sue me
 (defun chomp (str)
