@@ -48,7 +48,17 @@ function alias_other {
   alias cleandir="find . -type f \( -name '*~' -o -name '#*#' -o -name '.*~' -o -name '.#*#' -o -name 'core' -o -name 'dead.letter*' \) | grep -v auto-save-list | xargs -t rm"
 }
 
+function alias_less {
+  less=$(which less > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias T='less -f +F'
+  else
+    alias T='tail -f'
+  fi
+}
+
 function alias_setup {
+  alias_less
   alias_perl
   alias_ruby
   alias_git
