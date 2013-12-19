@@ -36,13 +36,14 @@ function extract() {
     case ${1} in
       *.tar.bz2|*.tbz2|*.tbz)  bunzip2 -c $1 | tar xvf -;;
       *.tar.gz|*.tgz)          gunzip -c $1 | tar xvf -;;
+      *.tz|*.tar.z)            zcat $1 | tar xvf -;;
+      *.tar.xz)                xz -d -c $1 | tar xvf -;;
       *.bz2)                   bunzip2 $1;;
       *.gz)                    gunzip $1;;
       *.jar|*.zip)             unzip $1;;
       *.rar)                   unrar x $1;;
       *.tar)                   tar -xvf $1;;
       *.z)                     uncompress $1;;
-      *.tz|*.tar.z)            zcat $1 | tar xvf -;;
       *)                       echo "Unable to extract <$1> Unknown extension."
     esac
   else
