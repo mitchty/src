@@ -97,7 +97,7 @@ function homebrew_setup {
   # use        ^^^^^ cause copy/paste is useful to have
   brew install tmux --wrap-pbcopy-and-pbpaste
   # make a cocoa emacs, cause normal emacs on osx is shit
-  brew install emacs --cocoa
+  brew install emacs --cocoa --srgb
 
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.

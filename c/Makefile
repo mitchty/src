@@ -1,5 +1,6 @@
 CC=cc
-CFLAGS=-O4
+CFLAGS:=-O4 $(shell pkg-config --cflags glib-2.0)
+LDFLAGS=$(shell pkg-config --libs glib-2.0)
 LIBS=
 SRC=$(wildcard *.c)
 TARGETS:=$(patsubst %.c,%,$(SRC))
@@ -19,7 +20,7 @@ clean:
 cleanly: clean all
 
 %.c:
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 bm: $(BENCHTARGETS)
 	count=$(BMCOUNT); \
