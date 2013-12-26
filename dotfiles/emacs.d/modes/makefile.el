@@ -9,7 +9,6 @@
           '(lambda ()
              (hl-line-mode)
              (smartparens-mode)
-             (linum-mode)
              (whitespace-mode)
              (visual-line-mode)
              (setq tab-width 4)))
