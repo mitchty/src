@@ -24,7 +24,6 @@
              (visual-line-mode)
              (smartparens-mode)
              (flycheck-mode)
-             (linum-mode)
              (c-toggle-auto-state 1)
              (setq-default c-basic-offset 2
                            tab-width 2
