@@ -15,6 +15,7 @@ BMCOUNT=3
 all: $(TARGETS)
 
 clean:
+	-rm $(wildcard flycheck*) > /dev/null 2>&1
 	-rm $(TARGETS) > /dev/null 2>&1
 
 cleanly: clean all
