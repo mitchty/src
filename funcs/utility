@@ -31,8 +31,6 @@ function copy {
 # extract function to automate being lazy at extracting archives.
 function extract() {
   if [[ -f $1 ]]; then
-    PATH=/sbin:/usr/sbin:/bin:/usr/bin
-    export PATH
     case ${1} in
       *.tar.bz2|*.tbz2|*.tbz)  bunzip2 -c $1 | tar xvf -;;
       *.tar.gz|*.tgz)          gunzip -c $1 | tar xvf -;;
