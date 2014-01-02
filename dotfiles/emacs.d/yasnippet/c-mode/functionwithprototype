@@ -3,7 +3,6 @@
 # key: func/
 # --
 ${1:void} ${2:function_name}(${3:args});
-
 $1 $2($3){
   $0
   return ${4:NULL};
