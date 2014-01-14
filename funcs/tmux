@@ -9,10 +9,8 @@ function tmux_hook {
       if [[ -z "$1" ]]; then
         echo "Supply a tmux session name to connect to/create"
       else
-        tmux ls | awk -F: '{print $1}' | grep foo > /dev/null 2>&1
-        if [[ $? != 0  ]]; then
-          tmux new-session -d -s $1
-        fi
+        tmux has-session -t $1 2>/dev/null
+        [[ $? != 0 ]] && tmux new-session -d -s $1
         tmux attach-session -d -t $1
       fi
     }
