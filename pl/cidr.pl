@@ -130,8 +130,9 @@ sub cidr2raw {
 
 foreach my $arg (@ARGV){
   my %stuff = cidr2raw($arg);
-  printf("%s/%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n",
+  printf("%s/%s is %s/%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n%-12s\t%s\n",
              $stuff{"inet4"},$stuff{"cidr"},
+             $stuff{"network"},$stuff{"cidr"},
              "Netmask",$stuff{"netmask"},
              "Broadcast",$stuff{"broadcast"},
              "Network",$stuff{"network"},
