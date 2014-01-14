@@ -65,7 +65,7 @@ sub cidr2raw {
   };
 
   #
-  # Handle the netmask/cidr for the right hand side, 
+  # Handle the netmask/cidr for the right hand side,
   #
   # All input netmasks are converted to a cidr address for notation
   if ($rhs =~ qr/^(\d+)$/){ # /cidr
