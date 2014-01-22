@@ -4,6 +4,8 @@ glib_slist?
 glib_slist??
 glib_list?
 glib_list??
+glib_array?
+glib_array??
 flycheck*
 *naive
 *save
