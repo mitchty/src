@@ -23,9 +23,3 @@ if has("autocmd")
 else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
-" source common things
-so $HOME/.vim/common.vim
-" For clojure
-let g:clj_highlight_builtins=1
-au Bufenter,Bufnewfile *.clj setfiletype clojure
-au Bufenter,Bufnewfile *.clj setl lisp
