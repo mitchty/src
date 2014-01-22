@@ -1,0 +1,10 @@
+glib_hash?
+glib_hash??
+glib_slist?
+glib_slist??
+glib_list?
+glib_list??
+flycheck*
+*naive
+*save
+syslog_exec
