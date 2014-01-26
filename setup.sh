@@ -74,7 +74,15 @@ function python_setup {
 function homebrew_setup {
   brew_home=${HOME}/homebrew
   if [[ ! -d ${brew_home} ]]; then
-    (cd ${HOME} && git clone https://github.com/mxcl/homebrew)
+    (
+      cd ${HOME} &&
+      git clone https://github.com/Homebrew/homebrew &&
+      # Needed so I can get --with-static until its merged into mainline
+      # homebrew, maybe if at this point.
+      cd ${HOME}/homebrew &&
+      git remote add mitchty https://github.com/mitchty/homebrew &&
+      git merge --no-edit mitchty/master
+    )
   fi
 
   PATH=${brew_home}/bin:${PATH}
@@ -98,6 +106,11 @@ function homebrew_setup {
   brew install tmux --wrap-pbcopy-and-pbpaste
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa --srgb
+
+  # So I can have static glib archive as its not yet in mainline homebrew for
+  # over a month, still waiting on the merge request.
+  # Merge request is https://github.com/Homebrew/homebrew/pull/25505
+  brew install glib --with-static
 
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
