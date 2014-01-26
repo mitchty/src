@@ -141,7 +141,9 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install htop openssl pigz pv ack git iperf nmap sntop rsync entr iftop tree pbzip2 bzr pngcrush wget ispell glib gsl perl518 python3 pypy mercurial rust
+  brew install ag htop openssl pigz xz pv ack git iperf nmap sntop rsync \
+    entr iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy \
+    mercurial go rust
 }
 
 # ok this is workable if sudoers has:
