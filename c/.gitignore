@@ -6,6 +6,8 @@ glib_list?
 glib_list??
 glib_array?
 glib_array??
+glib_gtree?
+glib_gtree??
 flycheck*
 *naive
 *save
