@@ -118,7 +118,9 @@ function homebrew_setup {
   pip install --upgrade setuptools
   pip install --upgrade pip
   pip install docutils;
-  brew tap mpv-player/mpv && brew install --HEAD libass-ct && brew install mpv --with-bundle
+  brew tap mpv-player/mpv &&
+  brew install --HEAD libass-ct &&
+  brew install mpv --with-bundle
 
   # Link mpv/emacs.app into ~/Applications
   home_app_dir=${HOME}/Applications
@@ -128,13 +130,13 @@ function homebrew_setup {
   # Remove the stupid python .app links, this was simpler when I could
   # not have mpv require docutils as I could just leave it at the end.
   for crap in "Build Applet.app" "IDLE.app" "Python Launcher.app"; do
-    [[ -e ~/Applications/"${crap}" ]] && rm ~/Applications/"${crap}"
+    if [[ -e ~/Applications/"${crap}" ]]; then
+      stupid_app="${HOME}/Applications/${crap}"
+      echo rm ${stupid_app}
+      rm "${stupid_app}"
+    fi
   done
 
-  # Install go 1.2 now that its out, compiles on mavericks at least.
-  brew install go
-
-  # setup llvm with clang/address sanitizer
   brew install llvm34 --with-clang --HEAD
 
   # just install vanilla postgres no language support needed really.
