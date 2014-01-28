@@ -17,6 +17,12 @@ Maid.rules do
 
   case %x/uname -s/.chomp
   when 'Darwin'
+    rule 'Clean old homebrew cache' do
+      dir('/Library/Caches/Homebrew/*.tar.*').each do |path|
+        trash path if (File.mtime(path) < (RUN_TIME - (DAY_SECONDS * 93)))
+      end
+    end
+
     rule 'Move destroyallsoftware movies to ~/Movies' do
       move(dir('~/Downloads/das*.mov'), '~/Movies')
     end
