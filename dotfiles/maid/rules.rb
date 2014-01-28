@@ -27,7 +27,7 @@ Maid.rules do
 
     rule 'Clear out stupid Flash crap.' do
       dir('~/Library/Preferences/Macromedia/Flash Player/\#SharedObjects/*').each do |path|
-        trash path if (File.atime(path) < (RUN_TIME - WEEK))
+        trash path if (File.mtime(path) < (RUN_TIME - WEEK))
       end
     end
   when 'Linux'
