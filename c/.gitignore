@@ -9,6 +9,7 @@ glib_array??
 glib_gtree?
 glib_gtree??
 flycheck*
+hash
 *naive
 *save
 syslog_exec
