@@ -52,3 +52,5 @@
   postBuffer = 209715200
 [push]
   default = simple
+[url "https://"]
+	insteadOf = git://
