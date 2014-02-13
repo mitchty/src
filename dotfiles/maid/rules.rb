@@ -9,10 +9,6 @@ Maid.rules do
 
   # Common to multiple platform(s) stuff.
   def clean_download_dir
-    dir('~/Downloads/*').each do |path|
-      trash path if ((File.atime(path) < (RUN_TIME - (WEEK * 2))) or
-                     (path =~ /.*[.]torrent/))
-    end
   end
 
   case %x/uname -s/.chomp
@@ -21,10 +17,6 @@ Maid.rules do
       dir('/Library/Caches/Homebrew/*.tar.*').each do |path|
         trash path if (File.mtime(path) < (RUN_TIME - (DAY_SECONDS * 93)))
       end
-    end
-
-    rule 'Move destroyallsoftware movies to ~/Movies' do
-      move(dir('~/Downloads/das*.mov'), '~/Movies')
     end
 
     rule 'Old files downloaded while developing/testing' do
