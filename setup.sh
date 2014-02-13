@@ -112,6 +112,9 @@ function homebrew_setup {
   # Merge request is https://github.com/Homebrew/homebrew/pull/25505
   brew install glib --with-static
 
+  # Need to rebuild this prior to python otherwise things break on compile.
+  brew install llvm34 --with-clang --HEAD
+
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
   brew install python
@@ -136,8 +139,6 @@ function homebrew_setup {
       rm "${stupid_app}"
     fi
   done
-
-  brew install llvm34 --with-clang --HEAD
 
   # just install vanilla postgres no language support needed really.
   brew install postgres --no-perl --no-tcl --without-python
