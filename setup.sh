@@ -89,6 +89,7 @@ function homebrew_setup {
   brew tap homebrew/dupes # need it for better rsync
   brew tap homebrew/science # need it for R
   brew tap homebrew/versions # for perl/maybe llvm34 dunno
+  brew tap staticfloat/julia # julia yo
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
@@ -136,7 +137,7 @@ function homebrew_setup {
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install ag htop openssl pigz xz pv ack git iperf nmap sntop rsync \
     entr iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy \
-    mercurial go rust
+    mercurial go rust gfortran r julia
 }
 
 # ok this is workable if sudoers has:
