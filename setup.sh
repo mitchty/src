@@ -73,17 +73,7 @@ function python_setup {
 
 function homebrew_setup {
   brew_home=${HOME}/homebrew
-  if [[ ! -d ${brew_home} ]]; then
-    (
-      cd ${HOME} &&
-      git clone https://github.com/Homebrew/homebrew &&
-      # Needed so I can get --with-static until its merged into mainline
-      # homebrew, maybe if at this point.
-      cd ${HOME}/homebrew &&
-      git remote add mitchty https://github.com/mitchty/homebrew &&
-      git merge --no-edit mitchty/master
-    )
-  fi
+  [[ ! -d ${brew_home} ]] && (cd ${HOME} && git clone https://github.com/Homebrew/homebrew)
 
   PATH=${brew_home}/bin:${PATH}
 
