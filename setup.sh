@@ -103,7 +103,7 @@ function homebrew_setup {
   brew install glib --with-static
 
   # Need to rebuild this prior to python otherwise things break on compile.
-  brew install llvm34 --with-clang --HEAD
+  brew install llvm --with-clang --with-asan
 
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.

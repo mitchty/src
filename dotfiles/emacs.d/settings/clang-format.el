@@ -3,7 +3,7 @@
 (when osx-p
   (setq exec-path
         (append exec-path
-                '("/Users/mitch/homebrew/Cellar/llvm34/HEAD/lib/llvm-3.4/bin"))))
+                '("/Users/mitch/homebrew/Cellar/llvm/3.4/bin"))))
 (when linux-p
   (setq exec-path (append '("/home/mitch/local/bin") exec-path)))
 
