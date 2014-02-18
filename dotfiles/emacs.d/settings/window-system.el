@@ -5,7 +5,8 @@
   ;; setup fonts as appropriate
   (cond (osx-p
          ;; osx nonsense
-         (set-face-attribute 'default nil :font "Menlo 14"))
+         (set-face-attribute 'default nil :foundry "apple" :family "Source Code Pro 12")
+				 )
         (t
          ;; assuming linux for the rest for now, no need for windows
          (set-face-attribute 'default nil :font "Menlo 12")
