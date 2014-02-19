@@ -135,7 +135,7 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install ag htop openssl pigz xz pv ack git iperf nmap sntop rsync \
+  brew install argtable ag htop openssl pigz xz pv ack git iperf nmap sntop rsync \
     entr iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy \
     mercurial go rust gfortran r julia
 }
