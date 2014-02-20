@@ -19,8 +19,14 @@ Maid.rules do
 
   case %x/uname -s/.chomp
   when 'Darwin'
-    rule 'Clean old homebrew cache' do
+    rule '/Library/Caches/Homebrew/' do
       dir('/Library/Caches/Homebrew/*.tar.*').each do |path|
+        trash path if File.mtime(path) < THREE_MONTHS_AGO
+      end
+      dir('/Library/Caches/Homebrew/*.tgz').each do |path|
+        trash path if File.mtime(path) < THREE_MONTHS_AGO
+      end
+      dir('/Library/Caches/Homebrew/*.tbz').each do |path|
         trash path if File.mtime(path) < THREE_MONTHS_AGO
       end
     end
