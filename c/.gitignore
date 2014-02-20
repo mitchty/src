@@ -8,6 +8,8 @@ glib_array?
 glib_array??
 glib_tree?
 glib_tree??
+glib_queue?
+glib_queue??
 flycheck*
 hash
 *naive
