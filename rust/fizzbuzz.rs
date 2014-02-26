@@ -1,30 +1,36 @@
-extern mod extra;
-use extra::comm::DuplexStream;
+fn is_three(num: int) -> bool {
+    return  num % 3 == 0;
+}
 
-fn plus_one(channel: &DuplexStream<int, int>) {
-    let mut value: int;
-    loop {
-        value = channel.recv();
-        channel.send(value + 1);
-        if value == 0 {break;}
-    }
+fn is_five(num: int) -> bool {
+    return  num % 5 == 0;
 }
 
 fn main() {
-    let (from_child, to_child) = DuplexStream();
-
-    do spawn {
-        plus_one(&to_child);
+    for num in range(1,101) {
+        let mut answer = ~"";
+        if is_three(num) {
+            answer = answer + "Fizz";
+        }
+        if is_five(num){
+            answer = answer + "Buzz";
+        }
+        if answer == ~""{
+            println(num.to_str());
+        } else {
+           println(num.to_str() + " " + answer);
+        }
     }
+}
 
-    from_child.try_send(22);
-    from_child.try_send(23);
-    from_child.send(24);
-    from_child.send(25);
-    from_child.send(0);
+#[test]
+fn test_is_three() {
+    assert!(is_three(3))
+    assert!(!is_three(1))
+}
 
-    do 4.times {
-        let answer = from_child.recv();
-        println(answer.to_str());
-    }
+#[test]
+fn test_is_five() {
+    assert!(is_five(5))
+    assert!(!is_five(1))
 }
