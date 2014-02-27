@@ -7,3 +7,5 @@ export CLICOLOR=1
 export LSCOLORS="gxcxcxdxbxegedabagacad"
 
 [[ -d ${HOME}/homebrew ]] && unshiftem ${HOME}/homebrew
+
+function unfuck() {  nm $1 | c++filt -p -i }

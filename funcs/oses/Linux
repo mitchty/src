@@ -3,3 +3,5 @@
 pscolors='y'
 
 alias ls='ls --color=auto'
+
+function unfuck() {  nm -C $1 }
