@@ -98,3 +98,9 @@ function cptmp {
 function q {
   ssh -q $1 'touch ~/no-tmux' && ssh -q $1
 }
+
+function gh  {
+  repo=${HOME}/gits/github.com/${1}
+  [[ ! -d ${repo} ]] && mkdir -p ${repo}
+  git clone https://github.com/${1} ${repo}
+}
