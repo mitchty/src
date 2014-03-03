@@ -5,13 +5,6 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (global-set-key "\C-x\C-m" 'compile)
-             ;; buffer local save hook
-             (setq flycheck-clang-include-path
-               (delete "" (split-string
-                 (concat " " (replace-regexp-in-string " \n$" ""
-                   (shell-command-to-string
-                     "pkg-config --cflags glib-2.0 gsl"))
-                   ) " -I")))
              ;; c11 is best standard, silly c++11.
              (setq flycheck-clang-language-standard "c11")
              ;; Wait a bit for me to type things out guy.
