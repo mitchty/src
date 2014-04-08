@@ -4,8 +4,6 @@
       '(
         dash
         s
-        smartrep
-        fixmee
         string-utils
         list-utils
         flycheck
@@ -32,11 +30,9 @@
         go-mode
         rust-mode
         yasnippet
-        diff-hl
         figlet
         ido-sort-mtime
         org-readme
-        puppet-mode
         yaml-mode
         move-text
         smartparens
