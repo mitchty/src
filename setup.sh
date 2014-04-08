@@ -4,7 +4,7 @@ dir=$(cd $(dirname $0) && echo $(pwd))
 file=$(basename $0)
 
 src_dir=$(echo ${dir} | sed -e "s|${HOME}\/||g")
-export PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
 local_files=${local_files:=yes}
 dothome=${src_dir}/dotfiles
 dotlocal=site/local/dotfiles
@@ -86,6 +86,8 @@ function homebrew_setup {
   # a fun memory.
   brew tap mitchty/mgzip && brew install mgzip --HEAD
   brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
+  brew tap mitchty/yuck && brew install yuck
+
   brew tap homebrew/dupes # need it for better rsync
   brew tap homebrew/science # need it for R
   brew tap homebrew/versions # for perl/maybe llvm34 dunno
@@ -111,7 +113,8 @@ function homebrew_setup {
   brew install python
   pip install --upgrade setuptools
   pip install --upgrade pip
-  pip install docutils;
+  pip install docutils
+  pip install howdoi
   brew tap mpv-player/mpv &&
   brew install --HEAD libass-ct &&
   brew install mpv --with-bundle
