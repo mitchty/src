@@ -6,6 +6,11 @@ export BC_EVN_ARGS='-lq'
 export CLICOLOR=1
 export LSCOLORS="gxcxcxdxbxegedabagacad"
 
-[[ -d ${HOME}/homebrew ]] && unshiftem ${HOME}/homebrew
+_homebrew=${HOME}/homebrew
+
+if [[ -d ${_homebrew} ]]; then
+  unshiftem ${HOME}/homebrew
+  export XML_CATALOG_FILES=/Users/mitch/homebrew/etc/xml/catalog
+fi
 
 function unfuck() {  nm $1 | c++filt -p -i }
