@@ -1,14 +1,9 @@
 ;;-*-mode: emacs-lisp; coding: utf-8;-*-
 
-;; Mouse mode is ok to use
-(mouse-wheel-mode t)
-(mwheel-install)
+(when window-system
+  (tool-bar-mode -1))
 
-;; Nuke the stupid toolbar, put the scroll bar on the right (sic) side
-(tool-bar-mode -1)
+(when window-system
+	(scroll-bar-mode -1))
 
-;; Screw the scrollbar, don't need it
-(scroll-bar-mode -1)
-
-;; Meh, menu-bar is annoying me lately
 (menu-bar-mode -1)
