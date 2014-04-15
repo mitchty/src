@@ -80,18 +80,11 @@ function homebrew_setup {
   # Find out when crap breaks faster...ish
   set -e
   # brew taps
-  #
-  # mgzip is more for shits cause pigz is better but it compiles still
-  # so why not keep it around. Compressing things on a 25k still remains
-  # a fun memory.
-  brew tap mitchty/mgzip && brew install mgzip --HEAD
-  brew tap mitchty/fruitstrap && brew install fruitstrap --HEAD
   brew tap mitchty/yuck && brew install yuck
 
   brew tap homebrew/dupes # need it for better rsync
   brew tap homebrew/science # need it for R
   brew tap homebrew/versions # for perl/maybe llvm34 dunno
-  brew tap staticfloat/julia # julia yo
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
@@ -99,11 +92,6 @@ function homebrew_setup {
   brew install tmux --wrap-pbcopy-and-pbpaste
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa --srgb
-
-  # So I can have static glib archive as its not yet in mainline homebrew for
-  # over a month, still waiting on the merge request.
-  # Merge request is https://github.com/Homebrew/homebrew/pull/25505
-  brew install glib --with-static
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --with-asan
@@ -138,9 +126,9 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install argtable ag htop openssl pigz xz pv ack git iperf nmap sntop rsync \
-    entr iftop tree pbzip2 bzr pngcrush wget ispell perl518 python3 pypy \
-    mercurial go rust gfortran r julia
+  brew install asciidoc ag htop openssl pigz xz pv ack git iperf nmap\
+    sntop rsync entr iftop tree pbzip2 bzr pngcrush wget ispell perl518\
+    python3 pypy mercurial go rust r haskell-platform
 }
 
 # ok this is workable if sudoers has:
