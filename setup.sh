@@ -103,13 +103,11 @@ function homebrew_setup {
   brew install emacs --cocoa --srgb
 
   # Need to rebuild this prior to python otherwise things break on compile.
-  brew install llvm --with-clang --with-asan
+  brew install llvm --with-clang --disable-assertions
 
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
   brew install python
-  pip install --upgrade setuptools
-  pip install --upgrade pip
   pip install docutils
   pip install howdoi
   brew tap mpv-player/mpv &&
@@ -135,9 +133,50 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install asciidoc ag htop openssl pigz xz pv ack git iperf nmap\
-    sntop rsync entr iftop tree pbzip2 bzr pngcrush wget ispell perl518\
-    python3 pypy mercurial go rust r haskell-platform
+  brew install asciidoc \
+    ag \
+    htop \
+    openssl \
+    pigz \
+    xz \
+    pv \
+    ack \
+    git \
+    gpg \
+    keychain \
+    iperf \
+    nmap\
+    sntop \
+    rsync \
+    entr \
+    iftop \
+    tree \
+    pbzip2 \
+    bzr \
+    pngcrush \
+    wget \
+    ispell \
+    perl518\
+    python3 \
+    pypy \
+    mercurial \
+    go \
+    rust \
+    gcc49 \
+    r
+
+  # Keeping this separate for the moment, ghc does... interesting things
+  # with the c preprocessor, clang no likey.
+  #
+  # So basically, compile ghc from source with current gcc version.
+  # Update its settings file with the full path to said gcc
+  # (this matters as even if PATH is right, must be fully qualified)
+  #
+  # Then finally, install haskell-platform so we get cabal and stuff.
+  ghc_gcc=gcc-4.9
+  brew install ghc --build-from-source --cc=${ghc_gcc}
+  perl -pi -e "s|${ghc_gcc}|"$(which ${ghc_gcc})"|g" $(ghc-pkg list | grep conf | head -n 1 | sed -e 's/[:]$//g')/../settings
+  brew install haskell-platform
 }
 
 # ok this is workable if sudoers has:
