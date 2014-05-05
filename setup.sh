@@ -72,8 +72,17 @@ function python_setup {
 }
 
 function homebrew_setup {
+  homebrew_cache_dir=/Library/Caches/Homebrew
+  brew_cache_home=${homebrew_cache_dir}/homebrew
+  if [[ ! -d ${brew_cache_home}/.git ]]; then
+    (cd ${homebrew_cache_dir} && git clone https://github.com/homebrew/homebrew)
+  else
+    (cd ${brew_cache_home} && git pull)
+  fi
+  [[ $? != 0 ]] && echo git clone/pull failed && exit 127
+
   brew_home=${HOME}/homebrew
-  [[ ! -d ${brew_home} ]] && (cd ${HOME} && git clone https://github.com/Homebrew/homebrew)
+  rsync --hard-links --checksum -avz --progress --delete --delete-before ${brew_cache_home}/ ${brew_home}
 
   PATH=${brew_home}/bin:${PATH}
 
