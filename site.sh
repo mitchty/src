@@ -13,7 +13,7 @@ function clone
 {
   name=$*
   site_dir=${HOME}/site/${name}
-  source_url="https://mygoddamnwebsite.net/git/site-${name}.git"
+  source_url="https://mitchty@bitbucket.org/mitchty/site-${name}.git"
   if [[ ! -d ${site_dir} ]]; then
     mkdir -p ${site_dir}
     (cd ${HOME} && git clone ${source_url} ${site_dir})
