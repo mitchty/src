@@ -99,8 +99,32 @@ function q {
   ssh -q $1 'touch ~/no-tmux' && ssh -q $1
 }
 
-function gh  {
-  repo=${HOME}/gits/github.com/${1}
+function _git_repo_add
+{
+  proto=${1}
+  where=${2}
+  location=${3}
+  repo=$(echo ${HOME}/gits/${where}/${location} | sed -e 's/\.git$//g')
   [[ ! -d ${repo} ]] && mkdir -p ${repo}
-  git clone https://github.com/${1} ${repo}
+  git clone ${proto}://${where}/${location} ${repo}
+}
+
+function _git_https_repo_add
+{
+  _git_repo_add https $*
+}
+
+function _git_http_repo_add
+{
+  _git_repo_add http $*
+}
+
+function _git_git_repo_add
+{
+  _git_repo_add git $*
+}
+
+function gh
+{
+  _git_https_repo_add github.com ${1}
 }
