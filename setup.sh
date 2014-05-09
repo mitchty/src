@@ -71,7 +71,8 @@ function python_setup {
   opy install --prefix=${orb_python_base}/default --rm
 }
 
-function homebrew_setup {
+function homebrew_sync
+{
   homebrew_cache_dir=/Library/Caches/Homebrew
   brew_cache_home=${homebrew_cache_dir}/homebrew
   if [[ ! -d ${brew_cache_home}/.git ]]; then
@@ -85,6 +86,10 @@ function homebrew_setup {
   rsync --hard-links --checksum -avz --progress --delete --delete-before ${brew_cache_home}/ ${brew_home}
 
   PATH=${brew_home}/bin:${PATH}
+}
+
+function homebrew_setup {
+  homebrew_sync
 
   # Find out when crap breaks faster...ish
   set -e
@@ -173,10 +178,15 @@ function homebrew_setup {
   # (this matters as even if PATH is right, must be fully qualified)
   #
   # Then finally, install haskell-platform so we get cabal and stuff.
-  ghc_gcc=gcc-4.9
-  brew install ghc --build-from-source --cc=${ghc_gcc}
-  perl -pi -e "s|${ghc_gcc}|"$(which ${ghc_gcc})"|g" $(ghc-pkg list | grep conf | head -n 1 | sed -e 's/[:]$//g')/../settings
-  brew install haskell-platform
+  brew install ghc --build-from-source --cc=gcc-4.9
+  brew install cabal-install
+
+  cabal install happy \
+    alex \
+    ghci-ng \
+    ghc-mod \
+    structured-haskell-mode \
+    sylish-haskell
 }
 
 # ok this is workable if sudoers has:
@@ -198,6 +208,9 @@ function osx_setup {
 case $1 in
 homebrew)
   homebrew_setup
+  ;;
+homebrew_sync)
+  homebrew_sync
   ;;
 orb)
   orb_setup
