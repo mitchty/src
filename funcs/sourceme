@@ -53,7 +53,7 @@ if [[ ${prefix:+1} == 1 ]]; then
 
     # TODO: Make this go somewhere else, total hack for now.
     echo $PATH | grep ${prefix}/gits/github.com/mitchty/src > /dev/null 2>&1
-    [[ $? != 0 ]] && unshiftem "${prefix}/src"
+    [[ $? != 0 ]] && unshiftem "${prefix}/gits/github.com/mitchty/src"
 
     # Add in the bin dir if it exists to PATH
     [[ -d ${load_prefix}/bin ]] && unshiftem ${load_prefix}
