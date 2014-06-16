@@ -128,3 +128,8 @@ function gh
 {
   _git_https_repo_add github.com ${1}
 }
+
+function bb
+{
+  _git_https_repo_add bitbucket.org ${1}
+}
