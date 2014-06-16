@@ -1,5 +1,8 @@
 [alias]
   up = !sh -c 'git pull --rebase && git push'
+	# 1.8.4+ only for ignore-all-space
+  wsldiff = diff --color-words --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-all-space
+  wsdiff = diff --color-words --ignore-space-at-eol --ignore-space-change --ignore-all-space
   wdiff = diff --color-words
   ci = commit
   ciu = commit --all
