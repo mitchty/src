@@ -12,8 +12,8 @@ cd ${HOME}
 function clone
 {
   name=$*
-  site_dir=${HOME}/site/${name}
-  source_url="https://mitchty@bitbucket.org/mitchty/site-${name}.git"
+  site_dir=${HOME}/gits/bitbucket.org/mitchty/site-${name}
+  source_url="https://bitbucket.org/mitchty/site-${name}.git"
   if [[ ! -d ${site_dir} ]]; then
     mkdir -p ${site_dir}
     (cd ${HOME} && git clone ${source_url} ${site_dir})
@@ -21,8 +21,9 @@ function clone
       echo "Something went wrong cloning ${site} to ${site_dir}"
       exit 1
     fi
-  else
-    echo "${site_dir} already exists, cowardly exiting"
+  fi
+  if [[ -d ${site_dir} ]]; then
+    echo "${site_dir} already exists"
     exit 1
   fi
 }
@@ -30,14 +31,17 @@ function clone
 function link
 {
   name=$*
-  site_dir=${HOME}/site/${name}
+  site_dir=gits/bitbucket.org/mitchty/site-${name}
+
+  (cd ${HOME}
   if [[ -d ${site_dir} ]]; then
-    echo "linking ${site_dir} to ~/site/local"
-    (cd ${HOME}/site && ln -sFf ${name} local)
+    echo "linking ${site_dir} to ~/site-local"
+    ln -sFf ${site_dir} site-local
   else
     echo "site directory ${site_dir} doesn't exist, cowardly exiting"
     exit 1
   fi
+  )
 }
 
 case $1 in

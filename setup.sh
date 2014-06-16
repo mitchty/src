@@ -7,7 +7,7 @@ src_dir=$(echo ${dir} | sed -e "s|${HOME}\/||g")
 
 local_files=${local_files:=yes}
 dothome=${src_dir}/dotfiles
-dotlocal=site/local/dotfiles
+dotlocal=${HOME}/site-local/dotfiles
 
 function default {
   cd ${HOME}

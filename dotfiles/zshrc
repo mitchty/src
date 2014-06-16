@@ -143,7 +143,7 @@ if [[ $USER == 'mitch' ]]; then
   prefix=$HOME . $HOME/gits/github.com/mitchty/src/funcs/sourceme
   autoload -U compinit && compinit
 else
-  . $HOME/gits/github.com/mitchty/src/funcs/sourceme
+  . ${prefix}/gits/github.com/mitchty/src/funcs/sourceme
 fi
 
 function sr {

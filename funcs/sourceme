@@ -40,7 +40,7 @@ if [[ ${prefix:+1} == 1 ]]; then
   # keep what we get from ssh
   ORIG_TERM=${TERM}
 
-  set -A load_order ${prefix}/gits/github.com/mitchty/src/funcs ${prefix}/site/local
+  set -A load_order ${prefix}/gits/github.com/mitchty/src/funcs ${prefix}/site-local
 
   # load defaults, then site/local
   for load_prefix in ${load_order[*]}; do
