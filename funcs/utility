@@ -133,3 +133,25 @@ function bb
 {
   _git_https_repo_add bitbucket.org ${1}
 }
+
+function _cd_git_repo
+{
+  where=${1}
+  what=${2}
+  repo=$(echo "gits/${where}/${what}"| sed -e 's/\.git$//g')
+  if [[ -d ${HOME}/${repo} ]]; then
+    cd ${HOME}/${repo}
+  else
+    echo "${HOME}/${repo} doesn't exist"
+  fi
+}
+
+function cbb
+{
+  _cd_git_repo bitbucket.org $*
+}
+
+function cgh
+{
+  _cd_git_repo github.com $*
+}
