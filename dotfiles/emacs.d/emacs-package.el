@@ -11,7 +11,6 @@
         auto-complete
         auto-complete-clang-async
         magit
-        markdown-mode
         smex
         column-marker
         ruby-end
@@ -23,19 +22,19 @@
         org-pomodoro
         org-present
         color-theme
-        markdown-mode
         perl-completion
         anything
         workgroups
-        go-mode
-        rust-mode
         yasnippet
         figlet
         ido-sort-mtime
         org-readme
-        yaml-mode
         move-text
         smartparens
+        markdown-mode
+        yaml-mode
+        go-mode
+        rust-mode
         ))
 
 (package-initialize)
