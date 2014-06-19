@@ -95,10 +95,6 @@ function cptmp {
   done
 }
 
-function q {
-  ssh -q $1 'touch ~/no-tmux' && ssh -q $1
-}
-
 function _git_repo_add
 {
   proto=${1}
