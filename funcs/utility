@@ -42,6 +42,7 @@ function extract() {
       *.rar)                   unrar x $1;;
       *.tar)                   tar -xvf $1;;
       *.z)                     uncompress $1;;
+      *.rpm)                   rpm2cpio $1 | cpio -idv;;
       *)                       echo "Unable to extract <$1> Unknown extension."
     esac
   else
