@@ -93,17 +93,36 @@ function homebrew_setup {
 
   # Find out when crap breaks faster...ish
   set -e
-  # brew taps
-  brew tap mitchty/yuck && brew install yuck
 
-  brew tap homebrew/dupes # need it for better rsync
-  brew tap homebrew/science # need it for R
-  brew tap homebrew/versions # for perl/maybe llvm34 dunno
+  # So I can get git/gpg up faster, also copy the netrc credential helper
+  # so I can use gpg to decrypt ~/.netrc.gpg
+  brew install gpg git
+
+  gitver=$(brew info git 2>&1 | head -n 1 | awk '{print $3}')
+  gitinstdir=${HOME}/homebrew/Cellar/git/${gitver}
+  gitcontribnetrc=${gitinstdir}/share/git-core/contrib/credential/netrc/git-credential-netrc
+gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
+  ln -sf ${gitcontribnetrc} ${gitlibexecnetrc}
+  # My brew taps.
+  brew tap mitchty/yuck
+  brew tap mitchty/clang-scan-view
+  brew tap mitchty/clang-scan-build
+
+  # More up to date rsync
+  brew tap homebrew/dupes
+
+  # R can be useful
+  brew tap homebrew/science
+
+  # For more up to date perl/llvm at times
+  brew tap homebrew/versions
 
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
+
   # use        ^^^^^ cause copy/paste is useful to have
   brew install tmux --wrap-pbcopy-and-pbpaste
+
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa --srgb
 
@@ -138,30 +157,35 @@ function homebrew_setup {
   brew install postgres --no-perl --no-tcl --without-python
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
-  brew install asciidoc \
+  brew install \
+    yuck \
+    clang-scan-view \
+    clang-scan-build \
+    asciidoc \
     ag \
     htop \
     openssl \
     pigz \
     xz \
+    pixz \
+    pbzip2 \
     pv \
     ack \
-    git \
-    gpg \
     keychain \
     iperf \
     nmap\
     sntop \
     rsync \
+    unison \
     entr \
     iftop \
     tree \
-    pbzip2 \
     bzr \
     pngcrush \
     wget \
     ispell \
-    perl518\
+    ruby \
+    perl518 \
     python3 \
     pypy \
     mercurial \
