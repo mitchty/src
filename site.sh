@@ -12,7 +12,7 @@ cd ${HOME}
 function clone
 {
   name=$*
-  site_dir=${HOME}/gits/bitbucket.org/mitchty/site-${name}
+  site_dir=${HOME}/Developer/bitbucket.org/mitchty/site-${name}
   source_url="https://bitbucket.org/mitchty/site-${name}.git"
   if [[ ! -d ${site_dir} ]]; then
     mkdir -p ${site_dir}
@@ -31,7 +31,7 @@ function clone
 function link
 {
   name=$*
-  site_dir=gits/bitbucket.org/mitchty/site-${name}
+  site_dir=~/Developer/bitbucket.org/mitchty/site-${name}
 
   (cd ${HOME}
   if [[ -d ${site_dir} ]]; then

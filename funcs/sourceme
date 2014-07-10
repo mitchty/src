@@ -40,7 +40,7 @@ if [[ ${prefix:+1} == 1 ]]; then
   # keep what we get from ssh
   ORIG_TERM=${TERM}
 
-  set -A load_order ${prefix}/gits/github.com/mitchty/src/funcs ${prefix}/site-local
+  set -A load_order ${prefix}/Developer/github.com/mitchty/src/funcs ${prefix}/site-local
 
   # load defaults, then site/local
   for load_prefix in ${load_order[*]}; do
@@ -52,8 +52,8 @@ if [[ ${prefix:+1} == 1 ]]; then
     done
 
     # TODO: Make this go somewhere else, total hack for now.
-    echo $PATH | grep ${prefix}/gits/github.com/mitchty/src > /dev/null 2>&1
-    [[ $? != 0 ]] && unshiftem "${prefix}/gits/github.com/mitchty/src"
+    echo $PATH | grep ${prefix}/Developer/github.com/mitchty/src > /dev/null 2>&1
+    [[ $? != 0 ]] && unshiftem "${prefix}/Developer/github.com/mitchty/src"
 
     # Add in the bin dir if it exists to PATH
     [[ -d ${load_prefix}/bin ]] && unshiftem ${load_prefix}

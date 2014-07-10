@@ -101,7 +101,7 @@ function _git_repo_add
   proto=${1}
   where=${2}
   location=${3}
-  repo=$(echo ${HOME}/gits/${where}/${location} | sed -e 's/\.git$//g')
+  repo=$(echo ${HOME}/Developer/${where}/${location} | sed -e 's/\.git$//g')
   [[ ! -d ${repo} ]] && mkdir -p ${repo}
   git clone ${proto}://${where}/${location} ${repo}
 }
@@ -136,7 +136,7 @@ function _cd_git_repo
   proto=${1}
   where=${2}
   what=${3}
-  repo=$(echo "gits/${where}/${what}"| sed -e 's/\.git$//g')
+  repo=$(echo "Developer/${where}/${what}"| sed -e 's/\.git$//g')
   if [[ -d ${HOME}/${repo} ]]; then
     cd ${HOME}/${repo}
   else

@@ -6,7 +6,7 @@ function emacs_hook {
   if [[ $? == 0 ]]; then
     function ee
     {
-      . ${HOME}/gits/github.com/mitchty/src/orb/orb.sh
+      . ${HOME}/Developer/github.com/mitchty/src/orb/orb.sh
       opl use emacs
       orb use emacs
     }

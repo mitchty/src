@@ -140,10 +140,10 @@ bindkey -e
 
 prefix=${prefix:=$HOME}
 if [[ $USER == 'mitch' ]]; then
-  prefix=$HOME . $HOME/gits/github.com/mitchty/src/funcs/sourceme
+  prefix=$HOME . $HOME/Developer/github.com/mitchty/src/funcs/sourceme
   autoload -U compinit && compinit
 else
-  . ${prefix}/gits/github.com/mitchty/src/funcs/sourceme
+  . ${prefix}/Developer/github.com/mitchty/src/funcs/sourceme
 fi
 
 function sr {
