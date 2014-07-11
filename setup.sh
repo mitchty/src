@@ -194,23 +194,10 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     gcc49 \
     r
 
-  # Keeping this separate for the moment, ghc does... interesting things
-  # with the c preprocessor, clang no likey.
-  #
-  # So basically, compile ghc from source with current gcc version.
-  # Update its settings file with the full path to said gcc
-  # (this matters as even if PATH is right, must be fully qualified)
-  #
-  # Then finally, install haskell-platform so we get cabal and stuff.
-  brew install ghc --build-from-source --cc=gcc-4.9
-  brew install cabal-install
-
-  cabal install happy \
-    alex \
-    ghci-ng \
-    ghc-mod \
-    structured-haskell-mode \
-    sylish-haskell
+  # Perl module crap
+  export PATH=$(brew --prefix perl518):${PATH}
+  curl -L http://cpanmin.us | perl - App::cpanminus
+  cpanm App::rainbarf Perl::Tidy Perl::Critic
 }
 
 # ok this is workable if sudoers has:
