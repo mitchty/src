@@ -35,6 +35,7 @@
         yaml-mode
         go-mode
         rust-mode
+				haskell-mode
         ))
 
 (package-initialize)
