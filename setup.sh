@@ -183,7 +183,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # Perl module crap
   export PATH=$(brew --prefix perl518):${PATH}
   curl -L http://cpanmin.us | perl - App::cpanminus
-  cpanm App::rainbarf App::ack Perl::Tidy Perl::Critic
+  cpanm App::rainbarf App::Ack Perl::Tidy Perl::Critic
 
   # ruby gem crap
   gem install --no-ri --no-rdoc pry maid
