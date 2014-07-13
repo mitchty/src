@@ -140,21 +140,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install --HEAD libass-ct &&
   brew install mpv --with-bundle
 
-  # Link mpv/emacs.app into ~/Applications
-  home_app_dir=${HOME}/Applications
-  [[ ! -d ${home_app_dir} ]] && mkdir -p ${home_app_dir}
-  brew linkapps --local
-
-  # Remove the stupid python .app links, this was simpler when I could
-  # not have mpv require docutils as I could just leave it at the end.
-  for crap in "Build Applet.app" "IDLE.app" "Python Launcher.app"; do
-    if [[ -e ~/Applications/"${crap}" ]]; then
-      stupid_app="${HOME}/Applications/${crap}"
-      echo rm ${stupid_app}
-      rm "${stupid_app}"
-    fi
-  done
-
   # just install vanilla postgres no language support needed really.
   brew install postgres --no-perl --no-tcl --without-python
 
