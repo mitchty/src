@@ -11,7 +11,10 @@ _homebrew=${HOME}/homebrew
 if [[ -d ${_homebrew} ]]; then
   unshiftem ${HOME}/homebrew
   export XML_CATALOG_FILES=${HOME}/homebrew/etc/xml/catalog
-  unshiftem $(brew --prefix perl518)
+  brew=$(which brew > /dev/null 2>&1)
+  if [[ $? == 0 ]]; then
+    unshiftem $(brew --prefix perl518)
+  fi
 fi
 
 _ghc_app=${HOME}/Applications/ghc-7.8.2.app
