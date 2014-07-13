@@ -119,6 +119,9 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # For more up to date perl/llvm at times
   brew tap homebrew/versions
 
+  # This video player is rather spartan, and nice
+  brew tap mpv-player/mpv
+
   # Make tmux and copy/paste useful
   brew install reattach-to-user-namespace
 
@@ -136,12 +139,21 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install python
   pip install docutils
   pip install howdoi
-  brew tap mpv-player/mpv &&
   brew install --HEAD libass-ct &&
   brew install mpv --with-bundle
 
   # just install vanilla postgres no language support needed really.
   brew install postgres --no-perl --no-tcl --without-python
+
+  # Setup ruby junk
+  brew install ruby
+  gem install --no-ri --no-rdoc pry maid
+
+  # perl crap
+  brew install perl518
+  export PATH=$(brew --prefix perl518):${PATH}
+  curl -L http://cpanmin.us | perl - App::cpanminus
+  cpanm App::rainbarf Perl::Tidy Perl::Critic
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
@@ -170,8 +182,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     pngcrush \
     wget \
     ispell \
-    ruby \
-    perl518 \
     python3 \
     pypy \
     mercurial \
@@ -180,14 +190,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     gcc49 \
     r \
     ack
-
-  # Perl module crap
-  export PATH=$(brew --prefix perl518):${PATH}
-  curl -L http://cpanmin.us | perl - App::cpanminus
-  cpanm App::rainbarf Perl::Tidy Perl::Critic
-
-  # ruby gem crap
-  gem install --no-ri --no-rdoc pry maid
 }
 
 # ok this is workable if sudoers has:
