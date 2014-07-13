@@ -94,6 +94,8 @@ function homebrew_setup {
   # Find out when crap breaks faster...ish
   set -e
 
+  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
+
   # So I can get git/gpg up faster, also copy the netrc credential helper
   # so I can use gpg to decrypt ~/.netrc.gpg
   brew install gpg git
