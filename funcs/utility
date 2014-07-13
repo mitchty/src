@@ -137,9 +137,20 @@ function _cd_git_repo
   where=${2}
   what=${3}
   repo=$(echo "Developer/${where}/${what}"| sed -e 's/\.git$//g')
-  if [[ -d ${HOME}/${repo} ]]; then
-    cd ${HOME}/${repo}
-  else
-    _git_repo_add $*
+  full_repo=${HOME}/${repo}
+  [[ ! -d ${full_repo} ]] &&  _git_repo_add $*
+
+  if [[ $? != 0 ]]; then
+    # Try removing up to ~/Developer at worst empty directories.
+    # Cheap trick, but oldies are goodies.
+    (
+      until [[ ${full_repo} == "${HOME}/Developer" ]]; do
+        cd ${full_repo} > /dev/null 2>&1
+        rmdir ${full_repo} > /dev/null 2>&1
+        full_repo=$(echo ${full_repo} | sed -e 's/\/[^\/]*$//g')
+      done
+    )
   fi
+
+  [[ -d ${full_repo} ]] && cd ${full_repo}
 }
