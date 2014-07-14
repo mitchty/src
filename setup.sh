@@ -31,46 +31,6 @@ function default {
   done
 }
 
-function orb_setup {
-  orb_source=${HOME}/.orb/orb.sh
-  [[ -f ${orb_source} ]] && . ${orb_source}
-}
-
-function ruby_setup {
-  orb_setup
-
-  # According to ... someone on the ruby core team the openssl
-  # library that ships with 10.8 (maybe 7?) is bad and it refuses to
-  # compile openssl, so gem fails to do anything useful with https
-  # connections, so on osx use the brew installed openssl library
-  if [[ "$(os_type)" == "osx" ]]; then
-    export CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl)"
-  fi
-
-  orb install --prefix=${orb_ruby_base}/default --rm
-  orb use default
-  gem install pry pry-doc pry-debugger pry-stack_explorer jist jekyll huffshell teamocil maid httparty nokogiri rainbow
-  if [[ "$(os_type)" == "osx" ]]; then
-    gem install cocoapods
-  fi
-  orb install --prefix=${orb_ruby_base}/emacs -rm
-}
-
-function perl_setup {
-  orb_setup
-  opl install --prefix=${orb_perl_base}/default --no-test --rm
-  opl use emacs
-  cpanm Perl::Tidy Perl::Critic
-  opl install --prefix=${orb_perl_base}/emacs --no-test -rm
-  opl use emacs
-  cpanm Perl::Tidy Perl::Critic
-}
-
-function python_setup {
-  orb_setup
-  opy install --prefix=${orb_python_base}/default --rm
-}
-
 function homebrew_sync
 {
   homebrew_cache_dir=/Library/Caches/Homebrew
@@ -215,18 +175,6 @@ homebrew)
 homebrew_sync)
   homebrew_sync
   ;;
-orb)
-  orb_setup
-  ;;
-ruby)
-  ruby_setup
-  ;;
-perl)
-  perl_setup
-  ;;
-python)
-  python_setup
-  ;;
 osx)
   osx_setup
   ;;
@@ -236,10 +184,6 @@ home)
     $? && $0 osx_setup && $0 homebrew
   fi
   $? && \
-  $0 orb && \
-  $0 ruby && \
-  $0 perl && \
-  $0 python
   ;;
 links)
   default
