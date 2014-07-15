@@ -183,10 +183,7 @@ home)
   if [[ "$(os_type)" == "osx" ]]; then
     $? && $0 osx_setup && $0 homebrew
   fi
-  $? && \
-  ;;
-links)
-  default
+  exit $?
   ;;
 *)
   default
