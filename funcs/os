@@ -69,7 +69,7 @@ function os_type {
       osreleasefile=$redhatreleasefile
     elif [[ $(os_uname_s) == 'SunOS' ]]; then
       ostype='sun'
-    elif [[ -f '/mach_kernel' ]]; then
+    elif [[ $(os_uname_s) == 'Darwin' ]]; then
       ostype='osx'
     elif [[ -f $freebsdreleasefile ]]; then
       ostype='bsd'
