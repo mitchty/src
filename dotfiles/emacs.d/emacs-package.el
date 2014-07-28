@@ -23,11 +23,9 @@
         org-present
         color-theme
         perl-completion
-        anything
         workgroups
         yasnippet
         figlet
-        ido-sort-mtime
         org-readme
         move-text
         smartparens
