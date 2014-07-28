@@ -16,6 +16,20 @@
   (let ((s (if (symbolp str) (symbol-name str) str)))
   (replace-regexp-in-string "\\(^[[:space:]\n]*\\|[[:space:]\n]*$\\)" "" s)))
 
+;; I'm not about to redo logic to setup PATH in emacs that I have in
+;; .profile/.*shrc crap.
+;; So, just use whatever PATH had when we were run.
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell
+	 (shell-command-to-string "$SHELL -i -c 'echo $PATH'")))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+;; This is really only needed when the gui emacs runs.
+(if osx-p
+		(set-exec-path-from-shell-PATH)
+	)
+
 ;; Base directory
 (defvar load-base "~/.emacs.d" "Where the emacs directory is kept")
 
