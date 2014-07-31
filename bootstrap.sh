@@ -14,8 +14,13 @@ dotlocal=${HOME}/site-local/dotfiles
 base=${HOME}/Developer/github.com/mitchty
 
 function default {
-  [[ ! -d ${base} ]] && mkdir -p ${base}
-  git clone https://github.com/mitchty/src ${base}/src
+  if [[ ! -d ${base} ]]; then
+    mkdir -p ${base}
+    git clone https://github.com/mitchty/src ${base}/src
+  else
+    cd ${base}/src
+    git pull
+  fi
   cd ${HOME}
 
   dotdirs=(${dothome})
