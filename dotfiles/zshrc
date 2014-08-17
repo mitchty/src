@@ -146,6 +146,8 @@ else
   . ${prefix}/Developer/github.com/mitchty/src/funcs/sourceme
 fi
 
+[[ ${ostype} == 'osx' ]] && alias o='open -a'
+
 function sr {
   zomgwho='root'
   if [[ -n $1 ]]; then
