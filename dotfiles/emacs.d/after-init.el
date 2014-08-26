@@ -11,3 +11,4 @@
 (require 'shm)
 (require 'helm-config)
 (helm-mode 1)
+(color-theme-solarized-light)
