@@ -2,6 +2,7 @@
 (require 'package)
 (setq my-packages
       '(
+				helm
         dash
         s
         string-utils
