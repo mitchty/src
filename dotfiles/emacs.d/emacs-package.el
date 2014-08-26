@@ -35,6 +35,7 @@
         go-mode
         rust-mode
         haskell-mode
+				color-theme-solarized
         ))
 
 (package-initialize)
