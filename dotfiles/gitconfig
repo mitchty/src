@@ -55,9 +55,7 @@
   postBuffer = 209715200
 [push]
   default = simple
-[url "https://github.com"]
-	insteadOf = git://
-[url "https://bitbucket.org"]
-	insteadOf = git://
+#[url "https://bitbucket.org"]
+#	insteadOf = git://bitbucket.org
 [credential]
 	helper = netrc -v -f ~/.netrc.gpg -f ~/.netrc

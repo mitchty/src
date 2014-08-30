@@ -12,3 +12,5 @@
 (require 'helm-config)
 (helm-mode 1)
 (color-theme-solarized-light)
+(set-face-background 'shm-current-face "#eee8d5")
+(set-face-background 'shm-quarantine-face "lemonchiffon")

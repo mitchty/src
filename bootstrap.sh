@@ -170,7 +170,54 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     ack
 }
 
+function cabal_init
+{
+  dotcabal=${HOME}/.cabal
+  dotghc=${HOME}/.ghc
+  [[ -d ${dotcabal} ]] && rm -fr ${dotcabal}
+  [[ -d ${dotghc} ]] && rm -fr ${dotghc}
+  cabal update
+  cabal install yesod-bin
+#  cabal install cabal-install
+  cabal install happy
+  cabal install alex
+  cabal install c2hs
+  cabal install hi
+  cabal install hlint
+  cabal install hspec
+  cabal install cgrep
+  cabal install pandoc
+  cabal install shake
+  cabal install ghc-mod
+  cabal install shelly shelly-extra
+  cabal install cabal-meta
+  cabal install system-argv0
+  cabal install executable-path
+  cabal install command
+  cabal install hoogle
+  cabal install optparse-applicative
+  cabal install regex-compat
+  cabal install stylish-haskell
+  cabal install hasktags
+#    present
+}
+
+function cabal_backup
+{
+  dotcabal=${HOME}/.cabal
+  dotghc=${HOME}/.ghc
+  epoch=$(date +%s)
+  backup_file=${HOME}/cabal-backup-${epoch}.txz
+  (cd ${HOME} &&  tar cf - ${dotcabal} ${dotghc} | pixz -9 -o ${backup_file})
+}
+
 case $1 in
+cabal)
+  cabal_init
+  ;;
+cabal-backup)
+  cabal_backup
+  ;;
 homebrew)
   homebrew_setup
   ;;
