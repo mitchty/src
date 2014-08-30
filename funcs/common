@@ -65,6 +65,18 @@ function unshift_manpath {
 # le piece(s) de la resistance, do all the above crap to PATH/MANPATH
 # as needed, being lazy is aaaaaaweeeesooooome...
 
+function pushp
+{
+  push_manpath $1
+  push_path $1
+}
+
+function unshiftp
+{
+  unshift_manpath $1
+  unshift_path $1
+}
+
 function pushem {
   push_manpath $1
   push_path $1
