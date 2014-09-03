@@ -67,6 +67,10 @@ function homebrew_setup {
 
   export HOMEBREW_BUILD_FROM_SOURCE=yesplease
 
+  brew install reattach-to-user-namespace
+  brew install tmux --wrap-pbcopy-and-pbpaste
+  brew install mobile-shell
+
   # So I can get git/gpg up faster, also copy the netrc credential helper
   # so I can use gpg to decrypt ~/.netrc.gpg
   brew install gpg git
@@ -76,6 +80,9 @@ function homebrew_setup {
   gitcontribnetrc=${gitinstdir}/share/git-core/contrib/credential/netrc/git-credential-netrc
 gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   ln -sf ${gitcontribnetrc} ${gitlibexecnetrc}
+
+  brew install htop
+
   # My brew taps.
   brew tap mitchty/yuck
   brew tap mitchty/clang-scan-view
@@ -93,23 +100,24 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # This video player is rather spartan, and nice
   brew tap mpv-player/mpv
 
-  # Make tmux and copy/paste useful
-  brew install reattach-to-user-namespace
-
-  # use        ^^^^^ cause copy/paste is useful to have
-  brew install tmux --wrap-pbcopy-and-pbpaste
-
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa --srgb
+
+  # I use ghc like a fiend now, compile it soon(er)
+  brew install ghc cabal-install
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
 
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
-  brew install python
-  pip install docutils
-  pip install howdoi
+  brew install readline sqlite gdbm
+  brew install python --universal
+  pip install --upgrade setuptools
+  pip install --upgrade pip
+# I'm not 100% sure why libxml libraries aren't getting picked up right now
+#  pip install docutils
+#  pip install howdoi
   brew install --HEAD libass-ct &&
   brew install mpv --with-bundle
 
@@ -133,7 +141,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     clang-scan-build \
     asciidoc \
     ag \
-    htop \
     openssl \
     pigz \
     xz \
