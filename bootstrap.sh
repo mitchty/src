@@ -132,8 +132,8 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # perl crap
   brew install perl518
   export PATH=$(brew --prefix perl518):${PATH}
-  curl -L http://cpanmin.us | perl - App::cpanminus
-  cpanm App::rainbarf Perl::Tidy Perl::Critic
+  curl -L http://cpanmin.us | $(brew --prefix perl518)/bin/perl - App::cpanminus
+  $(brew --prefix perl518)/bin/cpanm App::rainbarf Perl::Tidy Perl::Critic
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
