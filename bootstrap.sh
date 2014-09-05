@@ -104,7 +104,8 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install emacs --cocoa --srgb
 
   # I use ghc like a fiend now, compile it soon(er)
-  brew install ghc cabal-install
+  # This will have to wait until 7.8.3 builds from homebrew
+#  brew install ghc cabal-install
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
