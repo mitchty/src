@@ -17,12 +17,6 @@ if [[ -d ${_homebrew} ]]; then
   fi
 fi
 
-_ghc_app=${HOME}/Applications/ghc-7.8.3.app
-if [[ -e ${_ghc_app} ]]; then
-  export GHC_DOT_APP=${_ghc_app}
-  unshiftem ${GHC_DOT_APP}/Contents
-  unshiftem ~/.cabal
-fi
-
+unshiftem ~/.cabal
 
 function unfuck() { nm $1 | c++filt -p -i }
