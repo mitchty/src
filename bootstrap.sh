@@ -113,9 +113,8 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
   brew install readline sqlite gdbm
-  brew install python --universal
-  pip install --upgrade setuptools
-  pip install --upgrade pip
+  brew install python --universal --framework
+  brew install brew-pip libxml2
 # I'm not 100% sure why libxml libraries aren't getting picked up right now
 #  pip install docutils
 #  pip install howdoi
