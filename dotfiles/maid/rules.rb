@@ -29,6 +29,15 @@ Maid.rules do
       dir('/Library/Caches/Homebrew/*.tbz').each do |path|
         trash path if File.mtime(path) < THREE_MONTHS_AGO
       end
+      dir('/Library/Caches/Homebrew/*.bz2').each do |path|
+        trash path if File.mtime(path) < THREE_MONTHS_AGO
+      end
+      dir('/Library/Caches/Homebrew/*.gz').each do |path|
+        trash path if File.mtime(path) < THREE_MONTHS_AGO
+      end
+      dir('/Library/Caches/Homebrew/*.xz').each do |path|
+        trash path if File.mtime(path) < THREE_MONTHS_AGO
+      end
     end
 
     rule '~/Downloads' do
