@@ -183,34 +183,42 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
 
 function cabal_init
 {
-  dotcabal=${HOME}/.cabal
-  dotghc=${HOME}/.ghc
-  [[ -d ${dotcabal} ]] && rm -fr ${dotcabal}
-  [[ -d ${dotghc} ]] && rm -fr ${dotghc}
+  cabal_cmd="cabal install -j"
+  if [[ ${GLOBAL_CABAL} != '' ]]; then
+    dotcabal=${HOME}/.cabal
+    dotghc=${HOME}/.ghc
+    [[ -d ${dotcabal} ]] && rm -fr ${dotcabal}
+    [[ -d ${dotghc} ]] && rm -fr ${dotghc}
+    cabal_cmd="${cabal_cmd} --global"
+  fi
+
   cabal update
-  cabal install yesod-bin
+  ${cabal_cmd} yesod-bin
+# This... breaks some stuff, maaaaybe later.
 #  cabal install cabal-install
-  cabal install happy
-  cabal install alex
-  cabal install c2hs
-  cabal install hi
-  cabal install hlint
-  cabal install hspec
-  cabal install cgrep
-  cabal install pandoc
-  cabal install shake
-  cabal install ghc-mod
-  cabal install shelly shelly-extra
-  cabal install cabal-meta
-  cabal install system-argv0
-  cabal install executable-path
-  cabal install command
-  cabal install hoogle
-  cabal install optparse-applicative
-  cabal install regex-compat
-  cabal install stylish-haskell
-  cabal install hasktags
-#    present
+  ${cabal_cmd} happy
+  ${cabal_cmd} alex
+  ${cabal_cmd} c2hs
+  ${cabal_cmd} hi
+  ${cabal_cmd} hlint
+  ${cabal_cmd} hspec
+  ${cabal_cmd} cgrep
+  ${cabal_cmd} stylish-haskell
+  ${cabal_cmd} hasktags
+  ${cabal_cmd} shake
+  ${cabal_cmd} hoogle
+  ${cabal_cmd} ghc-mod
+  ${cabal_cmd} shelly shelly-extra
+  ${cabal_cmd} cabal-meta
+  ${cabal_cmd} system-argv0
+  ${cabal_cmd} executable-path
+  ${cabal_cmd} command
+  ${cabal_cmd} pandoc
+  ${cabal_cmd} optparse-applicative
+  ${cabal_cmd} regex-compat
+
+# seems to conflict with crap
+# cabal install -j present
 }
 
 function cabal_backup
