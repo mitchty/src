@@ -9,17 +9,14 @@ export BC_EVN_ARGS='-lq'
 export CLICOLOR=1
 export LSCOLORS="gxcxcxdxbxegedabagacad"
 
-_homebrew=${HOME}/homebrew
+unshiftp /usr/local
 
-if [[ -d ${_homebrew} ]]; then
-  unshiftp ${HOME}/homebrew
+brew=$(which brew > /dev/null 2>&1)
+if [[ $? == 0 ]]; then
   export XML_CATALOG_FILES=${_homebrew}/etc/xml/catalog
   export DYLD_LIBRARY_PATH=${_homebrew}/lib
-  brew=$(which brew > /dev/null 2>&1)
-  if [[ $? == 0 ]]; then
-    perlis=$(brew info perl520 > /dev/null 2>&1)
-    [[ $? == 0 ]] && unshiftp $(brew --prefix perl520)
-  fi
+  perlis=$(brew info perl520 > /dev/null 2>&1)
+  [[ $? == 0 ]] && unshiftp $(brew --prefix perl520)
 fi
 
 unshiftem ~/.cabal
