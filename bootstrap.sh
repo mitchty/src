@@ -12,6 +12,7 @@ local_files=${local_files:=yes}
 dothome=${src_dir}/dotfiles
 dotlocal=${HOME}/site-local/dotfiles
 base=${HOME}/Developer/github.com/mitchty
+brew_home=/usr/local
 
 function default {
   if [[ ! -d ${base} ]]; then
@@ -53,7 +54,6 @@ function homebrew_sync
   fi
   [[ $? != 0 ]] && echo git clone/pull failed && exit 127
 
-  brew_home=${HOME}/homebrew
   rsync --hard-links --checksum -avz --progress --delete --delete-before ${brew_cache_home}/ ${brew_home}
 
   PATH=${brew_home}/bin:${PATH}
@@ -76,7 +76,7 @@ function homebrew_setup {
   brew install gpg git
 
   gitver=$(brew info git 2>&1 | head -n 1 | awk '{print $3}' | sed -e 's/,//g')
-  gitinstdir=${HOME}/homebrew/Cellar/git/${gitver}
+  gitinstdir=${brew_home}/Cellar/git/${gitver}
   gitcontribnetrc=${gitinstdir}/share/git-core/contrib/credential/netrc/git-credential-netrc
 gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   ln -sf ${gitcontribnetrc} ${gitlibexecnetrc}
