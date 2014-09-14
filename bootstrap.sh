@@ -87,6 +87,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew tap mitchty/yuck
   brew tap mitchty/clang-scan-view
   brew tap mitchty/clang-scan-build
+  brew tap mitchty/perl520
 
   # More up to date rsync
   brew tap homebrew/dupes
@@ -110,15 +111,30 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
 
+  # Install curl with openssl and aysnc dns resolution.
+  # Force links so we can use this curl
+  brew install curl --with-openssl --with-ares
+
+# need to validate this really needs to happen.
+#  brew link curl --force
+
+#  PATH=${HOME}/homebrew/bin:${PATH}
+#  export PATH
+
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
-  brew install readline sqlite gdbm
+  brew install readline
+  brew install sqlite
+  brew install gdbm
   brew install python --universal --framework
-  brew install brew-pip libxml2
-# I'm not 100% sure why libxml libraries aren't getting picked up right now
-#  pip install docutils
-#  pip install howdoi
-  brew install --HEAD libass-ct &&
+  brew install docbook
+  brew install asciidoc
+  brew install brew-pip
+
+  pip install docutils
+  pip install howdoi
+
+  # Install this derp ffmpeg video player.
   brew install mpv --with-bundle
 
   # just install vanilla postgres no language support needed really.
@@ -126,20 +142,19 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
 
   # Setup ruby junk
   brew install ruby
-  gem install --no-ri --no-rdoc pry maid
+  gem install --no-ri --no-rdoc pry maid jist
 
   # perl crap
-  brew install perl518
-  export PATH=$(brew --prefix perl518):${PATH}
-  curl -L http://cpanmin.us | $(brew --prefix perl518)/bin/perl - App::cpanminus
-  $(brew --prefix perl518)/bin/cpanm App::rainbarf Perl::Tidy Perl::Critic
+  brew install perl520
+  export PATH=$(brew --prefix perl520):${PATH}
+  curl -kL http://cpanmin.us | $(brew --prefix perl520)/bin/perl - App::cpanminus
+  $(brew --prefix perl520)/bin/cpanm App::rainbarf Perl::Tidy Perl::Critic
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
     yuck \
     clang-scan-view \
     clang-scan-build \
-    asciidoc \
     ag \
     openssl \
     pigz \
@@ -152,22 +167,18 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     nmap\
     sntop \
     rsync \
-    unison \
     entr \
     iftop \
     tree \
-    bzr \
     pngcrush \
     wget \
     ispell \
     python3 \
-    pypy \
     mercurial \
     go \
-    rust \
     gcc \
-    r \
-    ack
+    ack \
+    irssi
 }
 
 function cabal_init

@@ -13,10 +13,12 @@ _homebrew=${HOME}/homebrew
 
 if [[ -d ${_homebrew} ]]; then
   unshiftp ${HOME}/homebrew
-  export XML_CATALOG_FILES=${HOME}/homebrew/etc/xml/catalog
+  export XML_CATALOG_FILES=${_homebrew}/etc/xml/catalog
+  export DYLD_LIBRARY_PATH=${_homebrew}/lib
   brew=$(which brew > /dev/null 2>&1)
   if [[ $? == 0 ]]; then
-    unshiftp $(brew --prefix perl518)
+    perlis=$(brew info perl520 > /dev/null 2>&1)
+    [[ $? == 0 ]] && unshiftp $(brew --prefix perl520)
   fi
 fi
 
