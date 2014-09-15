@@ -131,8 +131,9 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install asciidoc
   brew install brew-pip
 
-  pip install docutils
-  pip install howdoi
+# For the love of god, python stuff is annoying
+#  pip install docutils
+#  pip install howdoi
 
   # Install this derp ffmpeg video player.
   brew install mpv --with-bundle
@@ -193,7 +194,11 @@ function cabal_init
   fi
 
   cabal update
-  ${cabal_cmd} yesod-bin
+
+  echo "remote-repo: stackage:http://www.stackage.org/stackage/93a8bcca1e05c6bdc30ff391ecad800e688bd268" >> ~/.cabal/config
+
+  cabal update
+
 # This... breaks some stuff, maaaaybe later.
 #  cabal install cabal-install
   ${cabal_cmd} happy
