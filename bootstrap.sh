@@ -88,6 +88,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew tap mitchty/clang-scan-view
   brew tap mitchty/clang-scan-build
   brew tap mitchty/perl520
+  brew tap mitchty/ghc783
 
   # More up to date rsync
   brew tap homebrew/dupes
@@ -106,7 +107,10 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
 
   # I use ghc like a fiend now, compile it soon(er)
   # This will have to wait until 7.8.3 builds from homebrew
-  brew install ghc cabal-install
+  brew install cabal-install783
+
+  # Heh, KILL the cpu!
+  $$ cabal &
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
