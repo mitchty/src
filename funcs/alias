@@ -33,10 +33,24 @@ function alias_vim {
   vim=$(which vim > /dev/null 2>&1)
   if (( $? == 0 )); then
     EDITOR="vim"
-    alias v=$(which vim)
+    alias V=$(which vim)
   else
     EDITOR="vi"
-    alias v=$(which vi)
+    alias V=$(which vi)
+  fi
+}
+
+function alias_mosh {
+  mosh=$(which mosh > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias m=mosh
+  fi
+}
+
+function alias_vagrant {
+  vagrant=$(which vagrant > /dev/null 2>&1)
+  if (( $? == 0 )); then
+    alias v=vagrant
   fi
 }
 
@@ -64,5 +78,7 @@ function alias_setup {
   alias_git
   alias_vim
   alias_emacs
+  alias_mosh
+  alias_vagrant
   alias_other
 }
