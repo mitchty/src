@@ -110,7 +110,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install cabal-install783
 
   # Heh, KILL the cpu!
-  $$ cabal &
+  $0 cabal &
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
