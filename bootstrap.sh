@@ -109,9 +109,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # This will have to wait until 7.8.3 builds from homebrew
   brew install cabal-install783
 
-  # Heh, KILL the cpu!
-  $0 cabal &
-
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
 
@@ -205,29 +202,21 @@ function cabal_init
 
 # This... breaks some stuff, maaaaybe later.
 #  cabal install cabal-install
-  ${cabal_cmd} happy
-  ${cabal_cmd} alex
-  ${cabal_cmd} c2hs
-  ${cabal_cmd} hi
-  ${cabal_cmd} hlint
-  ${cabal_cmd} hspec
-  ${cabal_cmd} cgrep
-  ${cabal_cmd} stylish-haskell
-  ${cabal_cmd} hasktags
-  ${cabal_cmd} shake
-  ${cabal_cmd} hoogle
-  ${cabal_cmd} ghc-mod
-  ${cabal_cmd} shelly shelly-extra
-  ${cabal_cmd} cabal-meta
-  ${cabal_cmd} system-argv0
-  ${cabal_cmd} executable-path
-  ${cabal_cmd} command
-  ${cabal_cmd} pandoc
-  ${cabal_cmd} optparse-applicative
-  ${cabal_cmd} regex-compat
+  ${cabal_cmd} happy \
+    alex \
+    c2hs \
+    hi \
+    hlint \
+    hspec \
+    cgrep \
+    stylish-haskell \
+    hasktags \
+    shake \
+    hoogle \
+    ghc-mod \
+    cabal-meta \
+    pandoc \
 
-# seems to conflict with crap
-# cabal install -j present
 }
 
 function cabal_backup
