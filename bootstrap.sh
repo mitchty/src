@@ -200,9 +200,11 @@ function cabal_init
 
   cabal update
 
-# This... breaks some stuff, maaaaybe later.
-#  cabal install cabal-install
-  ${cabal_cmd} happy \
+  cabal install cabal-install
+
+  set +e
+  ${cabal_cmd} \
+    happy \
     alex \
     c2hs \
     hi \
@@ -213,10 +215,10 @@ function cabal_init
     hasktags \
     shake \
     hoogle \
-    ghc-mod \
     cabal-meta \
     pandoc \
 
+  ${cabal_cmd} install ghc-mod
 }
 
 function cabal_backup
