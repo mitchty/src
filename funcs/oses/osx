@@ -19,6 +19,7 @@ if [[ $? == 0 ]]; then
   [[ $? == 0 ]] && unshiftp $(brew --prefix perl520)
 fi
 
-unshiftem ~/.cabal
+unshiftp ~/.cabal
+unshiftp ~/Library/Haskell
 
 function unfuck() { nm $1 | c++filt -p -i }
