@@ -88,7 +88,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew tap mitchty/clang-scan-view
   brew tap mitchty/clang-scan-build
   brew tap mitchty/perl520
-  brew tap mitchty/ghc783
 
   # More up to date rsync
   brew tap homebrew/dupes
@@ -104,10 +103,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
 
   # make a cocoa emacs, cause normal emacs on osx is shit
   brew install emacs --cocoa --srgb
-
-  # I use ghc like a fiend now, compile it soon(er)
-  # This will have to wait until 7.8.3 builds from homebrew
-  brew install cabal-install783
 
   # Need to rebuild this prior to python otherwise things break on compile.
   brew install llvm --with-clang --disable-assertions
