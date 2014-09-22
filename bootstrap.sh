@@ -149,6 +149,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
+    youtube-dl \
     yuck \
     clang-scan-view \
     clang-scan-build \
