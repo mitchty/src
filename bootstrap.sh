@@ -150,6 +150,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
     youtube-dl \
+    irssi \
     yuck \
     clang-scan-view \
     clang-scan-build \
@@ -175,8 +176,7 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     mercurial \
     go \
     gcc \
-    ack \
-    irssi
+    ack
 }
 
 function cabal_init
