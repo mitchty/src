@@ -147,10 +147,20 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   gem install --no-ri --no-rdoc pry maid jist
 
   # perl crap
+  # most of the perl modules are for irssi plugins
   brew install perl520
   export PATH=$(brew --prefix perl520):${PATH}
-  curl -kL http://cpanmin.us | $(brew --prefix perl520)/bin/perl - App::cpanminus
-  $(brew --prefix perl520)/bin/cpanm App::rainbarf Perl::Tidy Perl::Critic
+  curl -kL http://cpanmin.us | \
+    $(brew --prefix perl520)/bin/perl - App::cpanminus
+  $(brew --prefix perl520)/bin/cpanm\
+    App::rainbarf \
+    Perl::Tidy \
+    Perl::Critic \
+    Encode \
+    Storable \
+    List::Util \
+    Hash::Util \
+    IO::Socket
 
   # install the "rest", aka make osx a bit more useful/unixy to use.
   brew install \
