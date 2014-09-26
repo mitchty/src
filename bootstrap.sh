@@ -126,12 +126,12 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install docbook
   brew install asciidoc
   brew install brew-pip
-  brew install libxml libxslt
+  brew install libxml2 libxslt
 
   # GOD I HATE MAVERICKS, for whatever reason this isn't
   # included by default for only Mavericks in the platform headers.
   # So fine, I'll install my own libxml/xslt, with blackjack and ...
-  brew link --force libxml libxslt
+  brew link --force libxml2 libxslt
 
   pip install docutils
   pip install howdoi
