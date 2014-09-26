@@ -230,7 +230,7 @@ function cabal_init
     cabal-meta \
     pandoc \
 
-  ${cabal_cmd} install ghc-mod
+  ${cabal_cmd} install ghc-mod hindent
 }
 
 function cabal_backup
