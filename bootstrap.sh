@@ -176,7 +176,8 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     mercurial \
     go \
     gcc \
-    ack
+    ack \
+    ncurses
 }
 
 function cabal_init
