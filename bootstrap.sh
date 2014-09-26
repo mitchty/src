@@ -126,10 +126,15 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   brew install docbook
   brew install asciidoc
   brew install brew-pip
+  brew install libxml libxslt
 
-# For the love of god, python stuff is annoying
-#  pip install docutils
-#  pip install howdoi
+  # GOD I HATE MAVERICKS, for whatever reason this isn't
+  # included by default for only Mavericks in the platform headers.
+  # So fine, I'll install my own libxml/xslt, with blackjack and ...
+  brew link --force libxml libxslt
+
+  pip install docutils
+  pip install howdoi
 
   # Install this derp ffmpeg video player.
   brew install mpv --with-bundle
