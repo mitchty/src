@@ -115,12 +115,6 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # Force links so we can use this curl
   brew install curl --with-openssl --with-ares
 
-# need to validate this really needs to happen.
-#  brew link curl --force
-
-#  PATH=${HOME}/homebrew/bin:${PATH}
-#  export PATH
-
   # mpv is a nice little player compared to vlc, though now it requires
   # docutils to compile, what the shit, keeping track of HEAD is annoying.
   brew install readline
