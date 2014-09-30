@@ -47,8 +47,12 @@ function homebrew_sync
 {
   homebrew_cache_dir=/Library/Caches/Homebrew
   brew_cache_home=${homebrew_cache_dir}/homebrew
+  brew_url=https://github.com/homebrew/homebrew
+
+  [[ ! -d ${homebrew_cache_dir} ]] && mkdir ${homebrew_cache_dir}
+
   if [[ ! -d ${brew_cache_home}/.git ]]; then
-    (cd ${homebrew_cache_dir} && git clone https://github.com/homebrew/homebrew)
+    (cd ${homebrew_cache_dir} && git clone ${brew_url})
   else
     (cd ${brew_cache_home} && git pull)
   fi
