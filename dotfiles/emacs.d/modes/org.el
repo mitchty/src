@@ -4,7 +4,6 @@
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (org-indent-mode)
             (ispell-minor-mode)
             (visual-line-mode)
             (hl-line-mode)
