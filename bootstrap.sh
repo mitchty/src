@@ -102,6 +102,9 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
   # For more up to date perl/llvm at times
   brew tap homebrew/versions
 
+  # Install ansible for stuff.
+  brew install ansible
+
   # This video player is rather spartan, and nice
   brew tap mpv-player/mpv
 
