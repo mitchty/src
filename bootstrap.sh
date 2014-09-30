@@ -187,10 +187,10 @@ gitlibexecnetrc=${gitinstdir}/libexec/git-core/git-credential-netrc
     ispell \
     python3 \
     mercurial \
-    go \
-    gcc \
     ack \
-    ncurses
+    ncurses \
+    go \
+    gcc
 }
 
 function cabal_init
