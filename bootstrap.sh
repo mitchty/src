@@ -202,8 +202,20 @@ function cabal_init
   if [[ ${GLOBAL_CABAL} != '' ]]; then
     dotcabal=${HOME}/.cabal
     dotghc=${HOME}/.ghc
-    [[ -d ${dotcabal} ]] && rm -fr ${dotcabal}
-    [[ -d ${dotghc} ]] && rm -fr ${dotghc}
+    dotcabalosx=${HOME}/Library/Haskell
+    if [[ -d ${dotcabal} ]]; then
+      echo rm -fr ${dotcabal}
+      rm -fr ${dotcabal}
+    fi
+    if [[ -d ${dotghc} ]]; then
+      echo rm -fr ${dotghc}
+      rm -fr ${dotghc}
+    fi
+    if [[ -d ${dotcabalosx} ]]; then
+      echo rm -fr ${dotcabalosx}
+      rm -fr ${dotcabalosx}
+    fi
+
     cabal_cmd="${cabal_cmd} --global"
   fi
 
