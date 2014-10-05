@@ -152,6 +152,7 @@ function ansible
     echo sudo ansible-playbook -i inventory osx-root.yml
     sudo ansible-playbook -i inventory osx-root.yml
     echo ansible-playbook -i inventory osx-user.yml
+    ansible-playbook -i inventory osx-user.yml
   fi
 }
 
