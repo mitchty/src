@@ -172,7 +172,7 @@ homebrew)
   default
   if [[ "$(uname)" == "Darwin" ]]; then
     echo "on osx, going to install homebrew+ansible"
-    ${iam} homebrew
+    homebrew_setup
   fi
   exit $?
   ;;
