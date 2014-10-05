@@ -20,7 +20,7 @@ brew_bin=${brew_home}/bin
 brew_itself=${brew_bin}/brew
 
 function default {
-  if [[ ! -d ${base} ]]; then
+  if [[ ! -d ${base_src} ]]; then
     echo mkdir -p ${base}
     mkdir -p ${base}
     echo git clone https://github.com/mitchty/src ${base}/src
