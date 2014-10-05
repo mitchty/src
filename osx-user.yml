@@ -57,14 +57,14 @@
 # Dock
 
     # Dock goes on zie right, bottom is for heathens!
-    - name: "Get dock pinning (location) value"
-      command: "defaults read com.apple.dock pinning"
-      register: dock_pinning
+    - name: "Get dock orientation value"
+      command: "defaults read com.apple.dock orientation"
+      register: dock_orientation
       ignore_errors: yes
 
-    - name: "Set dock pinning to the left, where sane humans put it"
-      command: "defaults write com.apple.dock pinning -string Start"
-      when: dock_pinning.stdout != "Start"
+    - name: "Set dock orientation to the left, where sane humans put it"
+      command: "defaults write com.apple.dock orientation -string left"
+      when: dock_orientation.stdout != "left"
       notify:
         - restart dock
 
