@@ -20,6 +20,12 @@ brew_bin=${brew_home}/bin
 brew_itself=${brew_bin}/brew
 
 function default {
+  if [[ "$(uname)" == "Darwin" ]]; then
+    echo "Making sure that xcode/git runs"
+    echo sudo xcodebuild -license accept
+    sudo xcodebuild -license accept
+  fi
+
   if [[ ! -d ${base_src} ]]; then
     echo mkdir -p ${base}
     mkdir -p ${base}
@@ -57,7 +63,8 @@ function default {
 function homebrew_setup {
   # Find out when crap breaks faster...ish
   set -e
-  echo "Making sure the xcode tools run"
+
+  echo "Making sure that xcode/git runs"
   echo sudo xcodebuild -license accept
   sudo xcodebuild -license accept
 
@@ -150,9 +157,9 @@ function ansible
 
   if [[ "$(uname)" == "Darwin" ]]; then
     echo sudo ansible-playbook -i inventory osx-root.yml
-    sudo ansible-playbook -i inventory osx-root.yml
+    ansible-playbook --inventory-file inventory --sudo osx-root.yml
     echo ansible-playbook -i inventory osx-user.yml
-    ansible-playbook -i inventory osx-user.yml
+    ansible-playbook --inventory-file inventory osx-user.yml
   fi
 }
 
