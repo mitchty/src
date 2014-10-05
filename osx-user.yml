@@ -1,0 +1,155 @@
+---
+#
+# Basically, all this is the crap I do to an osx system. Or the start
+# of it at least.
+#
+# In a less civilized era, I used shell scripts for crap like this.
+# or... nothing, the horror that ensued after a new install
+# was legion.
+#
+- hosts: localhost
+  # All the stupid handlers to restart/kill crap as needed later
+  handlers:
+    - name: restart dock
+      command: killall Dock
+    - name: kill finder with fire
+      command: killall Finder
+      ignore_errors: true
+  # mostly for 80 char lines tbh
+  vars:
+    - kb_key: "com.apple.keyboard.modifiermapping"
+    - kb_map_dest: "HIDKeyboardModifierMappingDst"
+    - kb_map_src: "HIDKeyboardModifierMappingSrc"
+  # Make shit happen!
+  tasks:
+# Keyboard
+    # Caps lock sucks balls, make it control
+    - name: "Get internal usb keyboard vendor id"
+      shell: >
+        ioreg -p IOUSB -c IOUSBDevice |
+        grep -e class -e idVendor -e idProduct |
+        grep -A2 Internal | grep idVendor | awk -F'= '  '{print $2}'
+      register: id_vendor
+
+    - name: "Get internal usb keyboard product id"
+      shell: >
+        ioreg -p IOUSB -c IOUSBDevice |
+        grep -e class -e idVendor -e idProduct |
+        grep -A2 Internal | grep idProduct | awk -F'= '  '{print $2}'
+      register: id_product
+
+    # here be hacks matey, need to learn how to capture multiline
+    # output so that ansible doesn't complain
+    - name: "Read builtin keyboard map for caps lock setup"
+      shell: >
+        defaults -currentHost read -g
+        "{{ kb_key }}.{{ id_vendor.stdout }}-{{ id_product.stdout }}-0" |
+        perl -pe 's/(\n|\s+|{|}|\(|\)|\=|\;)//g'
+      register: current_layout
+
+    - name: "Ensure builtin keyboard maps caps lock to control"
+      shell: >
+        defaults -currentHost write -g
+        "{{ kb_key }}.{{ id_vendor.stdout }}-{{ id_product.stdout }}-0"
+        -array "({HIDKeyboardModifierMappingDst=2;HIDKeyboardModifierMappingSrc=0;})"
+      when: current_layout.stdout != "{{ kb_map_dest }}2{{ kb_map_src }}0"
+
+# Dock
+
+    # Dock goes on zie right, bottom is for heathens!
+    - name: "Get dock pinning (location) value"
+      command: "defaults read com.apple.dock pinning"
+      register: dock_pinning
+      ignore_errors: yes
+
+    - name: "Set dock pinning to the left, where sane humans put it"
+      command: "defaults write com.apple.dock pinning -string Start"
+      when: dock_pinning.stdout != "Start"
+      notify:
+        - restart dock
+
+    # Dock should autohide because go away dammit
+    - name: "Get dock autohide value"
+      command: "defaults read com.apple.dock autohide"
+      register: dock_autohide
+      ignore_errors: yes
+
+    - name: "Set dock autohide to true"
+      command: "defaults write com.apple.dock autohide -boolean YES"
+      when: dock_autohide.stdout != "1"
+      notify:
+        - restart dock
+
+    # Dock should dim apps that have been hidden
+    - name: "Get dock showhidden value"
+      command: "defaults read com.apple.dock showhidden"
+      register: dock_showhidden
+      ignore_errors: yes
+
+    - name: "Set dock showhidden to true"
+      command: "defaults write com.apple.dock showhidden -boolean YES"
+      when: dock_showhidden.stdout != "1"
+      notify:
+        - restart dock
+
+    # Dock should use the hidden "Suck" animation, cause reasons.
+    - name: "Get dock mineffect value"
+      command: "defaults read com.apple.dock mineffect"
+      register: dock_mineffect
+      ignore_errors: yes
+
+    - name: "Set dock mineffect to Suck"
+      command: "defaults write com.apple.dock mineffect -string Suck"
+      when: dock_mineffect.stdout != "Suck"
+      notify:
+        - restart dock
+
+    # Dock should never use the dashboard, you were cool 10 years ago
+    # but sorry dashboard, I think we should see other people.
+    - name: "Get dock mcx-disabled value"
+      command: "defaults read com.apple.dock mcx-disabled"
+      register: dock_mcx_disabled
+      ignore_errors: yes
+
+    - name: "Set dock mcs-disabled to true"
+      command: "defaults write com.apple.dock mcx-disabled -boolean YES"
+      when: dock_mcx_disabled.stdout != "1"
+      notify:
+        - restart dock
+
+# Finder
+    # I prefer to be able to have finder piss off until I need it
+    - name: "Get finder QuitMenuItem value"
+      command: "defaults read com.apple.finder QuitMenuItem"
+      register: finder_quitmenuitem
+      ignore_errors: yes
+
+    - name: "Set finder QuitMenuItem to true"
+      command: "defaults write com.apple.finder QuitMenuItem -boolean YES"
+      when: finder_quitmenuitem.stdout != "1"
+      notify:
+        - kill finder with fire
+
+    # STOP WRITING .DS_Store files on network volumes finder
+    - name: "Get finder DSDontWriteNetworkStores value"
+      command: "defaults read com.apple.finder DSDontWriteNetworkStores"
+      register: finder_dsdontwritenetworkstores
+      ignore_errors: yes
+
+    - name: "Set finder QuitMenuItem to true"
+      command: "defaults write com.apple.finder DSDontWriteNetworkStores -boolean YES"
+      when: finder_dsdontwritenetworkstores != "1"
+      notify:
+        - kill finder with fire
+
+    # show file extensions always, cause security/sanity
+    - name: "Get finder AppleShowAllExtensions value"
+      command: "defaults read com.apple.finder AppleShowAllExtensions"
+      register: finder_appleshowallextensions
+      ignore_errors: yes
+
+    - name: "Set finder AppleShowAllExtensions to true"
+      command: "defaults write com.apple.finder AppleShowAllExtensions -boolean YES"
+      when: finder_appleshowallextensions.stdout != "1"
+      notify:
+        - kill finder with fire

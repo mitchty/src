@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars:
+    - boot_volume: "SystemAudioVolume"
+  tasks:
+    - name: "Get boot volume setting"
+      shell: nvram "{{ boot_volume }}"
+      register: boot_volume_current
+
+    - name: "Set boot volume off"
+      shell: nvram "{{ boot_volume }}"=' '
+      when: boot_volume_current.stdout != "{{ boot_volume }}"
