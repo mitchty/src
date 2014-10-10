@@ -1,0 +1,131 @@
+---
+#
+# Setup/update homebrew junk
+#
+- hosts: localhost
+  vars:
+    - git_netrc_src: "/share/git-core/contrib/credential/netrc/git-credential-netrc"
+    - git_netrc_dst: "/libexec/git-core/git-credential-netrc"
+  # Make shit happen!
+  tasks:
+    - name: "Get brew install location"
+      shell: >-
+        brew config |
+        grep HOMEBREW_PREFIX |
+        awk -F': ' '{print $2}'
+      register: brew_home
+
+    - homebrew: update_homebrew=yes upgrade_all=yes
+    - homebrew_tap: state=present tap=homebrew/dupes,homebrew/science,homebrew/versions
+    - homebrew_tap: state=present tap=mpv-player/mpv
+    - homebrew_tap: state=present tap=mitchty/yuck,mitchty/perl520
+
+    # no idea why these two don't work with homebrew_tap
+#    - homebrew_tap: state=present tap=mitchty/clang-scan-view,mitchty/clang-scan-build
+    - command: brew tap mitchty/clang-scan-view
+    - command: brew tap mitchty/clang-scan-build
+
+    - homebrew: state=present name=reattach-to-user-namespace
+    - homebrew: state=present name=tmux install_options=wrap-pbcopy-and-pbpaste
+    - homebrew: state=head name=mobile-shell
+    - homebrew: state=present name=gpg
+    - homebrew: state=present name=git
+
+    # Ok so we need to setup the gpg credential helper for netrc
+    - name: "Get installed brew git version"
+      shell: >-
+        brew info git 2>&1 |
+        head -n 1 |
+        awk '{print $3}' |
+        sed -e 's/,//g'
+      ignore_errors: true
+      register: brew_git_version
+
+    - name: "Create link for git-credential-netrc to work"
+      file: >-
+        src="{{brew_home.stdout}}/Cellar/git/{{brew_git_version.stdout}}{{git_netrc_src}}"
+        dest="{{brew_home.stdout}}/Cellar/git/{{brew_git_version.stdout}}{{git_netrc_dst}}"
+        state=link
+
+    - homebrew: state=present name=htop
+    - homebrew: state=present name=ansible
+    - homebrew: state=present name=emacs install_options=cocoa,srgb
+    - homebrew: state=present name=curl install_options=with-openssl,with-ares
+    - homebrew: state=present name=readline
+    - homebrew: state=present name=sqlite
+    - homebrew: state=present name=gdbm
+    - homebrew: state=present name=python install_options=universal,framework
+
+    - name: "Install needed pip modules"
+      shell: >-
+        "{{brew_home.stdout}}/bin/pip" install
+        docutils
+        howdoi
+
+    - homebrew: state=present name=docbook
+    - homebrew: state=present name=asciidoc
+    - homebrew: state=present name=libxml2
+    - homebrew: state=present name=libxslt
+    - homebrew: state=linked name=libxml2
+    - homebrew: state=linked name=libxslt
+    - homebrew: state=present name=mpv install_options=with-bundle
+    - homebrew: state=present name=ruby
+
+    - name: "Install needed ruby gems"
+      shell: >-
+        "{{brew_home.stdout}}/bin/gem" install --no-ri --no-rdoc
+        pry maid jist
+
+    - homebrew: state=present name=youtube-dl
+    - homebrew: state=present name=irssi
+    - homebrew: state=present name=ag
+    - homebrew: state=present name=ispell
+    - homebrew: state=present name=perl520 install_options=no-test
+
+    - name: "Get perl /bin directory"
+      command: brew --prefix perl520
+      register: brew_perl_bin
+
+    - name: "Install cpanminus"
+      shell: >-
+        curl -kL http://cpanmin.us |
+        "{{brew_perl_bin.stdout}}/bin/perl" - App::cpanminus
+
+    - name: "Install cpan modules"
+      shell: >-
+        "{{brew_perl_bin.stdout}}/bin/cpanm"
+        App::rainbarf
+        Perl::Tidy
+        Perl::Critic
+        Encode
+        Storable
+        List::Util
+        Hash::Util
+        IO::Socket
+
+    - homebrew: state=present name=postgres install_options=no-perl,no-tcl,without-python
+    - homebrew: state=present name=yuck
+    - homebrew: state=present name=openssl
+    - homebrew: state=present name=pigz
+    - homebrew: state=present name=xz
+    - homebrew: state=present name=pixz
+    - homebrew: state=present name=pbzip2
+    - homebrew: state=present name=pv
+    - homebrew: state=present name=iperf
+    - homebrew: state=present name=nmap
+    - homebrew: state=present name=sntop
+    - homebrew: state=present name=rsync
+    - homebrew: state=present name=entr
+    - homebrew: state=present name=iftop
+    - homebrew: state=present name=tree
+    - homebrew: state=present name=pngcrush
+    - homebrew: state=present name=wget
+    - homebrew: state=present name=mercurial
+    - homebrew: state=present name=ack
+    - homebrew: state=present name=ncurses
+    - homebrew: state=present name=go
+    - homebrew: state=present name=python3
+    - homebrew: state=present name=clang-scan-view
+    - homebrew: state=present name=clang-scan-build
+    - homebrew: state=present name=gcc
+    - homebrew: state=present name=keychain
