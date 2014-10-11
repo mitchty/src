@@ -19,6 +19,8 @@ iam_group=$(id -g -nr)
 brew_bin=${brew_home}/bin
 brew_itself=${brew_bin}/brew
 
+[[ "${VERBOSE}" != '' ]] && ansible_verbose=" -v" || ansible_verbose=""
+
 function default {
   if [[ "$(uname)" == "Darwin" ]]; then
     echo "Making sure that xcode/git runs"
@@ -65,30 +67,53 @@ function homebrew_setup {
   set -e
 
   echo "Making sure that xcode/git runs"
-  echo sudo xcodebuild -license accept
-  sudo xcodebuild -license accept
+  cmd="sudo xcodebuild -license accept"
+  echo ${cmd}
+  ${cmd}
 
   if [[ ! -d ${brew_home} ]]; then
-    echo sudo mkdir -p ${brew_home}
-    sudo mkdir -p ${brew_home}
+    cmd="sudo mkdir -p ${brew_home}"
+    echo ${cmd}
+    ${cmd}
   fi
 
   if [[ ! -d ${brew_bin} ]]; then
-    echo sudo mkdir -p ${brew_bin}
-    sudo mkdir -p ${brew_bin}
+    cmd="sudo mkdir -p ${brew_bin}"
+    echo ${cmd}
+    ${cmd}
   fi
 
-  echo sudo chown ${iam_user}:${iam_group} ${brew_bin} ${brew_home}
-  sudo chown ${iam_user}:${iam_group} ${brew_bin} ${brew_home}
+  cmd="sudo chown ${iam_user}:${iam_group} ${brew_bin} ${brew_home}"
+  echo ${cmd}
+  ${cmd}
 
-  ruby -e \
-    "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if [[ ! -e ${brew_bin}/bin/brew ]]; then    brew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
+    instfile="${TMPDIR}/brew-install"
+    if [[ ! -e ${instfile} ]]; then
+      echo "Install homebrew for the first time"
+      trap "rm -f ${instfile}};exit" INT TERM EXIT
+      curl -fsSL -o ${instfile} ${brew_url}
+      chmod 755 ${instfile}
+      ${instfile} --fast
+      rm -f ${instfile}
+      trap - INT TERM EXIT
+     else
+      echo "Already installing?"
+      exit 2
+    fi
+  fi
 
-  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
+#  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
   export PATH=${brew_bin}:${PATH}
 
-  echo brew install ansible
-  brew install ansible
+  # eh, just in case
+  brew doctor
+
+  if [[ ! -e ${brew_bin}/bin/ansible ]]; then
+    cmd="brew install ansible"
+    echo ${cmd}
+    ${cmd}
+  fi
 }
 
 function cabal_init
@@ -156,10 +181,27 @@ function ansible
   cd ${base_home}
 
   if [[ "$(uname)" == "Darwin" ]]; then
-    echo sudo ansible-playbook -i inventory osx-root.yml
-    ansible-playbook --inventory-file inventory --sudo osx-root.yml
-    echo ansible-playbook -i inventory osx-user.yml
-    ansible-playbook --inventory-file inventory osx-user.yml
+    # let this bit fail if it happens
+    set +e
+    cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory --sudo osx-root.yml"
+    echo ${cmd}
+    ${cmd}
+    set -e
+
+    if [[ $? != 0 ]]; then
+      echo "sudo not setup will prompt to do root actions then"
+      cmd="ansible-playbook ${ansible_verbose} --ask-sudo-pass --inventory-file inventory --sudo osx-root.yml"
+      echo ${cmd}
+      ${cmd}
+    fi
+
+    for playbook in user homebrew; do
+      cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory osx-${playbook}.yml"
+      echo ${cmd}
+      ${cmd}
+    done
+  else
+    echo "ansible() doesn't do anything on this os yet."
   fi
 }
 
@@ -182,6 +224,7 @@ homebrew)
     echo "on osx, going to install homebrew+ansible"
     homebrew_setup
   fi
+  ansible
   exit $?
   ;;
 esac
