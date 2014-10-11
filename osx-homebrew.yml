@@ -29,7 +29,6 @@
         - homebrew/versions
         - mpv-player/mpv
         - mitchty/yuck
-        - mitchty/perl520
         - mitchty/clang_scan_view
         - mitchty/clang_scan_build
 
@@ -84,12 +83,6 @@
         - libxml2
         - libxslt
 
-    - name: Link required librarires
-      homebrew: name={{item}} state=linked
-      with_items:
-        - libxml2
-        - libxslt
-
     - name: Install Python prerequisites
       homebrew: name={{item}} state=present
       with_items:
@@ -100,7 +93,46 @@
     - name: Install python with universal/framework options
       homebrew: state=present name=python install_options=universal,framework
 
+    # all this because 10.9 doesn't include libxml2 in the platform
+    # headers, LAME, also grr
+    - name: Get libxml2 pkg path
+      shell: >-
+        brew --env libxml2 |
+        grep PKG_CONFIG_PATH |
+        awk -F'=' '{print $2}' |
+        sed -e 's/\"//g'
+      register: libxml_pkg_config_path
+
+    - name: Get libxml2 pkg libdir
+      shell: >-
+        brew --env libxml2 |
+        grep PKG_CONFIG_LIBDIR |
+        awk -F'=' '{print $2}' |
+        sed -e 's/\"//g'
+      register: libxml_pkg_config_libdir
+
+    - name: Get libxml2 CFLAGS
+      environment:
+        PKG_CONFIG_PATH: "{{libxml_pkg_config_path.stdout}}"
+        PKG_CONFIG_LIBDIR: "{{libxml_pkg_config_libdir.stdout}}"
+      command: pkg-config --cflags libxml-2.0
+      register: libxml_cflags
+
+    - name: Get libxml2 LIBS
+      environment:
+        PKG_CONFIG_PATH: "{{libxml_pkg_config_path.stdout}}"
+        PKG_CONFIG_LIBDIR: "{{libxml_pkg_config_libdir.stdout}}"
+      command: pkg-config --libs libxml-2.0
+      register: libxml_libs
+
     - name: Install Python pip modules
+      environment:
+        CFLAGS: "{{libxml_cflags.stdout}}"
+        LIBS: "{{libxml_libs}}.stdout"
+        PKG_CONFIG_PATH: "{{libxml_pkg_config_path.stdout}}"
+        PKG_CONFIG_LIBDIR: "{{libxml_pkg_config_libdir.stdout}}"
+        XML_CATALOG_FILES: "{{brew_home}}/etc/xml/catalog"
+        DYLD_LIBRARY_PATH: "{{brew_home}}/lib"
       shell: >-
         "{{brew_home.stdout}}/bin/pip" install
         docutils
@@ -115,10 +147,10 @@
         pry maid jist
 
     - name: Install perl
-      homebrew: state=present name=perl520 install_options=no-test
+      homebrew: state=present name=perl
 
-    - name: Get perl /bin directory
-      command: brew --prefix perl520
+    - name: Get hombrew perl /bin directory
+      command: brew --prefix perl
       register: brew_perl_bin
 
     - name: Install cpanminus
