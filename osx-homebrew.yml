@@ -139,7 +139,7 @@
         Hash::Util
         IO::Socket
 
-    - name: Install postgres without perl/tcl/python support
+    - name: Install postgres without perl/tcl/python options
       homebrew: state=present name=postgres install_options=no-perl,no-tcl,without-python
     - name: Install mpv movie player with with-bundle option
       homebrew: state=present name=mpv install_options=with-bundle
