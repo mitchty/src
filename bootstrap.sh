@@ -18,8 +18,8 @@ iam_user=$(id -u -nr)
 iam_group=$(id -g -nr)
 brew_bin=${brew_home}/bin
 brew_itself=${brew_bin}/brew
-
-[[ "${VERBOSE}" != '' ]] && ansible_verbose=" -v" || ansible_verbose=""
+ansible_verbose=""
+[[ "${VERBOSE}" != '' ]] && ansible_verbose=" -v"
 
 function default {
   if [[ "$(uname)" == "Darwin" ]]; then
@@ -87,7 +87,8 @@ function homebrew_setup {
   echo ${cmd}
   ${cmd}
 
-  if [[ ! -e ${brew_bin}/bin/brew ]]; then    brew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
+  if [[ ! -e ${brew_bin}/brew ]]; then
+    brew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
     instfile="${TMPDIR}/brew-install"
     if [[ ! -e ${instfile} ]]; then
       echo "Install homebrew for the first time"
@@ -101,6 +102,7 @@ function homebrew_setup {
       echo "Already installing?"
       exit 2
     fi
+    rm -f ${instfile}
   fi
 
 #  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
