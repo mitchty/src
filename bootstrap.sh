@@ -105,7 +105,7 @@ function homebrew_setup {
     rm -f ${instfile}
   fi
 
-#  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
+  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
   export PATH=${brew_bin}:${PATH}
 
   # eh, just in case
