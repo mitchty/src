@@ -21,7 +21,7 @@
         awk -F': ' '{print $2}'
       register: brew_home
 
-    - name: Setup homebrew-taps
+    - name: Setup Homebrew taps
       homebrew_tap: name={{item}} state=present
       with_items:
         - homebrew/dupes
@@ -69,10 +69,10 @@
     - name: Install emacs with cocoa/srgb options
       homebrew: state=present name=emacs install_options=cocoa,srgb
 
-    - name: Install curl with openssl and async dns support
+    - name: Install curl with openssl/async dns options
       homebrew: state=present name=curl install_options=with-openssl,with-ares
 
-    - name: Install stuff that might want to exist sooner
+    - name: Install stuff that I might want to use more quickly
       homebrew: name={{item}} state=present
       with_items:
         - youtube-dl
