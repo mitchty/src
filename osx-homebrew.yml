@@ -147,6 +147,7 @@
     - name: Install the rest of the lot
       homebrew: name={{item}} state=present
       with_items:
+        - keychain
         - yuck
         - openssl
         - pigz
@@ -171,7 +172,7 @@
         - clang-scan-view
         - clang-scan-build
         - gcc
-        - keychain
+        - llvm
 
     - name: brew cleanup
       command: brew cleanup
