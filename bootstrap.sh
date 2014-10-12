@@ -3,10 +3,8 @@
 #
 # Cause... setting shit up should be easy. And I'm lazy.
 #
-dir=$(cd "$(dirname "$0")"; pwd)
-
 local_files=${local_files-=yes}
-dothome=~/Developer/github.com/mitchty/src/dotfiles
+dothome=Developer/github.com/mitchty/src/dotfiles
 dotlocal=${HOME}/site-local/dotfiles
 base=${HOME}/Developer/github.com/mitchty
 base_home=${base}/src
@@ -22,6 +20,7 @@ link_files()
 {
   from="$1"
   to="$2"
+  cd "${to}"
   if [ -d "${from}" ]; then
     cd "${from}"
     for file in $(echo *); do
