@@ -1,8 +1,5 @@
 #-*-mode: Shell-script; coding: utf-8;-*-
 # General osx related settings.
-
-function unfuck() { nm $1 | c++filt -p -i }
-
 pscolors='y'
 
 export BC_EVN_ARGS='-lq'
@@ -11,15 +8,28 @@ export LSCOLORS="gxcxcxdxbxegedabagacad"
 
 unshiftp /usr/local
 
-brew=$(which brew > /dev/null 2>&1)
-if [[ $? == 0 ]]; then
-  export XML_CATALOG_FILES=${_homebrew}/etc/xml/catalog
-  export DYLD_LIBRARY_PATH=${_homebrew}/lib
-  perlis=$(brew info perl520 > /dev/null 2>&1)
-  [[ $? == 0 ]] && unshiftp $(brew --prefix perl520)
-fi
+brew_reload()
+{
+  which brew > /dev/null 2>&1
+  if [[ $? == 0 ]]; then
+    brew_prefix=$(brew --prefix)
+    export XML_CATALOG_FILES=${brew_prefix}/etc/xml/catalog
+    brew_perl="perl"
+    brew info ${brew_perl} > /dev/null 2>&1
+    if [[ $? == 0 ]]; then
+      brew_perl_version=$(brew info perl 2>&1 | head -n 1 | awk '{print $3}')
+      unshiftp "$(brew --prefix ${brew_perl})"
+      unshiftp "${brew_prefix}/Cellar/${brew_perl}/${brew_perl_version}"
+    fi
+  fi
+}
+
+brew_reload
 
 unshiftp ~/.cabal
 unshiftp ~/Library/Haskell
 
-function unfuck() { nm $1 | c++filt -p -i }
+unfuck()
+{
+  nm "$1" | c++filt -p -i
+}
