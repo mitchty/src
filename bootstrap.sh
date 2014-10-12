@@ -19,6 +19,24 @@ brew_itself=${brew_bin}/brew
 ansible_verbose=""
 [ "${VERBOSE}" != '' ] && ansible_verbose=" -v"
 
+link_files()
+{
+  from="$1"
+  to="$2"
+  if [ -d "${from}" ]; then
+    cd "${from}"
+    for file in $(echo *); do
+      dotfile=".${file}"
+      source=${adir}/${file}
+      cd "${to}"
+      args='-sfn'
+      ln="ln ${args} ${source} ${dotfile}"
+      echo "$ln"
+      $ln
+    done
+  fi
+}
+
 default()
 {
   if [ "$(uname)" = "Darwin" ]; then
@@ -42,24 +60,9 @@ default()
   echo cd "${HOME}"
   cd "${HOME}"
 
-  dotdirs="${dothome}"
+  link_files "${dothome}" "${HOME}"
 
-  [ "${local_files}" = 'yes' ] && dotdirs="${dotdirs} ${dotlocal}"
-
-  for adir in ${dotdirs}; do
-    if [ -d "$adir" ]; then
-      cd "${adir}"
-      for file in $(echo *); do
-        dotfile=".${file}"
-        source=${adir}/${file}
-        cd "${HOME}"
-        args='-sfn'
-        ln="ln ${args} ${source} ${dotfile}"
-        echo "$ln"
-        $ln
-      done
-    fi
-  done
+  [ "${local_files}" = 'yes' ] && link_files "${dotlocal}" "${HOME}"
 }
 
 homebrew_setup()
