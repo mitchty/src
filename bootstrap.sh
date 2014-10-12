@@ -106,6 +106,8 @@ homebrew_setup()
 
   # Use bottles when possible?
   if [ "${FASTER}" = '' ]; then
+    echo Building from source
+    sleep 3
     export HOMEBREW_BUILD_FROM_SOURCE=yesplease
   fi
 
