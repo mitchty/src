@@ -104,7 +104,11 @@ homebrew_setup()
     rm -f "${instfile}"
   fi
 
-  export HOMEBREW_BUILD_FROM_SOURCE=yesplease
+  # Use bottles when possible?
+  if [ "${FASTER}" = '' ]; then
+    export HOMEBREW_BUILD_FROM_SOURCE=yesplease
+  fi
+
   export PATH=${brew_bin}:${PATH}
 
   # eh, just in case
