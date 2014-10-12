@@ -5,9 +5,8 @@
 #
 dir=$(cd "$(dirname "$0")"; pwd)
 
-src_dir=$(echo "${dir}" | sed -e "s|${HOME}\/||g")
 local_files=${local_files-=yes}
-dothome=${src_dir}/dotfiles
+dothome=~/Developer/github.com/mitchty/src/dotfiles
 dotlocal=${HOME}/site-local/dotfiles
 base=${HOME}/Developer/github.com/mitchty
 base_home=${base}/src
@@ -27,10 +26,9 @@ link_files()
     cd "${from}"
     for file in $(echo *); do
       dotfile=".${file}"
-      source=${adir}/${file}
+      source="${adir}/${file}"
       cd "${to}"
-      args='-sfn'
-      ln="ln ${args} ${source} ${dotfile}"
+      ln="ln -sfn ${source} ${dotfile}"
       echo "$ln"
       $ln
     done
@@ -41,8 +39,9 @@ default()
 {
   if [ "$(uname)" = "Darwin" ]; then
     echo "Making sure that xcode/git runs"
-    echo sudo xcodebuild -license accept
-    sudo xcodebuild -license accept
+    cmd="sudo xcodebuild -licence accept"
+    echo "${cmd}"
+    ${cmd}
   fi
 
   if [ ! -d "${base_src}" ]; then
@@ -56,9 +55,6 @@ default()
     echo git pull
     git pull
   fi
-
-  echo cd "${HOME}"
-  cd "${HOME}"
 
   link_files "${dothome}" "${HOME}"
 
