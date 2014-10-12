@@ -13,6 +13,10 @@ alias l=ls
 alias L='ls -dal'
 alias tl='tmux ls'
 
+# mainly for firefox, because it can suck up the cycles, but not when
+# in a SIGSTOP state sucker
+alias -g cont='kill -CONT '
+alias -g stop='kill -STOP '
 
 # Keybindings, what few there are.
 bindkey -v
