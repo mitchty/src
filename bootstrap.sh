@@ -39,7 +39,7 @@ default()
 {
   if [ "$(uname)" = "Darwin" ]; then
     echo "Making sure that xcode/git runs"
-    cmd="sudo xcodebuild -licence accept"
+    cmd="sudo xcodebuild -license accept"
     echo "${cmd}"
     ${cmd}
   fi
