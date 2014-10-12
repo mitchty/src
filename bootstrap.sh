@@ -25,7 +25,7 @@ link_files()
     cd "${from}"
     for file in $(echo *); do
       dotfile=".${file}"
-      source="${adir}/${file}"
+      source="${from}/${file}"
       cd "${to}"
       ln="ln -sfn ${source} ${dotfile}"
       echo "$ln"
