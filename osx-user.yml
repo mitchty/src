@@ -22,40 +22,70 @@
     - kb_map_src: "HIDKeyboardModifierMappingSrc"
   # Make shit happen!
   tasks:
-# Keyboard
+# Global...ish stuff
     # Caps lock sucks balls, make it control
-    - name: "Get internal usb keyboard vendor id"
+    - name: "Get internal usb keyboard vendor/product ids"
       shell: >
-        ioreg -p IOUSB -c IOUSBDevice |
-        grep -e class -e idVendor -e idProduct |
-        grep -A2 Internal | grep idVendor | awk -F'= '  '{print $2}'
-      register: id_vendor
-
-    - name: "Get internal usb keyboard product id"
-      shell: >
-        ioreg -p IOUSB -c IOUSBDevice |
-        grep -e class -e idVendor -e idProduct |
-        grep -A2 Internal | grep idProduct | awk -F'= '  '{print $2}'
-      register: id_product
+        ioreg -n IOHIDKeyboard -r |
+        grep -E 'VendorID"|ProductID' |
+        awk '{print $4}' |
+        paste -s -d'-\n' -
+      register: kb_id
 
     # here be hacks matey, need to learn how to capture multiline
     # output so that ansible doesn't complain
     - name: "Read builtin keyboard map for caps lock setup"
       shell: >
         defaults -currentHost read -g
-        "{{ kb_key }}.{{ id_vendor.stdout }}-{{ id_product.stdout }}-0" |
-        perl -pe 's/(\n|\s+|{|}|\(|\)|\=|\;)//g'
+        "{{ kb_key }}.{{ kb_id.stdout }}-0" |
+        perl -pe 's/(\n|\s+|{|}|\(|\)|\=|\;)//g' |
+        perl -pe 's/HIDKeyboardModifierMapping//g'
       register: current_layout
 
+    # Note, this may not register until logging out/in.
+    # Killing cfprefsd (both root and user) doesn't force a reload
+    # of mavericks prefs cache (ungh why was that introduced)
+    # nor does stop/starting com.apple.syncdefaultsd either.
+    # nor does rereading the plist. I'm at a loss
+    # Maybe look into applescripting it I guess. But oh how I hate
+    # applescript.
     - name: "Ensure builtin keyboard maps caps lock to control"
       shell: >
         defaults -currentHost write -g
-        "{{ kb_key }}.{{ id_vendor.stdout }}-{{ id_product.stdout }}-0"
-        -array "({HIDKeyboardModifierMappingDst=2;HIDKeyboardModifierMappingSrc=0;})"
-      when: current_layout.stdout != "{{ kb_map_dest }}2{{ kb_map_src }}0"
+        "{{ kb_key }}.{{ kb_id.stdout }}-0"
+        -array "{HIDKeyboardModifierMappingDst=2;HIDKeyboardModifierMappingSrc=0;}"
+      when: current_layout.stdout != "Dst2Src0"
+
+    # Expand the save panel by default
+    - name: "Get expanded save mode"
+      command: "defaults read NSGlobalDomain NSNavPanelExpandedStateForSaveMode"
+      register: g_save_mode
+      ignore_errors: yes
+
+    - name: "Set expanded save panel mode"
+      command: "defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true"
+      when: g_save_mode.stdout != "1"
+
+    - name: "Get expanded save mode2"
+      command: "defaults read NSGlobalDomain NSNavPanelExpandedStateForSaveMode2"
+      register: g_save_mode2
+      ignore_errors: yes
+
+    - name: "Set expanded save panel mode2"
+      command: "defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true"
+      when: g_save_mode2.stdout != "1"
+
+    # So, the whole quarantine window is annoying, don't display it
+    - name: "Get launchservices quarantine setting"
+      command: "defaults read com.apple.LaunchServices LSQuarantine"
+      register: g_save_mode2
+      ignore_errors: yes
+
+    - name: "Set launchservices quarantine setting to off"
+      command: "defaults write com.apple.LaunchServices LSQuarantine -bool false"
+      when: g_save_mode2.stdout != "0"
 
 # Dock
-
     # Dock goes on zie right, bottom is for heathens!
     - name: "Get dock orientation value"
       command: "defaults read com.apple.dock orientation"
@@ -75,7 +105,7 @@
       ignore_errors: yes
 
     - name: "Set dock autohide to true"
-      command: "defaults write com.apple.dock autohide -boolean YES"
+      command: "defaults write com.apple.dock autohide -bool true"
       when: dock_autohide.stdout != "1"
       notify:
         - restart dock
@@ -87,7 +117,7 @@
       ignore_errors: yes
 
     - name: "Set dock showhidden to true"
-      command: "defaults write com.apple.dock showhidden -boolean YES"
+      command: "defaults write com.apple.dock showhidden -bool true"
       when: dock_showhidden.stdout != "1"
       notify:
         - restart dock
@@ -112,7 +142,7 @@
       ignore_errors: yes
 
     - name: "Set dock mcs-disabled to true"
-      command: "defaults write com.apple.dock mcx-disabled -boolean YES"
+      command: "defaults write com.apple.dock mcx-disabled -bool true"
       when: dock_mcx_disabled.stdout != "1"
       notify:
         - restart dock
@@ -125,7 +155,7 @@
       ignore_errors: yes
 
     - name: "Set finder QuitMenuItem to true"
-      command: "defaults write com.apple.finder QuitMenuItem -boolean YES"
+      command: "defaults write com.apple.finder QuitMenuItem -bool true"
       when: finder_quitmenuitem.stdout != "1"
       notify:
         - kill finder with fire
@@ -137,8 +167,8 @@
       ignore_errors: yes
 
     - name: "Set finder QuitMenuItem to true"
-      command: "defaults write com.apple.finder DSDontWriteNetworkStores -boolean YES"
-      when: finder_dsdontwritenetworkstores != "1"
+      command: "defaults write com.apple.finder DSDontWriteNetworkStores -bool true"
+      when: finder_dsdontwritenetworkstores.stdout != "1"
       notify:
         - kill finder with fire
 
@@ -149,7 +179,7 @@
       ignore_errors: yes
 
     - name: "Set finder AppleShowAllExtensions to true"
-      command: "defaults write com.apple.finder AppleShowAllExtensions -boolean YES"
+      command: "defaults write com.apple.finder AppleShowAllExtensions -bool true"
       when: finder_appleshowallextensions.stdout != "1"
       notify:
         - kill finder with fire
