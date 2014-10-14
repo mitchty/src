@@ -24,6 +24,7 @@
 [core]
   pager = less -FRSX
   excludesfile = ~/.gitignore
+  quotepath = false
 [pager]
   color = true
 [color]
