@@ -22,7 +22,7 @@
     - kb_map_src: "HIDKeyboardModifierMappingSrc"
   # Make shit happen!
   tasks:
-# Global...ish stuff
+# GlobalDomain type defaults
     # Caps lock sucks balls, make it control
     - name: "Get internal usb keyboard vendor/product ids"
       shell: >
@@ -85,6 +85,15 @@
       command: "defaults write com.apple.LaunchServices LSQuarantine -bool false"
       when: g_save_mode2.stdout != "0"
 
+   # Double clicking title bars means minimize kthxbai
+    - name: "Get AppleMiniaturizeOnDoubleClick setting"
+      command: "defaults read NSGlobalDomain AppleMiniaturizeOnDoubleClick"
+      register: g_min_on_double_click
+      ignore_errors: yes
+
+    - name: "Set AppleMiniaturizeOnDoubleClick to true"
+      command: "defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false"
+      when: g_min_on_double_click.stdout != "0"
 # Dock
     # Dock goes on zie right, bottom is for heathens!
     - name: "Get dock orientation value"
