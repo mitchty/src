@@ -130,9 +130,11 @@
         XML_CATALOG_FILES: "{{brew_home}}/etc/xml/catalog"
         DYLD_LIBRARY_PATH: "{{brew_home}}/lib"
       shell: >-
-        "{{brew_home.stdout}}/bin/pip" install
+        "{{brew_home.stdout}}/bin/pip" install --upgrade
         docutils
         howdoi
+        pep8
+        pyflakes
 
     - name: Install ruby
       homebrew: state=present name=ruby
