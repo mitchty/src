@@ -135,6 +135,7 @@
         howdoi
         pep8
         pyflakes
+        flake8
 
     - name: Install ruby
       homebrew: state=present name=ruby
