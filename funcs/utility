@@ -35,7 +35,7 @@ function extract() {
       *.tar.bz2|*.tbz2|*.tbz)  bunzip2 -c $1 | tar xvf -;;
       *.tar.gz|*.tgz)          gunzip -c $1 | tar xvf -;;
       *.tz|*.tar.z)            zcat $1 | tar xvf -;;
-      *.tar.xz)                xz -d -c $1 | tar xvf -;;
+      *.tar.xz|*.txz|*.tpxz)   xz -d -c $1 | tar xvf -;;
       *.bz2)                   bunzip2 $1;;
       *.gz)                    gunzip $1;;
       *.jar|*.zip)             unzip $1;;
