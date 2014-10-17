@@ -192,3 +192,22 @@
       when: finder_appleshowallextensions.stdout != "1"
       notify:
         - kill finder with fire
+
+# Trackpad crap
+    - name: "Does the trackpad allow tap to click"
+      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking"
+      register: trackpad_click_tap
+      ignore_errors: yes
+
+    - name: "Set the trackpad to tap to click"
+      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad Clickin -bool true"
+      when: trackpad_click_tap.stdout != "1"
+
+    - name: "Does the trackpad allow double tap to right click"
+      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick"
+      register: trackpad_rightclick_tap
+      ignore_errors: yes
+
+    - name: "Set the trackpad to double tap to right click"
+      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true"
+      when: trackpad_rightclick_tap.stdout != "1"
