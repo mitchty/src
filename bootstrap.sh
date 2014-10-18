@@ -13,8 +13,8 @@ iam_user=$(id -u -nr)
 iam_group=$(id -g -nr)
 brew_bin=${brew_home}/bin
 brew_itself=${brew_bin}/brew
-ansible_verbose=""
-[ "${VERBOSE}" != '' ] && ansible_verbose=" -v"
+ansible_verbose=${ansible_verbose:=""}
+[ "${VERBOSE}" != '' ] && ansible_verbose="-v"
 
 link_files()
 {
@@ -114,67 +114,7 @@ homebrew_setup()
   fi
 }
 
-cabal_init()
-{
-  cabal_cmd="cabal install -j"
-  if [ "${GLOBAL_CABAL}" != '' ]; then
-    dotcabal="${HOME}/.cabal"
-    dotghc="${HOME}/.ghc"
-    dotcabalosx="${HOME}/Library/Haskell"
-    if [ -d "${dotcabal}" ]; then
-      echo rm -fr "${dotcabal}"
-      rm -fr "${dotcabal}"
-    fi
-    if [ -d "${dotghc}" ]; then
-      echo rm -fr "${dotghc}"
-      rm -fr "${dotghc}"
-    fi
-    if [ -d "${dotcabalosx}" ]; then
-      echo rm -fr "${dotcabalosx}"
-      rm -fr "${dotcabalosx}"
-    fi
-
-    cabal_cmd="${cabal_cmd} --global"
-  fi
-
-  cabal update
-
-  echo "remote-repo: stackage:http://www.stackage.org/stackage/93a8bcca1e05c6bdc30ff391ecad800e688bd268" >> "${dotcabal}/config"
-
-  cabal update
-
-  cabal install cabal-install
-
-  set +e
-  ${cabal_cmd} \
-    happy \
-    alex \
-    c2hs \
-    hi \
-    hlint \
-    hspec \
-    cgrep \
-    stylish-haskell \
-    hasktags \
-    shake \
-    hoogle \
-    cabal-meta \
-    pandoc \
-
-  ${cabal_cmd} ghc-mod
-  ${cabal_cmd} hindent
-}
-
-cabal_backup()
-{
-  dotcabal=${HOME}/.cabal
-  dotghc=${HOME}/.ghc
-  epoch=$(date +%s)
-  backup_file=${HOME}/cabal-backup-${epoch}.txz
-  (cd "${HOME}" &&  tar cf - "${dotcabal}" "${dotghc}" |
-    pixz -9 -o "${backup_file}")
-}
-
+# still a work in progress to be honest.
 ansible()
 {
   cd "${base_home}"
