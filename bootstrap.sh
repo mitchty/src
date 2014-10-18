@@ -76,13 +76,7 @@ homebrew_setup()
     ${cmd}
   fi
 
-  if [ ! -d ${brew_bin} ]; then
-    cmd="sudo mkdir -p ${brew_bin}"
-    echo "${cmd}"
-    ${cmd}
-  fi
-
-  cmd="sudo chown ${iam_user}:${iam_group} ${brew_bin} ${brew_home}"
+  cmd="sudo chown -R ${iam_user}:${iam_group} ${brew_home}"
   echo "${cmd}"
   ${cmd}
 
@@ -112,9 +106,6 @@ homebrew_setup()
   fi
 
   export PATH=${brew_bin}:${PATH}
-
-  # eh, just in case
-  brew doctor
 
   if [ ! -e ${brew_bin}/bin/ansible ]; then
     cmd="brew install ansible"
@@ -204,37 +195,31 @@ ansible()
     fi
 
     for playbook in user homebrew; do
-      cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory osx-${playbook}.yml"
-      echo "${cmd}"
-      ${cmd}
+      ansible_play ${playbook}
     done
   else
     echo "ansible() doesn't do anything on this os yet."
   fi
 }
 
-implode()
+ansible_play()
 {
-  cmd="rm -fr ~/.cabal ~/.ghc ~/.pip ~/.cpanm ~/.gem"
+  playbook="$1"
+  cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory osx-${playbook}.yml"
   echo "${cmd}"
   ${cmd}
 }
 
 case $1 in
 ansible)
-  ansible
-  ;;
-cabal)
-  cabal_init
-  ;;
-cabal-backup)
-  cabal_backup
+  if [ "$2" != "" ]; then
+    ansible_play "$2"
+  else
+    ansible
+  fi
   ;;
 homebrew)
   homebrew_setup
-  ;;
-implode)
-  implode
   ;;
 *)
   default
