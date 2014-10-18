@@ -14,13 +14,6 @@ brew_reload()
   if [[ $? == 0 ]]; then
     brew_prefix=$(brew --prefix)
     export XML_CATALOG_FILES=${brew_prefix}/etc/xml/catalog
-    brew_perl="perl"
-    brew info ${brew_perl} > /dev/null 2>&1
-    if [[ $? == 0 ]]; then
-      brew_perl_version=$(brew info perl 2>&1 | head -n 1 | awk '{print $3}')
-      unshiftp "$(brew --prefix ${brew_perl})"
-      unshiftp "${brew_prefix}/Cellar/${brew_perl}/${brew_perl_version}"
-    fi
   fi
 }
 
