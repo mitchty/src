@@ -107,11 +107,13 @@ homebrew_setup()
 
   export PATH=${brew_bin}:${PATH}
 
-  if [ ! -e ${brew_bin}/bin/ansible ]; then
-    cmd="brew install ansible"
-    echo "${cmd}"
-    ${cmd}
-  fi
+  for prep in git ansible; do
+    if [ ! -e ${brew_bin}/${prep} ]; then
+      cmd="brew install ${prep}"
+      echo "${cmd}"
+      ${cmd}
+    fi
+  done
 }
 
 # still a work in progress to be honest.
@@ -162,11 +164,11 @@ homebrew)
   homebrew_setup
   ;;
 *)
-  default
   if [ "$(uname)" = "Darwin" ]; then
     echo "on osx, going to install homebrew+ansible"
     homebrew_setup
   fi
+  default
   ansible
   exit $?
   ;;
