@@ -3,7 +3,7 @@
 #
 # Cause... setting shit up should be easy. And I'm lazy.
 #
-local_files=${local_files-=yes}
+local_files=${local_files:=yes}
 dothome=Developer/github.com/mitchty/src/dotfiles
 dotlocal=${HOME}/site-local/dotfiles
 base=${HOME}/Developer/github.com/mitchty
