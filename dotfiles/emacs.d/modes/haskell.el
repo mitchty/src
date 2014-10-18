@@ -38,6 +38,7 @@
  '(lambda ()
     (ghc-init)
     (setq haskell-interactive-mode-eval-mode 'haskell-mode)
+    '(turn-on-haskell-indentation)
     (interactive-haskell-mode)
     (custom-set-variables
      '(haskell-process-suggest-remove-import-lines t)
@@ -53,9 +54,10 @@
     (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
     (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
     (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
-    (define-key haskell-mode-map (kbd "M-." 'haskell-mode-jump-to-def-or-tag))
-    (define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+    (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-jump-to-def-or-tag)
+    (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
     )
+ )
 
 (add-hook 'cabal-mode-hook (lambda ()
   (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
