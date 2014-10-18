@@ -227,6 +227,7 @@
         - clang-scan-build
         - gcc
         - llvm
+        - neon
 
     - name: Install subversion16 cause reasons
       command: brew install 'https://gist.githubusercontent.com/mitchty/26f00fdd86bf66a9076a/raw/fa3cdd8cf7a154dc14ccd567f043ea92b4897018/subversion16.rb'
