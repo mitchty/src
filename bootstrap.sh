@@ -43,16 +43,23 @@ default()
     ${cmd}
   fi
 
-  if [ ! -d "${base_src}" ]; then
-    echo mkdir -p "${base}"
-    mkdir -p "${base}"
-    echo git clone https://github.com/mitchty/src "${base}/src"
-    git clone https://github.com/mitchty/src "${base}/src"
+  base_src=${base}/src
+  if [ ! -d "${base}" ]; then
+    cmd="mkdir -p ${base}"
+    echo "${cmd}"
+    ${cmd}
+  fi
+
+  if [ ! -d ${base_src} ]; then
+    cmd="git clone https://github.com/mitchty/src ${base_src}"
+    echo "${cmd}"
+    ${cmd}
   else
-    echo "cd ${base}/src"
-    cd "${base}/src"
-    echo git pull
-    git pull
+    echo "cd ${base_src}"
+    cd "${base_src}"
+    cmd="git pull --rebase"
+    echo "${cmd}"
+    ${cmd}
   fi
 
   link_files "${dothome}" "${HOME}"
