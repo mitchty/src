@@ -200,7 +200,7 @@
       ignore_errors: yes
 
     - name: "Set the trackpad to tap to click"
-      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad Clickin -bool true"
+      command: "defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true"
       when: trackpad_click_tap.stdout != "1"
 
     - name: "Does the trackpad allow double tap to right click"
