@@ -65,11 +65,6 @@ homebrew_setup()
   # Find out when crap breaks faster...ish
   set -e
 
-  echo "Making sure that xcode/git runs"
-  cmd="sudo xcodebuild -license accept"
-  echo "${cmd}"
-  ${cmd}
-
   if [ ! -d ${brew_home} ]; then
     cmd="sudo mkdir -p ${brew_home}"
     echo "${cmd}"
@@ -81,6 +76,11 @@ homebrew_setup()
   ${cmd}
 
   if [ ! -e ${brew_itself} ]; then
+    echo "Making sure that xcode/git will run"
+    cmd="sudo xcodebuild -license accept"
+    echo "${cmd}"
+    ${cmd}
+
     brew_url="https://raw.githubusercontent.com/Homebrew/install/master/install"
     instfile="${TMPDIR}/brew-install"
     if [ ! -e "${instfile}" ]; then
