@@ -8,11 +8,9 @@
     - git_netrc_dst: "/libexec/git-core/git-credential-netrc"
   # Make shit happen!
   tasks:
-    - name: Update Homebrew
-      homebrew: update_homebrew=yes
-
-    - name: Upgrade Homebrew installs
-      homebrew: upgrade_all=yes
+    - name: Check if running under vagrant
+      stat: path=/vagrant
+      register: vagrant
 
     - name: Get brew install location
       shell: >-
@@ -21,13 +19,75 @@
         awk -F': ' '{print $2}'
       register: brew_home
 
+    - name: Update Homebrew
+      homebrew: update_homebrew=yes
+
+    - name: List outdated homebrews
+      command: brew outdated
+      register: outdated
+
+    - debug: msg="{{outdated.stdout}}"
+
+    - name: Upgrade Homebrew installs
+      homebrew: upgrade_all=yes
+
+    # Do casks first
+    - name: Install homebrew cask
+      command: brew install caskroom/cask/brew-cask
+      register: brew_install_cask
+
+    - debug: msg="{{brew_install_cask.stdout}}"
+
+    - name: Update homebrew casks
+      command: brew cask update
+      register: cask_update
+
+    - debug: msg="{{cask_update.stdout}}"
+
+    - name: Install casks
+      homebrew_cask: state=present name={{item}}
+      with_items:
+        - vagrant
+        - bartender
+        - firefox
+        - google-chrome
+        - anki
+        - audacity
+#        - controlplane
+        - cord
+        - github
+        - iterm2
+        - quickradar
+        - haskell-platform
+        - mou
+        - evernote
+        - mpv
+        - lastpass-universal
+        - wireshark
+        - xquartz
+        - java
+        - the-unarchiver
+
+    # so, vmware fusion needs to live in /Applications for vagrant
+    # should submit a patch for the homebrew cask plugin
+    # to let the appdir be selectable
+    - name: Check that vmware fusion is installed
+      shell: >-
+        brew cask info vmware-fusion |
+        grep 'Not installed'
+      register: vmware_fusion_cask
+      ignore_errors: true
+
+    - name: Install vmware fusion cask
+      command: brew cask install vmware-fusion --appdir=/Applications
+      when: vmware_fusion_cask.rc == 0
+
     - name: Setup Homebrew taps
       homebrew_tap: name={{item}} state=present
       with_items:
         - homebrew/dupes
         - homebrew/science
         - homebrew/versions
-        - mpv-player/mpv
         - mitchty/yuck
         - mitchty/clang_scan_view
         - mitchty/clang_scan_build
@@ -172,14 +232,25 @@
       command: brew --prefix perl
       register: brew_perl_bin
 
+    # God, for annoying. So File::HomeDir sucks balls and its test suite
+    # fails on 10 tests when run under a user that isn't running a gui
+    # on osx. Yeah rare sure why not. But christ, why is the test suite
+    # dying and fix that. Time to file bugs I guess.
+    #
+    # So when under vagrant or rather /vagrant existing, don't install
+    # any stupid perl modules because they have ass tests that fail
+    # every damn time.
     - name: Install cpanminus
+      when: vagrant.stat.exists == false
       shell: >-
         curl -kL http://cpanmin.us |
-        "{{brew_perl_bin.stdout}}/bin/perl" - App::cpanminus
+        "{{brew_perl_bin.stdout}}/bin/perl" - App::cpanminus --force --notest
 
     - name: Install/Update cpan modules
-      command: "{{brew_perl_bin.stdout}}/bin/cpanm {{item}}"
+      command: "{{brew_perl_bin.stdout}}/bin/cpanm --notest --force {{item}}"
+      when: vagrant.stat.exists == false
       with_items:
+        - File::HomeDir
         - App::cpanminus
         - App::rainbarf
         - Perl::Tidy
@@ -195,12 +266,11 @@
 
     - name: Install postgres without perl/tcl/python options
       homebrew: state=present name=postgres install_options=no-perl,no-tcl,without-python
-    - name: Install mpv movie player with with-bundle option
-      homebrew: state=present name=mpv install_options=with-bundle
 
     - name: Install the rest of the lot
       homebrew: name={{item}} state=present
       with_items:
+        - lastpass-cli
         - keychain
         - yuck
         - openssl
@@ -228,9 +298,10 @@
         - gcc
         - llvm
         - neon
-
-    - name: Install subversion16 cause reasons
-      command: brew install 'https://gist.githubusercontent.com/mitchty/26f00fdd86bf66a9076a/raw/fa3cdd8cf7a154dc14ccd567f043ea92b4897018/subversion16.rb'
+        - subversion16
 
     - name: brew cleanup
       command: brew cleanup
+
+    - name: brew cask cleanup
+      command: brew cask cleanup

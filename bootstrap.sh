@@ -129,7 +129,7 @@ homebrew_setup()
 ansible()
 {
   # Let local testing in /vagrant work.
-  if [ -z ${sut} ]; then
+  if [ ${sut} = "true" ]; then
     cd /vagrant
   else
     cd "${base_home}"
