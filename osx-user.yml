@@ -209,5 +209,5 @@
       ignore_errors: yes
 
     - name: "Set the trackpad to double tap to right click"
-      command: "defaults read com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true"
+      command: "defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true"
       when: trackpad_rightclick_tap.stdout != "1"
