@@ -16,6 +16,8 @@ brew_itself=${brew_bin}/brew
 ansible_verbose=${ansible_verbose:=""}
 [ "${VERBOSE}" != '' ] && ansible_verbose="-v"
 
+[ -d "/vagrant" ] && sut=true
+
 link_files()
 {
   from="$1"
@@ -126,7 +128,12 @@ homebrew_setup()
 # still a work in progress to be honest.
 ansible()
 {
-  cd "${base_home}"
+  # Let local testing in /vagrant work.
+  if [ -z ${sut} ]; then
+    cd /vagrant
+  else
+    cd "${base_home}"
+  fi
 
   if [ "$(uname)" = "Darwin" ]; then
     # let this bit fail if it happens
