@@ -2,7 +2,7 @@
 (require 'package)
 (setq my-packages
       '(
-				helm
+	helm
         dash
         s
         string-utils
@@ -35,7 +35,8 @@
         go-mode
         rust-mode
         haskell-mode
-				color-theme-solarized
+	color-theme-solarized
+	znc
         ))
 
 (package-initialize)
