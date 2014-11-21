@@ -6,9 +6,10 @@
 
 (desktop-save-mode 1)
 
-(setq desktop-path           '("~/.emacs.d/"))
-(setq desktop-dirname        "~/.emacs.d")
-(setq desktop-base-file-name ".emacs.desktop")
+(setq desktop-restore-eager 5)
+(setq desktop-path           '("/var/tmp"))
+(setq desktop-dirname        "/var/tmp")
+(setq desktop-base-file-name "emacs.desktop")
 
 (defun local-desktop-save ()
   (interactive)
