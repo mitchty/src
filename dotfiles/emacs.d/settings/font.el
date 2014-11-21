@@ -9,9 +9,11 @@
 
   ;; Try out these fonts in order of preference depending on install status.
   (set-face-attribute 'default nil :font
-                      (font-candidate '"Source Code Pro-14:weight=normal"
+                      (font-candidate '"Pragmata\ Pro-14:weight=normal"
+																			"Source Code Pro-14:weight=normal"
                                       "Menlo-12:weight=normal"
-                                      "Monaco-12:weight=normal"))
+                                      "Monaco-12:weight=normal"
+																			))
 
 	(cond (linux-p
          (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
