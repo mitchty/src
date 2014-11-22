@@ -38,7 +38,7 @@
  '(lambda ()
     (ghc-init)
     (setq haskell-interactive-mode-eval-mode 'haskell-mode)
-    '(turn-on-haskell-indentation)
+    (haskell-simple-indent-mode)
     (interactive-haskell-mode)
     (custom-set-variables
      '(haskell-process-suggest-remove-import-lines t)
