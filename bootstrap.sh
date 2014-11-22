@@ -150,7 +150,7 @@ ansible()
       ${cmd}
     fi
 
-    for playbook in user homebrew; do
+    for playbook in osx-user osx-homebrew; do
       ansible_play ${playbook}
     done
   else
@@ -161,7 +161,7 @@ ansible()
 ansible_play()
 {
   playbook="$1"
-  cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory osx-${playbook}.yml"
+  cmd="ansible-playbook ${ansible_verbose} --inventory-file inventory ${playbook}.yml"
   echo "${cmd}"
   ${cmd}
 }
